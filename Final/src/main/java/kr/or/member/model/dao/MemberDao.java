@@ -42,4 +42,20 @@ public class MemberDao {
 		// TODO Auto-generated method stub
 		return sqlSession.update("member.pwChangeMember",u);
 	}
+
+
+	public User memberIdFind(User u) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("member.memberIdFind",u);
+	}
+
+
+	public User checkIdName(User u) {
+		return sqlSession.selectOne("member.checkIdName",u);
+	}
+
+
+	public int newPw(User u) {
+		return sqlSession.update("member.pwChangeMember",u);
+	}
 }

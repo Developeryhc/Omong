@@ -27,6 +27,12 @@
 			and member_pw = #{pw}
 		</if>
 	</select>
+	<select id="selectIdNameMember" parameterType="u" resultType="u">
+		select
+			member_pw as pw
+		from member
+		where member_id =#{email} and member_name=#{name}
+	</select>
 	<update id="updateMember" parameterType="u">
 	update member set 
  		member_pw=#{pw},
@@ -41,4 +47,20 @@
   		member_pw=#{pw}
   	where member_id=#{email}
   	</update>
+  	<select id="checkIdName" parameterType="u" resultType="u">
+  		select
+  			member_no as no,
+			member_name as name,
+			member_phone as phone,
+			member_address as address,
+			member_birth as birth,
+			member_gender as gender,
+			change_pw as changePw,
+			loginpath as path,
+			detail_address as detailAddress,
+			profileImage,
+			'm' as type
+  		from member
+  		where member_id=#{email} and member_name=#{name}
+  	</select>
 </mapper>
