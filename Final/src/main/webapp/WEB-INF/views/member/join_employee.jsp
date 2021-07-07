@@ -89,23 +89,22 @@
                      class="single-input">
                </div>
                <hr>
-               <h4>주소</h4>
-					<div class="input-group-icon mt-10">
-						<input type="hidden" id="sample2_extraAddress">
-						<input type="button" style="margin-left:88%; border:0;" onclick="findAddress()" value="주소 찾기">
-						<br><br>
-						<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
-						<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
-						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
-						<input type="text" name="address" id="address" placeholder="주소를 입력해주세요"
-							 required
-							class="single-input" readonly>
-						<br>	
-						<input type="text" name="address_detail" id="address_detail"  placeholder="상세주소를 입력해주세요" 
-						required class="single-input">
+					<h4>주소</h4><span><input type="button" class="genric-btn info-border d-none d-lg-block" style=" border:1;" onclick="findAddress()" value="주소 찾기"></span>
+				<div class="input-group-icon mt-10">
+					<input type="hidden" id="sample2_extraAddress">
+					
+					<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
+					<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+					<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 					</div>
-					</div>
-               <hr>
+					<input type="text" name="address" id="address" placeholder="주소를 입력해주세요"
+						 required
+						class="single-input" readonly>
+					<br>	
+					<input type="text" name="detailAddress" id="detail_address"  placeholder="상세주소를 입력해주세요" 
+					required class="single-input">
+				</div>
+				<hr>
                <h4>생년월일</h4>
                <div class="mt-10">
                   <div class="icon">
@@ -116,34 +115,7 @@
                      onblur="this.placeholder = '생년월일'" required
                      class="single-input">
                </div>
-              
-             <%--   <h4>생년월일</h4>
-               <div class="mt-10">
-                  <div class="icon">
-                     <i class="fa fa-thumb-tack" aria-hidden="true"></i>
-                  </div>
-                  <div class="form-select" id="default-select" style="font-size:15px;" onclick="func1()">
-                     <select style="float:left;">
-                        <c:forEach var="i" begin= "0" end= "61">
-                        <option name="year" value=2021-${i}>${2021-i }</option>
-                        </c:forEach>
-                     </select>
-                     <p style="float:left; margin-right:30px;">년</p>
-                     <select style="float:left;">
-                        <c:forEach var="i" begin= "0" end= "11">
-                        <option name="month" value=1+${i}>${1+i }</option>
-                        </c:forEach>
-                     </select>
-                     <p style="float:left; margin-right:30px;">월</p>
-                     <select style="float:left;">
-                        <c:forEach var="i" begin= "0" end= "30">
-                        <option name="day" value=1+${i}>${1+i }</option>
-                        </c:forEach>
-                     </select>
-                     <p style="float:left; margin-right:30px;">일</p>
-                     
-                  </div>
-               </div> --%>
+           
                <hr>
                <div class="single-element-widget mt-30">
                   <h4>성별</h4>
@@ -160,7 +132,7 @@
                </div>
                <hr>
                <div style="text-align : center;">
-               <input type="submit" value="회 원 가 입" class="genric-btn success e-large" style="width:300px; font-size:x-large; font-weight:bold";>
+               <input type="submit" value="회 원 가 입" class="genric-btn success e-large" style="width:300px; font-size:x-large; font-weight:bold">
                </div>
             </form>
          </div>

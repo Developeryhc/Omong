@@ -42,129 +42,17 @@
 	</section>
 	<!--마이페이지 첫 화면-->
 	<div style="margin-left: 30%; margin-top: 1%">
-		<button class="genric-btn primary-border e-large" id="change">정보변경</button>
-		<button class="genric-btn primary-border e-large" id="userList">회원리스트</button>
+		<button class="genric-btn primary-border e-large" id="change">직원탈퇴</button>
+		<button class="genric-btn primary-border e-large" id="userList">회원/파트너 리스트</button>
 	</div>
 	<div class="section-top-border" style="margin-left: 30%;" id="mypage">
 		<div class="row">
 			<div class="col-lg-8 col-md-8">
 				<hr>
-				<form action="/employeeUpdate.do">
-               <h4>아이디</h4>
-               <div class="mt-10">
-                  <input type="text" name="id" value="${sessionScope.u.id }"
-                     onfocus="this.placeholder = ''"
-                     onblur="this.placeholder = '아이디 입력'" required
-                     class="single-input" style="background: #E2E2E2" readonly="readonly">
-                 <span id="idChk" style="color: orange;"></span>
-               </div>
-               <span class="idChk" style="color: green;"></span>
-               <hr>
-               <h4>비밀번호</h4>
-               <div class="mt-10">
-                  <input type="password" name="pw" value="${sessionScope.u.pw }"
-                     onfocus="this.placeholder = ''"
-                     onblur="this.placeholder = '비밀번호 입력'" required
-                     class="single-input">
-               </div>
-               <hr>
-               <h4>직원이름</h4>
-               <div class="mt-10">
-                  <input type="text" name="name" value="${sessionScope.u.name }"
-                     onfocus="this.placeholder = ''"
-                     onblur="this.placeholder = '직원 이름 입력'" required
-                     class="single-input" style="background: #E2E2E2" readonly="readonly">
-               </div>
-               <hr>
-               <h4>이메일</h4>
-               <div class="mt-10">
-                  <div class="icon">
-                     <i class="fa fa-thumb-tack" aria-hidden="true"></i>
-                  </div>
-                  <input type="email" name="email" value="${sessionScope.u.email }"
-                     onfocus="this.placeholder = ''"
-                     onblur="this.placeholder = '이메일 입력'" required
-                     class="single-input">
-               </div>
-               <hr>
-               <h4>전화번호</h4>
-               <div class="mt-10">
-                  <div class="icon">
-                     <i class="fa fa-thumb-tack" aria-hidden="true"></i>
-                  </div>
-                  <input type="text" name="phone" value="${sessionScope.u.phone }"
-                     onfocus="this.placeholder = ''"
-                     onblur="this.placeholder = '전화번호 입력'" required
-                     class="single-input">
-               </div>
-               <hr>
-               <h4>주소</h4>
-               <div class="mt-10">
-                  <div class="icon">
-                     <i class="fa fa-thumb-tack" aria-hidden="true"></i>
-                  </div>
-                  <input type="text" name="address" value="${sessionScope.u.address }"
-                     onfocus="this.placeholder = ''"
-                     onblur="this.placeholder = '주소입력'" required
-                     class="single-input">
-               </div>
-               <hr>
-               <h4>생년월일</h4>
-               <div class="mt-10">
-                  <div class="icon">
-                     <i class="fa fa-thumb-tack" aria-hidden="true"></i>
-                  </div>
-                  <input type="text" name="birth" value="${sessionScope.u.birth }"
-                     onfocus="this.placeholder = ''"
-                     onblur="this.placeholder = '생년월일'" required
-                     class="single-input">
-               </div>
-              
-             <%--   <h4>생년월일</h4>
-               <div class="mt-10">
-                  <div class="icon">
-                     <i class="fa fa-thumb-tack" aria-hidden="true"></i>
-                  </div>
-                  <div class="form-select" id="default-select" style="font-size:15px;" onclick="func1()">
-                     <select style="float:left;">
-                        <c:forEach var="i" begin= "0" end= "61">
-                        <option name="year" value=2021-${i}>${2021-i }</option>
-                        </c:forEach>
-                     </select>
-                     <p style="float:left; margin-right:30px;">년</p>
-                     <select style="float:left;">
-                        <c:forEach var="i" begin= "0" end= "11">
-                        <option name="month" value=1+${i}>${1+i }</option>
-                        </c:forEach>
-                     </select>
-                     <p style="float:left; margin-right:30px;">월</p>
-                     <select style="float:left;">
-                        <c:forEach var="i" begin= "0" end= "30">
-                        <option name="day" value=1+${i}>${1+i }</option>
-                        </c:forEach>
-                     </select>
-                     <p style="float:left; margin-right:30px;">일</p>
-                     
-                  </div>
-               </div> --%>
-               <hr>
-               <div class="single-element-widget mt-30">
-                  <h4>성별</h4>
-                     <label for="male">
-                     <div style="width : 150px; height : 150px; background-image: url(/resources/img/male.png); background-size:cover; text-align:center;">
-                        <input type="radio" name="gender" id="male" value="${sessionScope.u.gender }">남자
-                     </div>
-                     </label>
-                     <label for="female">
-                     <div style="width : 150px; height : 150px; background-image: url(/resources/img/female.png); background-size:cover; text-align:center;">
-                        <input type="radio" name="gender" id="female"value="${sessionScope.u.gender }">여자
-                     </div>
-                     </label>
-               </div>
-               <hr>
-               <div style="text-align : center;">
-               <input type="submit" value="정 보 수 정" class="genric-btn primary e-large" style="width:300px; font-size:x-large; font-weight:bold";>
-               </div>
+				<form action="/employeeDelete.do?noticeEmployeeId=${u.id }">
+	               <div style="text-align : center;">
+	               <input type="submit" value="직 원 탈 퇴" class="genric-btn primary e-large" style="background:#dc3545; color: white; width:300px; font-size:x-large; font-weight:bold";>
+	               </div>
             </form>
 			</div>
 		</div>
@@ -176,10 +64,9 @@
 		style="margin-left: 30%; display:none;" id="userListpage">
 		<div class="row">
 			<div class="col-lg-8 col-md-8">
+				<hr>
 				<button id="btn">전체회원정보 불러오기</button>
-				<button id="partner">전체파트너정보 불러오기</button>
-				<hr>	
-							
+				<button id="partner">전체파트너정보 불러오기</button>			
 				<div id="result">
 				</div>
 				
