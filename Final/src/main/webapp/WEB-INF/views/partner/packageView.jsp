@@ -71,25 +71,38 @@
 	<!-- banner part start-->
 	<c:choose>
 	<c:when test="${sessionScope.u.no eq packageProduct.partnerNo }">
-	<section class="mainPicture" style="width:100%; margin:0 auto; background-image: url(/resources/upload/package/${packageProduct.packageProductMainPicture});">
+	<section class="mainPicture" style="width:100%; height:900px; margin:0 auto; background-image: url(/resources/upload/package/${packageProduct.packageProductMainPicture});">
 		<div class="container" style="">
 			<div class="row align-items-center justify-content-end"
 				style="height: 800px">
-				<div class="contentBox ">
-					<form style="display:flex-direction:column;">
-						<h2 >${packageProduct.packageProductName }</h2>
+				<div class="contentBox" style="border-radius:5px;">
+						<h2 class="packageName">${packageProduct.packageProductName }</h2>
 						<h5>${packageProduct.packageProductInfo }</h5>
 						<select class="genric-btn primary productSelect" style="font-size: 1.1em;">
-							
 							<c:forEach items="${packageProduct.productList}" var="pro">
-							<option value="${pro.productNo}">${pro.productName}</option>
+							<option class="productName" value="${pro.productNo}">${pro.productName}</option>
 							</c:forEach>
 						</select> 
 						<select class="genric-btn primary optionSelect" style="font-size: 1.1em;">
-							<!-- <option value="" id="result">옵션1</option> -->							
-						</select> 
+							<!-- <option value="" id="result">옵션1</option> -->
+						</select>
+						<div class="itemWrap"style="margin:0;">
+							<!-- <div style="width: 350px; height: 60px; margin-left:20px; background-color:#fff; color:#fe5c24; border:1px solid #F18101;">
+								 <div class="price" style="display:inline-block; margin:5px;">
+									<span></span>원
+								</div>
+								<div class="count" style="display:inline-block; margin:5px;">
+									<button class="btn btn-secondary btn-sm" style="background-color:#fff; color:#fe5c24; border:1px solid #F18101;">-</button>
+									<span class="amount">1</span>
+									<button class="btn btn-secondary btn-sm" style="background-color:#fff; color:#fe5c24; border:1px solid #F18101;">+</button>
+								</div>
+								<div class="total" style="display:inline-block; margin:5px; ">
+									총<span class="totalPrice"></span>원
+								</div> 
+							</div> -->
+						</div>
+						<h3>총<span id="totalPrice">0</span>원</h3>
 						<input id="buyBtn" type="submit" class="genric-btn info-border" value="구매" style="width: 80%; height:40px; font-size: 1.3em; ">
-					</form>
 				</div>
 			</div>
 		</div>
@@ -101,7 +114,7 @@
 		<div class="container">
 			<div class="subPicture" style="text-align:center;">
 				<img src="/resources/upload/package/${packageProduct.packageProductSubPicture}">
-			</div>
+			</div>		
 			<hr>
 			<div class="row justify-content-start" >
 				<div class="col-lg-6">
@@ -121,11 +134,12 @@
 							판매자명 : ${packageProduct.ceo }<br>
 							연락처 : ${packageProduct.tel }<br>
 							홈페이지 : <a href="${packageProduct.homepage}">${packageProduct.homepage}</a>
-							</p>						
+							</p>
 					</div>
 				</div>
 			</div>
 		</div>
+		<input type="hidden" class="loginYn" value="${sessionScope.u.id}">
 	</section>
 	</c:when>
 	

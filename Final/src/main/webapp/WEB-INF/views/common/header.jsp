@@ -108,7 +108,7 @@
 										</ul>
 									</div>
 									<a href="/partnerLogout.do" class="genric-btn info d-none d-lg-block" style="font-size: large;">로그아웃</a> 
-									<a href="/partnerMypage.do" class="genric-btn info d-none d-lg-block" style="margin-left: 1px; font-size: large;">${sessionScope.u.name}</a>
+									<a href="/partnerMypage.do?partnerId=${sessionScope.u.id }" class="genric-btn info d-none d-lg-block" style="margin-left: 1px; font-size: large;">${sessionScope.u.name}</a>
 								</nav>
 							</div>
 						</div>

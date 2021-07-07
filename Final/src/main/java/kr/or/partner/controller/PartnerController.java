@@ -218,19 +218,14 @@ if(subFiles[0].isEmpty()) {
 		return new Gson().toJson(list);
 	}
 	@RequestMapping(value = "/partnerMypage.do")
-	public String partnerMypage() {
+	public String partnerMypage(User u , Model model) {
+		User user = service.selectOnePatner(u);
+		model.addAttribute("u", user);
 		return "partner/partnerMypage";
 	}
 	@RequestMapping(value = "/updatePartner.do")
-	public String updatePartner(User u , Model model) {
+	public String updatePartner(User u) {
 		int result = service.updatePartner(u);
-		
-		if(result > 0) {
-			model.addAttribute("msg", "정보변경 완료");
-		}else {
-			model.addAttribute("msg", "정보변경 실패");
-		}
-		model.addAttribute("loc", "partnerMypage.do");
-		return "common/msg";
+		return "redirect:/partnerMypage.do?partnerId="+u.getId();
 	}
 }
