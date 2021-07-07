@@ -35,45 +35,45 @@
 				<hr>
 					<h4>아이디</h4>
 					<div class="mt-10">
-						<input type="text"  class="single-input" value="${sessionScope.u.id }" readonly>
+						<input type="text"  class="single-input" value="${u.id }" readonly>
 					</div>
 					<hr>
 					<h4>파트너 이름</h4>
 					<div class="mt-10">
-						<input type="text"  class="single-input" value="${sessionScope.u.name }" readonly>
+						<input type="text"  class="single-input" value="${u.name }" readonly>
 					</div>
 					<hr>
 					<h4>사업자 번호</h4>
 					<div class="mt-10">
-						<input type="text"  class="single-input" value="${sessionScope.u.business }" readonly>
+						<input type="text"  class="single-input" value="${u.business }" readonly>
 					</div>
 					<hr>
 					<h4>사업자 이름</h4>
 					<div class="mt-10">
-						<input type="text"  class="single-input" value="${sessionScope.u.ceo }" readonly>
+						<input type="text"  class="single-input" value="${u.ceo }" readonly>
 					</div>
 					<hr>
 					<h4>이메일</h4>
 					<div class="mt-10">
-						<input type="text"  class="single-input" value="${sessionScope.u.email }" readonly>
+						<input type="text"  class="single-input" value="${u.email }" readonly>
 					</div>
 					<hr>
 					<h4>핸드폰 번호</h4>
 					<div class="mt-10">
-						<input type="text"  class="single-input" value="${sessionScope.u.phone }" readonly>
+						<input type="text"  class="single-input" value="${u.phone }" readonly>
 					</div>
 					<hr>
 					<h4>매장 번호</h4>
 					<div class="mt-10">
-						<input type="text"  class="single-input" value="${sessionScope.u.tel }" readonly>
+						<input type="text"  class="single-input" value="${u.tel }" readonly>
 					</div>
 					<hr>
 					<h4>주소</h4>
 					<div class="mt-10">
-						<input type="text"  class="single-input" value="${sessionScope.u.address }" readonly>
+						<input type="text"  class="single-input" value="${u.address }" readonly>
 					</div>
 					<div class="mt-10">
-						<input type="text"  class="single-input" value="${sessionScope.u.detailAddress}" readonly>
+						<input type="text"  class="single-input" value="${u.detailAddress}" readonly>
 					</div>
 					<hr>
 			</div>
@@ -90,7 +90,7 @@
 				<form method="POST" action="/updatePartner.do" enctype="multipart/form-data">
 					<h4>아이디</h4>
 					<div class="mt-10">
-						<input type="text" name="id" class="single-input" value="${sessionScope.u.id }" readonly>
+						<input type="text" name="id" class="single-input" value="${u.id }" readonly>
 					</div>
 					<hr>
 					<h4>비밀번호 변경</h4>
@@ -98,32 +98,32 @@
 					<hr>
 					<h4>파트너 이름</h4>
 					<div class="mt-10">
-						<input type="text" name="name" placeholder="상호명을 적어주세요" class="single-input" value="${sessionScope.u.name }" >
+						<input type="text" name="name" placeholder="상호명을 적어주세요" class="single-input" value="${u.name }" >
 					</div>
 					<hr>
 					<h4>사업자 번호</h4>
 					<div class="mt-10">
-						<input type="text" name="business" placeholder="(-)을 제외하고 적어주세요" class="single-input" value="${sessionScope.u.business }" >
+						<input type="text" name="business" placeholder="(-)을 제외하고 적어주세요" class="single-input" value="${u.business }" >
 					</div>
 					<hr>
 					<h4>사업자 이름</h4>
 					<div class="mt-10">
-						<input type="text" name="ceo" placeholder="사업자명을 적어주세요" class="single-input" value="${sessionScope.u.ceo }" >
+						<input type="text" name="ceo" placeholder="사업자명을 적어주세요" class="single-input" value="${u.ceo }" >
 					</div>
 					<hr>
 					<h4>이메일</h4>
 					<div class="mt-10">
-						<input type="text" name="email" placeholder="이메일을 적어주세요" class="single-input" value="${sessionScope.u.email }" >
+						<input type="text" name="email" placeholder="이메일을 적어주세요" class="single-input" value="${u.email }" >
 					</div>
 					<hr>
 					<h4>핸드폰 번호</h4>
 					<div class="mt-10">
-						<input type="text" name="phone" placeholder="(-)을 제외하고 적어주세요" class="single-input" value="${sessionScope.u.phone }" >
+						<input type="text" name="phone" placeholder="(-)을 제외하고 적어주세요" class="single-input" value="${u.phone }" >
 					</div>
 					<hr>
 					<h4>매장 번호</h4>
 					<div class="mt-10">
-						<input type="text" name="tel" placeholder="(-)을 제외하고 적어주세요" class="single-input" value="${sessionScope.u.tel }" >
+						<input type="text" name="tel" placeholder="(-)을 제외하고 적어주세요" class="single-input" value="${u.tel }" >
 					</div>
 					<hr>
 					<h4>주소</h4>
