@@ -52,7 +52,12 @@
 					</div>
 					<br><br>
 					<div style="text-align : center;">
-					<input type="submit" value="로 그 인" class="genric-btn primary e-large" style="width:300px; font-size:x-large; font-weight:bold; background-color:#F18101;">
+					<a href="/findId.do"><button type="button" class="genric-btn primary-border e-large" style=" width:170px;">아이디 찾기</button></a>
+					<a href="/findPw.do"><button type="button" class="genric-btn primary-border e-large" style=" width:170px; ">비밀번호 찾기</button></a>
+					</div>
+					<br><br>
+					<div style="text-align : center;">
+					<input type="submit" value="로 그 인" class="genric-btn primary e-large" style="width:300px; font-size:x-large; font-weight:bold;">
 					</div>
 				</form>
 		</div>
