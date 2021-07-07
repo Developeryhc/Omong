@@ -42,7 +42,6 @@
 	</select>
 	<update id="updateMember" parameterType="u">
 	update member set 
- 		member_pw=#{pw},
  		member_phone=#{phone},
  		member_address=#{address},
  		detail_address = #{detailAddress},
