@@ -103,6 +103,11 @@ public class PartnerService {
  		return (ArrayList<Option>)dao.selectOption(selectOption);
 	}
 
+	public int updatePartner(User u) {
+		// TODO Auto-generated method stub
+		return dao.updatePartner(u);
+	}
+
 	/*
 	 * public ArrayList<Product> prodcutList() { // TODO Auto-generated method stub
 	 * return dao.productList(); }

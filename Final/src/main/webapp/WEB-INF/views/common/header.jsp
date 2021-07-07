@@ -74,8 +74,6 @@
 										class="collapse navbar-collapse main-menu-item justify-content-center"
 										id="navbarSupportedContent">
 										<ul class="navbar-nav">
-											
-											
 											<li class="nav-item">
 											<c:choose>
 											<c:when test="${sessionScope.pacYn eq 0 }">
@@ -109,12 +107,8 @@
 									</li> -->
 										</ul>
 									</div>
-									<a href="/partnerLogout.do"
-										class="genric-btn info d-none d-lg-block"
-										style="font-size: large;">로그아웃</a> <a
-										href="/employeeMypage.do"
-										class="genric-btn info d-none d-lg-block"
-										style="margin-left: 1px; font-size: large;">${sessionScope.u.name}</a>
+									<a href="/partnerLogout.do" class="genric-btn info d-none d-lg-block" style="font-size: large;">로그아웃</a> 
+									<a href="/partnerMypage.do" class="genric-btn info d-none d-lg-block" style="margin-left: 1px; font-size: large;">${sessionScope.u.name}</a>
 								</nav>
 							</div>
 						</div>
