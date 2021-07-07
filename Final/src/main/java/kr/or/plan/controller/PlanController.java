@@ -82,7 +82,7 @@ public class PlanController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="selectPartnerSearch.do", produces = "application/json; charset=UTF-8")
+	@RequestMapping(value="selectMapPartnerSearch.do", produces = "application/json; charset=UTF-8")
 	public String selectMapPartnerSearch(MapPartner mapPartner, Model model) {
 		ArrayList<MapPartner> list = service.selectMapPartnerSearch(mapPartner);
 		return new Gson().toJson(list);

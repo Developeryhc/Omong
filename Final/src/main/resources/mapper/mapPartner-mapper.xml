@@ -33,6 +33,6 @@
 			map_partner_latitude AS mapPartnerLatitude,
 			map_partner_longitude AS mapPartnerLongitude,
 			map_partner_thumbnailpath AS mapPartnerThumbnailpath
-		FROM map_partner WHERE map_partner_id = %#{mapPartnerId}%
+		FROM map_partner WHERE map_partner_name LIKE '%'||#{mapPartnerName}||'%'
 	</select>
 </mapper>

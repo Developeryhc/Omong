@@ -18,8 +18,8 @@
 				<div class="option">
 					<div>
 						<form onsubmit="searchPlaces(); return false;">
-							<input type="hidden" value="제주도" id="title" size="15">
-							<input type="text" value="" id="keyword" size="15" class="keyword" placeholder="검색어 입력">
+							<input type="hidden" value="" id="title" size="15">
+							<input type="text" value="제주도" id="keyword" size="15" class="keyword" placeholder="검색어 입력">
 							<button type="submit" class="submit">검색하기</button>
 						</form>
 					</div>
@@ -32,15 +32,14 @@
 				<div class="option">
 					<div>
 						<form onsubmit="searchPartner(); return false;">
-							<input type="hidden" value="전망대" id="title" size="15">
-							<input type="text" value="" id="keyword" size="15" class="keyword" placeholder="검색어 입력">
+							<input type="text" value="성산일출봉" id="mapKeyword" name="mapPartnerName" size="15" class="keyword" placeholder="검색어 입력">
 							<button type="submit" class="submit">검색하기</button>
 						</form>
 					</div>
 				</div>
 				<hr>
-				<ul id="placesList"></ul>
-				<div id="pagination"></div>
+				<ul id="mapPartnersList"></ul>
+				<div id="mapPartnersPagination"></div>
 			</div>
 			<button id="web">
 			<img src="/resources/img/돋보기.png">
@@ -49,12 +48,12 @@
 			<img src="/resources/img/female.png">
 			</button>
 			<!-- 일정표 -->
-			<div id="detailList" style="width: 15%; overflow-y: scroll; padding: 15px;">
+			<div id="detailList">
 				<div id="detail_head" style="width: 100%; height: 15%;">
 					<h3 style="text-align: center; padding-top: 10px">여행 일정표</h3>
 					<br>
-					<c:forEach var="i" begin="0" end="${diff }" step="1">
-						<button id="day${i+1 }" class="day dayBtn">DAY${i+1 }</button>
+					<c:forEach var="i" begin="1" end="${diff }" step="1">
+						<button id="day${i }" class="day dayBtn">DAY${i }</button>
 					</c:forEach>
 					<hr>
 				</div>
@@ -80,7 +79,20 @@
 		day = $(".dayBtn").index(this)+1;
 		$(".detail").hide();
 		$(".detail").eq(day-1).show();
-
+	});
+	
+	// 삭제 시, 
+	$(document).on("click",".planCancel",function(){
+		var remove = $(".planCancel").index(this);
+		$(".planSpots").eq(remove).remove();
+		for(var i=remove; i<Object.keys(days[day-1]).length; i++){
+			if(i != Object.keys(days[day-1]).length-1){
+				Object.assign(days[day-1][i], days[day-1][i+1]);
+			}else{
+				spotNo[day-1] = spotNo[day-1]-1;
+				delete days[day-1][i];
+			}
+		}
 	});
 	</script>
 	<!-- 카카오 맵 api javascript key -->
@@ -101,7 +113,8 @@
 					plan = data;
 				}
 			});
-			for(var i=0; i<${diff} ; i++){
+			var diff = "${diff}";
+			for(var i=0; i<diff ; i++){
 				spotNo.push(0);
 				var obj = {};
 				days.push(obj);
@@ -140,6 +153,9 @@
 		// 장소 검색 객체를 생성합니다
 		var ps = new kakao.maps.services.Places();
 
+		// @07/07 제주 api 장소 검객 객체를 생성합니다.
+		var mapPartners = new Array();
+
 		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 		var infowindow = new kakao.maps.InfoWindow({
 			zIndex : 1
@@ -163,29 +179,47 @@
 		
 		// 키워드 검색을 요청하는 함수입니다  (partner)
 		function searchPartner(){
-			var ti = document.getElementById('title').value;
-			var sub = document.getElementById('keyword').value;
-			var keyword = ti+sub;
-			
+			var keyword = document.getElementById('mapKeyword').value;
+			var status;
 			$.ajax({
 				url : "/selectMapPartnerSearch.do",
-				data : {partnerName : partnerName},
+				data : {mapPartnerName : keyword},
 				type : "POST",
 				success : function(data){
-					console.log(data);
+					mapPartners = new Array();
+					if(data == null){
+						status = 'ZERO_RESULT';
+					}else{
+						status = 'OK';
+					}
+					for(var i=0; i<data.length; i++){
+						var mapPartner = {
+							address_name: data[i].mapPartnerAddress,
+							category_group_code: "",
+							category_group_name: "",
+							category_name: "",
+							distance: "",
+							id: data[i].mapPartnerId,
+							phone: "",
+							place_name: data[i].mapPartnerName,
+							place_url: "",
+							road_address_name: "",
+							x: data[i].mapPartnerLongitude,
+							y: data[i].mapPartnerLatitude
+						}
+						mapPartners.push(mapPartner);
+					}
+					mapPartnerSearchCB(status, mapPartners);
 				}
 			});
-			
 		}
+
 		// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 		function placesSearchCB(data, status, pagination) {
 			if (status === kakao.maps.services.Status.OK) {
-
 				// 정상적으로 검색이 완료됐으면
 				// 검색 목록과 마커를 표출합니다
 				displayPlaces(data);
-				console.log('data : ');
-				console.log(data);
 				// 페이지 번호를 표출합니다
 				displayPagination(pagination);
 
@@ -198,16 +232,98 @@
 			}
 		}
 
+		// @07/07 mapPartner 검색 완료 시 호출되는 콜백함수
+		function mapPartnerSearchCB(status, mapPartners){
+			if( status === 'OK'){
+				displayMapPartner(mapPartners);
+			}else if(status === 'ZERO_RESULT'){
+				alert('검색 결과가 존재하지 않습니다.');
+				return;
+			}else{
+				alert('검색 결과 중 오류가 발생했습니다.');
+				return;
+			}
+		}
+		// @07/07 mapPartner 검색 결과 목록과 마커를 표출하는 함수
+		function displayMapPartner(mapPartners){
+			var listEl = document.getElementById('mapPartnersList'),
+				menuEl = document.getElementById('api_wrap'),
+				fragment = document.createDocumentFragment(),
+				bounds = new kakao.maps.LatLngBounds(),
+				listStr = '';
+			
+			// 검색 결과 목록에 추가된 항목들을 제거합니다
+			
+			removeAllChildNods(listEl);
+	
+			// 지도에 표시되고 있는 마커를 제거합니다
+			removeMarker();
+	
+			for (var i = 0; i < mapPartners.length; i++) {
+				// 마커를 생성하고 지도에 표시합니다
+				var placePosition = new kakao.maps.LatLng(mapPartners[i].y, mapPartners[i].x),
+					marker = addMarker(placePosition),
+					itemEl = getListItem(mapPartners[i]); // 검색 결과 항목 Element를 생성합니다
+				// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+				// LatLngBounds 객체에 좌표를 추가합니다
+				bounds.extend(placePosition);
+
+				// @ 6/28 저장할 객체 정보 저장
+				mapPartner = {address : mapPartners[i].address_name, lat : mapPartners[i].x, lng : mapPartners[i].y, title : mapPartners[i].place_name};
+				(function(marker, title, mapPartner) {
+					kakao.maps.event.addListener(marker, 'mouseover', function() {
+						displayInfowindow(marker, title);
+					});
+	
+					kakao.maps.event.addListener(marker, 'mouseout', function() {
+						infowindow.close();
+					});
+					
+					kakao.maps.event.addListener(marker, 'click', function() {
+						// @ 6/29 마커 클릭 시 데이터 저장
+						if(confirm('등록하시겠습니까?')){
+							$(".detail").eq(day-1).append("<div class='planSpots'><div class='day"+day+"'>"+mapPartner.title+"</div><div class='planCancel cancel"+day+"'>X</div></div>");
+							days[day-1][spotNo[day-1]++] = mapPartner;
+						}else{
+							return false;
+						}
+					});
+	
+					itemEl.onmouseover = function() {
+						displayInfowindow(marker, title);
+					};
+	
+					itemEl.onmouseout = function() {
+						infowindow.close();
+					};
+					
+					// @ 6/29 리스트 클릭 시 데이터 저장
+					itemEl.onclick = function(){
+						if(confirm('등록하시겠습니까?')){
+							$(".detail").eq(day-1).append("<div class='planSpots'><div class='day"+day+"'>"+mapPartner.title+"</div><div class='planCancel cancel"+day+"'>X</div></div>");
+							days[day-1][spotNo[day-1]++] = mapPartner;
+						}else{
+							return false;
+						}
+					};
+				})(marker, mapPartners[i].place_name, mapPartner);
+				fragment.appendChild(itemEl);
+			}
+	
+			// 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
+			listEl.appendChild(fragment);
+			menuEl.scrollTop = 0;
+	
+			// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+			map.setBounds(bounds);
+		}
 		// 검색 결과 목록과 마커를 표출하는 함수입니다
 		function displayPlaces(places) {
-			console.log('places : ');
-			console.log(places);
 			var listEl = document.getElementById('placesList'),
 				menuEl = document.getElementById('menu_wrap'),
 				fragment = document.createDocumentFragment(),
 				bounds = new kakao.maps.LatLngBounds(),
 				listStr = '';
-
 			// 검색 결과 목록에 추가된 항목들을 제거합니다
 			removeAllChildNods(listEl);
 
@@ -215,14 +331,12 @@
 			removeMarker();
 
 			for (var i = 0; i < places.length; i++) {
-				/*     	console.log(places[i]); */
 				// 마커를 생성하고 지도에 표시합니다
 				var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
 					marker = addMarker(placePosition),
 					itemEl = getListItem(places[i]); // 검색 결과 항목 Element를 생성합니다
 				// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 				// LatLngBounds 객체에 좌표를 추가합니다
-				marker.setDraggable(true);
 				bounds.extend(placePosition);
 				
 				// @ 6/28 저장할 객체 정보 저장
@@ -238,10 +352,10 @@
 					
 					kakao.maps.event.addListener(marker, 'click', function() {
 						// @ 6/29 마커 클릭 시 데이터 저장
-						console.log(marker);
 						if(confirm('등록하시겠습니까?')){
-							$(".detail").eq(day-1).append("<div class='day"+day+"'>"+place.title+"</div>");
+							$(".detail").eq(day-1).append("<div class='planSpots'><div class='day"+day+"'>"+place.title+"</div><div class='planCancel cancel"+day+"'>X</div></div>");
 							days[day-1][spotNo[day-1]++] = place;
+							console.log(days[day-1]);
 						}else{
 							return false;
 						}
@@ -258,7 +372,7 @@
 					// @ 6/29 리스트 클릭 시 데이터 저장
 					itemEl.onclick = function(){
 						if(confirm('등록하시겠습니까?')){
-							$(".detail").eq(day-1).append("<div class='day"+day+"'>"+place.title+"</div>");
+							$(".detail").eq(day-1).append("<div class='planSpots'><div class='day"+day+"'>"+place.title+"</div><div class='planCancel cancel'"+day+"'>X</div></div>");
 							days[day-1][spotNo[day-1]++] = place;
 						}else{
 							return false;
@@ -338,7 +452,6 @@
 				var el = document.createElement('a');
 				el.href = "#";
 				el.innerHTML = i;
-
 				if (i === pagination.current) {
 					el.className = 'on';
 				} else {
@@ -371,7 +484,6 @@
 		
 		// @ 7/1 save 저장후 DB에 저장하기
 		function savePlan(){
-			console.log(days);
 			$.ajax({
 				url: "insertPlan.do",
 				type: "POST",
@@ -414,55 +526,6 @@
 		*/
 	</script>
 	<script>
-		$("#plus1").click(function() {
-			day = 1;
-			$(".detail").eq(0).append("<div class='day1'></div>")
-		});
-		$("#plus2").click(function() {
-			day = 2;
-			$(".detail").eq(1).append("<div class='day2'></div>")
-		});
-		$("#plus3").click(function() {
-			day = 3;
-			$(".detail").eq(2).append("<div class='day3'></div>")
-		});
-		$("#plus4").click(function() {
-			day = 4;
-			$(".detail").eq(3).append("<div class='day4'></div>")
-		});
-		$("#plus5").click(function() {
-			day = 5;
-			$(".detail").eq(4).append("<div class='day5'></div>")
-		});
-		$("#plus6").click(function() {
-			day = 6;
-			$(".detail").eq(5).append("<div class='day6'></div>")
-		});
-		$("#plus7").click(function() {
-			day = 7;
-			$(".detail").eq(6).append("<div class='day7'></div>")
-		});
-		$("#minus1").click(function() {
-			$(".day1").last().remove();
-		});
-		$("#minus2").click(function() {
-			$(".day2").last().remove();
-		});
-		$("#minus3").click(function() {
-			$(".day3").last().remove();
-		});
-		$("#minus4").click(function() {
-			$(".day4").last().remove();
-		});
-		$("#minus5").click(function() {
-			$(".day5").last().remove();
-		});
-		$("#minus6").click(function() {
-			$(".day6").last().remove();
-		});
-		$("#minus7").click(function() {
-			$(".day7").last().remove();
-		});
 		$("#search_btn").click(function() {
 			if ($("#search").css("display") == "none") {
 				$("#search").show();
@@ -473,12 +536,12 @@
 		$("#web").click(function(){
 			if($("#menu_wrap").css('display') == 'none'){
 				$("#menu_wrap").show();
-				$("#web").css({'left':'31%'});
+				$("#web").css({'left':'639px'});
 				$("#web").html('<');
 				$("#api").hide();
 			}else{
 				$("#menu_wrap").hide()
-				$("#web").css({'left':'15%'});
+				$("#web").css({'left':'341px'});
 				$("#web").html("<img src='/resources/img/돋보기.png'>");
 				$("#api").show();
 			}
@@ -486,12 +549,12 @@
 		$("#api").click(function(){
 			if($("#api_wrap").css('display') == 'none'){
 				$("#api_wrap").show();
-				$("#api").css({'left':'31%'});
+				$("#api").css({'left':'639px'});
 				$("#api").html('<');
 				$("#web").hide();
 			}else{
 				$("#api_wrap").hide()
-				$("#api").css({'left':'15%'});
+				$("#api").css({'left':'341px'});
 				$("#api").html("<img src='/resources/img/female.png'>");
 				$("#web").show();
 			}

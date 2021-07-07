@@ -41,7 +41,7 @@
 	<!-- hotel list css start-->
 	<br>
 	<h3 style="float: left; margin-left: 40px;">추천일정</h3>
-	<a href="/topPlanList.do"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
+	<a href="/selectRecommendPlanList.do"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
 	<section class="top_place" style="margin-top: 50px; margin-bottom: 50px;">
 		
 		<hr style="border: solid 1px black;">
@@ -78,7 +78,7 @@
 	</section>
 	<br><br>
 	<h3 style="float: left; margin-left: 40px;">최신일정</h3>
-	<a href="/topScheduleList.do"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
+	<a href="/selectNewPlanList.do"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
 	<section class="top_place" style="margin-top: 50px; margin-bottom: 50px;">
 		
 		<hr style="border: solid 1px black;">
@@ -115,7 +115,7 @@
 	</section>
 	<br><br>
 	<h3 style="float: left; margin-left: 40px;">가장 많이 찾아 본 일정</h3>
-	<a href="/topScheduleList.do"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
+	<a href="/selectViewPlanList.do"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
 	<section class="top_place" style="margin-top: 50px; margin-bottom: 50px;">
 		
 		<hr style="border: solid 1px black;">

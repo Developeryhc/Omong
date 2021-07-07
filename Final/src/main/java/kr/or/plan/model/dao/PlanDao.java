@@ -52,7 +52,7 @@ public class PlanDao {
 		return sqlSession.update("plan.updateOnePlan", plan);
 	}
 	public ArrayList<MapPartner> selectMapPartnerSearch(MapPartner mapPartner) {
-		List list = sqlSession.selectList("partner.selectMapPartnerSeach", mapPartner);
+		List list = sqlSession.selectList("mapPartner.selectMapPartnerSearch", mapPartner);
 		return (ArrayList<MapPartner>)list;
 	}
 }

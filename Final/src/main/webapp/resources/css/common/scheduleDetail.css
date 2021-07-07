@@ -21,7 +21,7 @@
 #menu_wrap {
 	position: absolute;
 	top: 0;
-	left: 15%;
+	left: 336px;
 	bottom: 0;
 	width: 300px;
 	margin: 10px 0 30px 10px;
@@ -31,6 +31,7 @@
 	z-index: 1;
 	font-size: 12px;
 	display: none;
+	border-left: 2px solid #fe5c24;
 }
 
 #detailList {
@@ -38,20 +39,20 @@
 	top: 0;
 	left: 0;
 	bottom: 0;
-	width: 100px;
+	width: 336px;
 	margin: 10px 0 30px 10px;
-	padding: 5px;
+	padding: 15px;
 	overflow-y: auto;
 	background: rgba(255, 255, 255, 0.7);
 	z-index: 1;
 	font-size: 12px;
-	border-radius: 10px;
+	border-radius-top-left-and-bottom-left: 10px;
 }
 
 #api_wrap {
 	position: absolute;
 	top: 0;
-	left: 15%;
+	left: 336px;
 	bottom: 0;
 	width: 300px;
 	margin: 10px 0 30px 10px;
@@ -61,12 +62,13 @@
 	z-index: 1;
 	font-size: 12px;
 	display: none;
+	border-left: 2px solid #fe5c24;
 }
 
 #web {
 	position: absolute;
 	top: 40%;
-	left: 15%;
+	left: 341px;
 	bottom: 0;
 	height: 50px;
 	width: 50px;
@@ -82,7 +84,7 @@
 #api {
 	position: absolute;
 	top: 47%;
-	left: 15%;
+	left: 341px;
 	bottom: 0;
 	height: 50px;
 	width: 50px;
@@ -139,11 +141,11 @@
 	margin-left: 5px;
 }
 
-#placesList li {
+li {
 	list-style: none;
 }
 
-#placesList .item {
+.item {
 	position: relative;
 	border-bottom: 1px solid #888;
 	overflow: hidden;
@@ -151,37 +153,37 @@
 	min-height: 65px;
 }
 
-#placesList .item span {
+.item span {
 	display: block;
 	margin-top: 4px;
 }
 
-#placesList .item h5, #placesList .item .info {
+.item h5,.item .info {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
 }
 
-#placesList .item .info {
-	padding: 10px 0 10px 55px;
+.item .info {
+	padding: 10px 0 10px 50px;
 }
 
-#placesList .info .gray {
+.info .gray {
 	color: #8a8a8a;
 }
 
-#placesList .info .jibun {
+.info .jibun {
 	padding-left: 26px;
 	background:
 		url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png)
 		no-repeat;
 }
 
-#placesList .info .tel {
+.info .tel {
 	color: #009900;
 }
 
-#placesList .item .markerbg {
+.item .markerbg {
 	float: left;
 	position: absolute;
 	width: 36px;
@@ -210,55 +212,45 @@
 	display: none;
 }
 
-.day1 {
+.day1, .viewDay1 {
 	border: 2px solid #F18101;
-	width: 100%;
-	height: 40px;
-	margin-top: 3px;
 }
 
-.day2 {
+.day2, .viewDay2 {
 	border: 2px solid #0173BC;
-	width: 100%;
-	height: 40px;
-	margin-top: 3px;
 }
 
-.day3 {
+.day3, .viewDay3 {
 	border: 2px solid #00A074;
-	width: 100%;
-	height: 40px;
-	margin-top: 3px;
 }
 
-.day4 {
+.day4, .viewDay4 {
 	border: 2px solid #CFAC6A;
-	width: 100%;
-	height: 40px;
-	margin-top: 3px;
 }
 
-.day5 {
+.day5, .viewDay5 {
 	border: 2px solid #C9C9CB;
-	width: 100%;
-	height: 40px;
-	margin-top: 3px;
 }
 
-.day6 {
+.day6, .viewDay6 {
 	border: 2px solid #33aacc;
-	width: 100%;
-	height: 40px;
-	margin-top: 3px;
 }
 
-.day7 {
+.day7, .viewDay7 {
 	border: 2px solid #48c817;
-	width: 100%;
+}
+.day1, .day2, .day3, .day4, .day5, .day6, .day7{
+	float: left;
+	width: 90%;
 	height: 40px;
 	margin-top: 3px;
 }
-
+.viewDay1, .viewDay2, .viewDay3, .viewDay4, .viewDay5, .viewDay6, .viewDay7{
+	float: left;
+	width: 90%;
+	height: 40px;
+	margin-top: 3px;
+}
 .day {
 	width: 40px;
 	height: 20px;
@@ -326,4 +318,34 @@
 	text-align: center;
 	line-height: 35px;
 	overflow: auto;
+	width: 100%;
+}
+.planCancel{
+	float: right;
+	width: 10%;
+	height: 40px;
+	margin-top: 3px;
+	line-height: 40px;
+	color: white;
+}
+.cancel1{
+	background-color: #F18101;
+}
+.cancel2 {
+	background-color: #0173BC;
+}
+.cancel3 {
+	background-color: #00A074;
+}
+.cancel4 {
+	background-color: #CFAC6A;
+}
+.cancel5 {
+	background-color: #C9C9CB;
+}
+.cancel6 {
+	background-color: #33aacc;
+}
+.cancel7 {
+	background-color: #48c817;
 }

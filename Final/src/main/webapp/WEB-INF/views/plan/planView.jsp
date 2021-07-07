@@ -14,7 +14,7 @@
 			<!-- 카카오 맵 -->
 			<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 			<!-- 일정표 -->
-			<div id="detailList" style="width: 15%; overflow-y: scroll; padding: 15px;">
+			<div id="detailList">
 				<div id="detail_head" style="width: 100%; height: 15%;">
 					<h3 style="text-align: center; padding-top: 10px">여행 일정표</h3>
 					<br>
@@ -47,7 +47,7 @@
 			var day = $(".dayBtn").index(this)+1;
 			$(".detail").hide();
 			$(".detail").eq(day-1).show();
-			$(".day"+day).remove();
+			$(".viewDay"+day).remove();
 			var lineColor;
 			if(day==1){
 				lineColor = "#F18101";
@@ -88,7 +88,7 @@
 					for(var i=0; i<days.length; i++){
 						displayPlaces(days[i]);
 						if(days[i].dayDate == (day-1)){
-							$(".detail").eq(day-1).append("<div class='planSpots day"+day+"'>"+days[i].dayTitle+"</div>");
+							$(".detail").eq(day-1).append("<div class='planSpots'><div class='viewDay"+day+"'>"+days[i].dayTitle+"</div></div>");
 						}
 						
 						// @ 07/06 마커별 거리 라인 및 거리 측정
@@ -161,7 +161,7 @@
 			for(var i=0; i<days.length; i++){
 				if(days[i].dayDate == (day-1)){
 					displayPlaces(days[i]);
-					$(".detail").eq(day-1).append("<div class='planSpots day"+day+"'>"+days[i].dayTitle+"</div>");
+					$(".detail").eq(day-1).append("<div class='planSpots'><div class='viewDay"+day+"'>"+days[i].dayTitle+"</div></div>");
 					console.log(days[i].dayTitle);
 					
 					// @ 07/06 마커별 거리 라인 및 거리 측정
@@ -187,12 +187,12 @@
 				}
 			}
 		}
-		
+
 		// 검색 결과 목록과 마커를 표출하는 함수입니다
 		function displayPlaces(days) {
 			var fragment = document.createDocumentFragment(),
 				bounds = new kakao.maps.LatLngBounds()
-				
+
 			// 마커를 생성하고 지도에 표시합니다
 			var placePosition = new kakao.maps.LatLng(days.dayLongitude, days.dayLatitude),
 				marker = addMarker(placePosition)
