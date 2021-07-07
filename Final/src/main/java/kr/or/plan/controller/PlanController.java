@@ -34,7 +34,7 @@ public class PlanController {
 		model.addAttribute("recommendList", recommendList);
 		model.addAttribute("newList", newList);
 		model.addAttribute("viewList", viewList);
-		return "plan/planList";
+		return "plan/plan";
 	}
 	@RequestMapping(value = "/topplanList.do")
 	public String topplanList() {
@@ -82,9 +82,30 @@ public class PlanController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="selectMapPartnerSearch.do", produces = "application/json; charset=UTF-8")
+	@RequestMapping(value="/selectMapPartnerSearch.do", produces = "application/json; charset=UTF-8")
 	public String selectMapPartnerSearch(MapPartner mapPartner, Model model) {
 		ArrayList<MapPartner> list = service.selectMapPartnerSearch(mapPartner);
 		return new Gson().toJson(list);
+	}
+	
+	@RequestMapping(value="/selectRecommendPlanList.do")
+	public String selectRecommendPlanList(Model model) {
+		ArrayList<Plan> recommendList = service.selectRecommendPlanList();
+		model.addAttribute(recommendList);
+		return "plan/planRecommendList";
+	}
+	
+	@RequestMapping(value="/selectNewPlanList.do")
+	public String selectNewPlanList(Model model) {
+		ArrayList<Plan> newList = service.selectNewPlanList();
+		model.addAttribute(newList);
+		return "plan/planNewList";
+	}
+	
+	@RequestMapping(value="/selectViewPlanList.do")
+	public String selectViewPlanList(Model model) {
+		ArrayList<Plan> viewList = service.selectViewPlanList();
+		model.addAttribute(viewList);
+		return "plan/planViewList";
 	}
 }
