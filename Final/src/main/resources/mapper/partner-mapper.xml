@@ -15,7 +15,7 @@
   		partner_tel as tel,
   		partner_address as address,
   		change_pw as changePw,
-  		detail_address as detail_address,
+  		detail_address as detailAddress,
   		'p' as type
 	from partner where partner_id=#{id}
 		<if test="pw != null">
@@ -123,5 +123,17 @@
  		option_price as optionPrice
  	from product_option where product_no=#{selectOption} 
   </select>
+  <update id="updatePartner" parameterType="u">
+  	update partner set 
+  		partner_name = #{name},
+  		partner_business = #{business},
+  		partner_ceo = #{ceo},
+  		partner_email = #{email},
+  		partner_phone = #{phone},
+  		partner_tel = #{tel},
+  		partner_address = #{address},
+  		detail_address = #{detailAddress} 
+  	where partner_id = #{id}
+  </update>
 </mapper>
 	

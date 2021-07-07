@@ -83,6 +83,11 @@ public class PartnerDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("partner.selectOption" , selectOption);
 	}
+
+	public int updatePartner(User u) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("partner.updatePartner", u);
+	}
 	
 	/*
 	 * public int packageInsert(Package pa, String[] productName, String[]

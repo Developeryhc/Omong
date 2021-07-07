@@ -217,5 +217,20 @@ if(subFiles[0].isEmpty()) {
 		ArrayList<Option> list = service.selectOption(selectOption);
 		return new Gson().toJson(list);
 	}
-	
+	@RequestMapping(value = "/partnerMypage.do")
+	public String partnerMypage() {
+		return "partner/partnerMypage";
+	}
+	@RequestMapping(value = "/updatePartner.do")
+	public String updatePartner(User u , Model model) {
+		int result = service.updatePartner(u);
+		
+		if(result > 0) {
+			model.addAttribute("msg", "정보변경 완료");
+		}else {
+			model.addAttribute("msg", "정보변경 실패");
+		}
+		model.addAttribute("loc", "partnerMypage.do");
+		return "common/msg";
+	}
 }
