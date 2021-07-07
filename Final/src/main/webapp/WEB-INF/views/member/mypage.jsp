@@ -189,7 +189,7 @@
 					<h4>아이디(메일)</h4>
 					<div class="mt-10">
 						<input type="text" name="email" class="single-input" value="${sessionScope.u.id }"
-							readonly>
+							style="background: #E2E2E2;" readonly>
 					</div>
 					<hr>
 					<h4>비밀번호 변경</h4>
@@ -200,7 +200,7 @@
 						<div class="icon">
 							<i class="fa fa-thumb-tack" aria-hidden="true"></i>
 						</div>
-						<input type="text" name="name"
+						<input type="text" name="name" style="background: #E2E2E2;"
 							class="single-input" value="${sessionScope.u.name }" readonly>
 					</div>
 					<hr>
@@ -242,7 +242,7 @@
 							<i class="fa fa-thumb-tack" aria-hidden="true"></i>
 						</div>
 						<input type="text" name="birth" 
-							class="single-input" value="${sessionScope.u.birth }" readonly>
+							class="single-input" value="${sessionScope.u.birth }" style="background: #E2E2E2;" readonly>
 						<!-- <div class="form-select" id="default-select" style="font-size:15px;">
 							<select style="float:left;">
 								<c:forEach var="i" begin= "0" end= "61">

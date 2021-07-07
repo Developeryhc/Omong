@@ -8,7 +8,8 @@
  		admin_name as adminName,
  		admin_email as adminEmail,
  		admin_phone as adminPhone
- 		from admin where admin_id=#{adminId} 		
+ 	from admin 
+ 	where admin_id=#{adminId} 		
  		and admin_pw=#{adminPw} 		
  </select>
 </mapper>

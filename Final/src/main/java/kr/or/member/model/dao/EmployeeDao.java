@@ -94,6 +94,21 @@ public class EmployeeDao {
 		return sqlSession.selectOne("employee.kakaoSelect",u);
 	}
 
+	public int uploadPhoto(User u) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("employee.uploadPhoto",u);
+	}
+
+	public int employeeDelete(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("employee.employeeDelete",id);
+	}
+
+	public int updateReadCount(User u) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("employee.updateReadCount",u);
+	}
+
 
 
 	

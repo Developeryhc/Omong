@@ -91,5 +91,22 @@ public class EmployeeService {
 
 	
 
+	public int uploadPhoto(User u) {
+		// TODO Auto-generated method stub
+		return dao.uploadPhoto(u);
+	}
+
+	public int employeeDelete(String id) {
+		// TODO Auto-generated method stub
+		return dao.employeeDelete(id);
+	}
+
+	public int updateReadCount(User u) {
+		// TODO Auto-generated method stub
+		return dao.updateReadCount(u);
+	}
+
+	
+
 
 }

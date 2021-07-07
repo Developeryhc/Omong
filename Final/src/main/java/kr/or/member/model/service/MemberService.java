@@ -43,4 +43,20 @@ public class MemberService {
 		// TODO Auto-generated method stub
 		return dao.pwChangeMember(u);
 	}
+
+
+	public User memberIdFind(User u) {
+		return dao.memberIdFind(u);
+	}
+
+
+	public User checkIdName(User u) {
+		return dao.checkIdName(u);
+	}
+
+
+	public int newPw(User u) {
+		return dao.newPw(u);
+	}
+
 }
