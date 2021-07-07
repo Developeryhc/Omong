@@ -144,7 +144,7 @@ public class MemberController {
 		return "common/msg";
 	}
 
-	@RequestMapping(value = "//memberIdFind.do")
+	@RequestMapping(value = "/memberIdFind.do")
 	public String memberIdFind(User u, Model model) {
 		User member = service.memberIdFind(u);
 		if (member != null) {
@@ -349,6 +349,6 @@ public class MemberController {
 		int result = service.newPw(u);
 		return "newPw";
 	}
-
+	
 
 }

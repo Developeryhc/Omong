@@ -27,6 +27,13 @@
 			and member_pw = #{pw}
 		</if>
 	</select>
+	<select id="memberIdFind" parameterType="u" resultType="u">
+	select
+		member_id as id
+	from member
+	where member_phone = #{phone} and member_name =#{name}
+	</select>
+	
 	<select id="selectIdNameMember" parameterType="u" resultType="u">
 		select
 			member_pw as pw
