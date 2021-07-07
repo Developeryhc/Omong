@@ -60,17 +60,14 @@
 							<div class="serial">${u.noticeEmployeeViews }</div>
 						</div>
 						<div class="table-row">
-							<div class="serial">사진</div>
-							<div class="country" style="width:150px; height:150px;">
-								<img src="/resources/upload/notice/${u.filename }" style="width:150px; height:150px;object-fit:cover;">
-							</div>
-						</div>
-
-						<div class="table-row">
 							<div class="serial">내용</div>
 							<div style="width: 80%">
+<<<<<<< HEAD
 								<textarea class="form-control w-100" name="message" id="message"
 									cols="30" rows="9" style="resize: none; background-color: white; border:none;" readonly>${u.content }</textarea>
+=======
+								${u.content }
+>>>>>>> refs/heads/ehkang
 							</div>
 						</div>
 					</div>
