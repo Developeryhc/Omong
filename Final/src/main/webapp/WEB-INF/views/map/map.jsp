@@ -71,27 +71,27 @@
                 <div class="col-lg-12">
                     <div class="card-columns">
                         <div class="card">
-                            <a href="/img/sangom.jpg" class="gallery_img">
+                            <a href="/resources/img/sangom.jpg" class="gallery_img">
                                <img src="/resources/img/sangom.jpg" class="card-img-top" alt="">
                             </a>
                         </div>
                         <div class="card">
-                            <a href="/img/성산일출봉.jpg" class="gallery_img">
+                            <a href="/resources/img/성산일출봉.jpg" class="gallery_img">
                                 <img src="/resources/img/성산일출봉.jpg" class="card-img-top" alt="">
                             </a>
                         </div>
                         <div class="card">
-                            <a href="/img/쇠소깍.jpg" class="gallery_img">
+                            <a href="/resources/img/쇠소깍.jpg" class="gallery_img">
                                 <img src="/resources/img/쇠소깍.jpg" class="card-img-top" alt="">
                             </a>
                         </div>
                         <div class="card">
-                            <a href="/img/올레길 10코스.jpg" class="gallery_img">
+                            <a href="/resources/img/올레길" class="gallery_img">
                                 <img src="/resources/img/올레길 10코스.jpg" class="card-img-top" alt="">
                             </a>
                         </div>
                         <div class="card">
-                            <a href="/img/우도.jpg" class="gallery_img">
+                            <a href="/resources/img/우도.jpg" class="gallery_img">
                                 <img src="/resources/img/우도.jpg" class="card-img-top" alt="">
                             </a>
                         </div>
