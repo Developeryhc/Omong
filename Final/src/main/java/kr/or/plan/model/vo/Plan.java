@@ -18,4 +18,7 @@ public class Plan {
 	
 	// 일자 반복에 필요한 변수
 	private String planDay;
+	
+	// planList 조회 개수 변수
+	private int planKind;
 }

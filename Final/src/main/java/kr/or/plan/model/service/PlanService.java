@@ -45,16 +45,16 @@ public class PlanService {
 		return result;
 	}
 
-	public ArrayList<Plan> selectRecommendPlanList() {
-		return dao.selectRecommendPlanList();
+	public ArrayList<Plan> selectRecommendPlanList(Plan plan) {
+		return dao.selectRecommendPlanList(plan);
 	}
 
-	public ArrayList<Plan> selectNewPlanList() {
-		return dao.selectNewPlanList();
+	public ArrayList<Plan> selectNewPlanList(Plan plan) {
+		return dao.selectNewPlanList(plan);
 	}
 
-	public ArrayList<Plan> selectViewPlanList() {
-		return dao.selectViewPlanList();
+	public ArrayList<Plan> selectViewPlanList(Plan plan) {
+		return dao.selectViewPlanList(plan);
 	}
 	@Transactional
 	public Plan selectOnePlan(Plan plan) {
@@ -73,5 +73,4 @@ public class PlanService {
 	public ArrayList<MapPartner> selectMapPartnerSearch(MapPartner mapPartner) {
 		return dao.selectMapPartnerSearch(mapPartner);
 	}
-
 }

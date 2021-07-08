@@ -27,15 +27,16 @@ public class PlanController {
 	private PlanService service;
 	
 	@RequestMapping(value = "/plan.do")
-	public String plan(Model model) {
-		ArrayList<Plan> recommendList = service.selectRecommendPlanList();
-		ArrayList<Plan> newList = service.selectNewPlanList();
-		ArrayList<Plan> viewList = service.selectViewPlanList();
+	public String plan(Plan plan, Model model) {
+		ArrayList<Plan> recommendList = service.selectRecommendPlanList(plan);
+		ArrayList<Plan> newList = service.selectNewPlanList(plan);
+		ArrayList<Plan> viewList = service.selectViewPlanList(plan);
 		model.addAttribute("recommendList", recommendList);
 		model.addAttribute("newList", newList);
 		model.addAttribute("viewList", viewList);
 		return "plan/plan";
 	}
+	// 삭제 예정
 	@RequestMapping(value = "/topplanList.do")
 	public String topplanList() {
 		return "plan/topPlanList";
@@ -87,25 +88,5 @@ public class PlanController {
 		ArrayList<MapPartner> list = service.selectMapPartnerSearch(mapPartner);
 		return new Gson().toJson(list);
 	}
-	
-	@RequestMapping(value="/selectRecommendPlanList.do")
-	public String selectRecommendPlanList(Model model) {
-		ArrayList<Plan> recommendList = service.selectRecommendPlanList();
-		model.addAttribute(recommendList);
-		return "plan/planRecommendList";
-	}
-	
-	@RequestMapping(value="/selectNewPlanList.do")
-	public String selectNewPlanList(Model model) {
-		ArrayList<Plan> newList = service.selectNewPlanList();
-		model.addAttribute(newList);
-		return "plan/planNewList";
-	}
-	
-	@RequestMapping(value="/selectViewPlanList.do")
-	public String selectViewPlanList(Model model) {
-		ArrayList<Plan> viewList = service.selectViewPlanList();
-		model.addAttribute(viewList);
-		return "plan/planViewList";
-	}
+
 }
