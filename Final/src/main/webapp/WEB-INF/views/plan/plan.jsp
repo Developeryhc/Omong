@@ -55,30 +55,43 @@
 	
 		<hr style="border: solid 1px black;">
 		<div class="container_reservation" style="width: 100%;">
-			<div class="groupListWrap">
+			<div class="row" style="flex-wrap: nowrap; ">
 				<c:forEach items="${recommendList }" var="plan">
-				
 					<div class="single_place" style="width :30%; height:336px; margin:30px; display:inline-block; border-radius: 30px; box-shadow: 5px 5px 5px 5px grey;" >
 						<img src="/resources/img/jeju/제주_${plan.planThumbnailNo}.jpg" alt="">
 						<div
 							class="hover_Text d-flex align-items-end justify-content-between">
 							<div class="hover_text_iner">
 								<a href="/selectOnePlan.do?planNo=${plan.planNo}" class="place_btn">상세보기</a>
-								<h3 style="color:black;" >${plan.planTitle}</h3>
-								<p style="color:black;" >${plan.planStart} ~ ${plan.planEnd}</p>
+								<h3>${plan.planTitle}</h3>
+								<p>${plan.planStart} ~ ${plan.planEnd}</p>
 								<div class="place_review">
-									<a href="#"><i class="fas fa-star">공유하기</i></a>
+									<c:if test="${!empty sessionScope.u or sessionScope.u.id eq plan.planWriter}">
+									<i class="fas fa-star">담아오기</i>
+									</c:if>
 									<div>
-										<span style="color:black;">${plan.planView } views |</span>
-										<span style="color:black;">${plan.planLike } likes |</span>
-										<span style="color:black;">${plan.planShare } share</span>
+										<span>${plan.planView } views |</span>
+										<span>${plan.planLike } likes |</span>
+										<span>${plan.planShare } share</span>
 									</div>
 								</div>
 							</div>
 							<c:if test="${!empty sessionScope.u}">
 							<div class="details_icon text-right">
-								<i class="like">Like</i>
-								<i class="share">Share</i>
+								<c:choose>
+								<c:when test="${plan.likeCheck eq 1}">
+								<i class="like" style="background-color: #3B5998;" >Like
+									<input type="hidden" value="${plan.planNo}">
+									<input type="hidden"value="1">
+								</i>
+								</c:when>
+								<c:otherwise>
+								<i class="like" style="background-color: rgba(255, 255, 255, 0);" >Like
+									<input type="hidden" value="${plan.planNo}">
+									<input type="hidden" value="-1">
+								</i>
+								</c:otherwise>
+								</c:choose>
 							</div>
 							</c:if>
 						</div>
@@ -106,7 +119,7 @@
 							<h3>${plan.planTitle}</h3>
 							<p>${plan.planStart} ~ ${plan.planEnd}</p>
 							<div class="place_review">
-								<a href="#"><i class="fas fa-star">공유하기</i></a>
+								<a href="#"><i class="fas fa-star">담아오기</i></a>
 								<div>
 									<span>${plan.planView } views |</span>
 									<span>${plan.planLike } likes |</span>
@@ -116,8 +129,20 @@
 						</div>
 						<c:if test="${!empty sessionScope.u}">
 						<div class="details_icon text-right">
-							<i class="like">Like</i>
-							<i class="share">Share</i>
+							<c:choose>
+							<c:when test="${plan.likeCheck eq 1}">
+							<i class="like" style="background-color: #3B5998;" >Like
+								<input type="hidden" value="${plan.planNo}">
+								<input type="hidden"value="1">
+							</i>
+							</c:when>
+							<c:otherwise>
+							<i class="like" style="background-color: rgba(255, 255, 255, 0);" >Like
+								<input type="hidden" value="${plan.planNo}">
+								<input type="hidden" value="-1">
+							</i>
+							</c:otherwise>
+							</c:choose>
 						</div>
 						</c:if>
 					</div>
@@ -144,7 +169,7 @@
 							<h3>${plan.planTitle}</h3>
 							<p>${plan.planStart} ~ ${plan.planEnd}</p>
 							<div class="place_review">
-								<a href="#"><i class="fas fa-star">공유하기</i></a>
+								<a href="#"><i class="fas fa-star">담아오기</i></a>
 								<div>
 									<span>${plan.planView } views |</span>
 									<span>${plan.planLike } likes |</span>
@@ -154,8 +179,20 @@
 						</div>
 						<c:if test="${!empty sessionScope.u}">
 						<div class="details_icon text-right">
-							<i class="like">Like</i>
-							<i class="share">Share</i>
+							<c:choose>
+							<c:when test="${plan.likeCheck eq 1}">
+							<i class="like" style="background-color: #3B5998;" >Like
+								<input type="hidden" value="${plan.planNo}">
+								<input type="hidden"value="1">
+							</i>
+							</c:when>
+							<c:otherwise>
+							<i class="like" style="background-color: rgba(255, 255, 255, 0);" >Like
+								<input type="hidden" value="${plan.planNo}">
+								<input type="hidden" value="-1">
+							</i>
+							</c:otherwise>
+							</c:choose>
 						</div>
 						</c:if>
 					</div>
@@ -168,10 +205,11 @@
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 <script>
-	var likeCheck = -1;
 	$(".like").click(function(){
+		var likeCheck = $(this).children().eq(1).val();
 		likeCheck *= -1;
-		if(likeCheck == -1){
+		$(this).children().eq(1).val(likeCheck);
+		if(likeCheck == 1){
 			$(this).css("backgroundColor", "#3B5998");
 		}else{
 			$(this).css("backgroundColor", "rgba(255, 255, 255, 0.5)");
@@ -179,24 +217,9 @@
 		var planNo = $(this).children().eq(0).val();
 		$.ajax({
 			url: "/planLike.do",
-			data: {planNo:planNo, likeChk:likeCheck},
-			type: "POST",
-			success: function(data){
-				if(data == '0'){
-					alert('완료');
-				}else{
-					alert('MVC 에러');
-				}
-			},
-			error: function(data){
-				alert('ajax 에러');
-				console.log(data);
-			},
-			complete: function(data){
-				alert('ajax 완료');
-			}
-			
-			});
+			data: {planNo:planNo, likeCheck:likeCheck},
+			type: "POST"
 		});
+	});
 </script>
 </html>

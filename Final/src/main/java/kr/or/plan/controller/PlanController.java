@@ -29,16 +29,20 @@ public class PlanController {
 	private PlanService service;
 	
 	@RequestMapping(value = "/plan.do")
-	public String plan(Plan plan, User user, Model model) {
-		ArrayList<Plan> recommendList = service.selectRecommendPlanList(plan);
-		ArrayList<Plan> newList = service.selectNewPlanList(plan);
-		ArrayList<Plan> viewList = service.selectViewPlanList(plan);
-		ArrayList<LikePlan> likePlan = service.selectLikePlanList(user);
-		model.addAttribute("recommendList", recommendList);
-		model.addAttribute("newList", newList);
-		model.addAttribute("viewList", viewList);
-		model.addAttribute("likePlan", likePlan);
-		return "plan/plan";
+	public String plan(@SessionAttribute(required=false)User u, Plan plan, Model model) {
+		ArrayList<Plan> recommendList = service.selectRecommendPlanList(u, plan);
+		ArrayList<Plan> newList = service.selectNewPlanList(u, plan);
+		ArrayList<Plan> viewList = service.selectViewPlanList(u, plan);
+		if(recommendList == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("loc", "member/login");
+			return "common/msg";
+		}else {
+			model.addAttribute("recommendList", recommendList);
+			model.addAttribute("newList", newList);
+			model.addAttribute("viewList", viewList);
+			return "plan/plan";
+		}
 	}
 	// 삭제 예정
 	@RequestMapping(value = "/topplanList.do")
@@ -92,34 +96,44 @@ public class PlanController {
 		return new Gson().toJson(list);
 	}
 	@RequestMapping(value="/selectRecommendPlanList.do")
-	public String selectRecommendPlanList(Plan plan, Model model) {
-		ArrayList<Plan> list = service.selectRecommendPlanList(plan);
+	public String selectRecommendPlanList(@SessionAttribute(required=false) User u, Plan plan, Model model) {
+		ArrayList<Plan> list = service.selectRecommendPlanList(u, plan);
 		model.addAttribute("recommendList",list);
 		return "/plan/planList";
 	}
 	
 	@RequestMapping(value="/selectNewPlanList.do")
-	public String selectNewPlanList(Plan plan, Model model) {
-		ArrayList<Plan> list = service.selectNewPlanList(plan);
+	public String selectNewPlanList(@SessionAttribute(required=false) User u, Plan plan, Model model) {
+		ArrayList<Plan> list = service.selectNewPlanList(u, plan);
 		model.addAttribute(list);
 		return "/plan/planList";
 	}
 	
 	@RequestMapping(value="/selectViewPlanList.do")
-	public String selectViewPlanList(Plan plan, Model model) {
-		ArrayList<Plan> list = service.selectViewPlanList(plan);
+	public String selectViewPlanList(@SessionAttribute(required=false) User u, Plan plan, Model model) {
+		ArrayList<Plan> list = service.selectViewPlanList(u, plan);
 		model.addAttribute(list);
 		return "/plan/planList";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/planLike.do")
-	public int planLike(@SessionAttribute(required=false) User u, Plan plan, String likeChk) {
-		System.out.println(u.getName());
-		System.out.println("111");
-		System.out.println(plan.getPlanNo());
-		System.out.println(likeChk);
-		int result = service.planLike(u, plan, likeChk);
+	public int planLike(@SessionAttribute(required=false) User u, Plan plan, String likeCheck) {
+		int result = service.planLike(u, plan, likeCheck);
 		return result;
+	}
+	
+	@RequestMapping(value="/insertOtherPlan.do")
+	public String insertOtherPlan(@SessionAttribute(required=false) User u, Plan plan, Model model) {
+		/*
+		int result = service.insertOtherPlan(u, plan);
+		if(result > 0) {
+			model.addAttribute("msg", "담기 완료");
+		}else {
+			model.addAttribute("msg", "담기 실패, 관리자에게 문의하세요 에러코드 [00CI]");
+		}
+		*/
+		// ajax로 실행할 예정
+		return "/common/msg";
 	}
 }

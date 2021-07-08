@@ -49,16 +49,15 @@ public class PlanDao {
 		List list = sqlSession.selectList("plan.selectOnePlanDays", plan); 
 		return (ArrayList<Day>)list;
 	}
-	public int updateOnePlan(Plan plan) {
-		return sqlSession.update("plan.updateOnePlan", plan);
+	public int updateViewOnePlan(Plan plan) {
+		return sqlSession.update("plan.updateViewOnePlan", plan);
+	}
+	public int updateLikeOnePlan(Plan plan) {
+		return sqlSession.update("plan.updateLikeOnePlan", plan);
 	}
 	public ArrayList<MapPartner> selectMapPartnerSearch(MapPartner mapPartner) {
 		List list = sqlSession.selectList("mapPartner.selectMapPartnerSearch", mapPartner);
 		return (ArrayList<MapPartner>)list;
-	}
-	public ArrayList<LikePlan> selectLikePlanList(User user) {
-		List list = sqlSession.selectList("plan.selectLikePlan", user);
-		return (ArrayList<LikePlan>)list;
 	}
 	public int insertPlanLike(LikePlan likePlan) {
 		return sqlSession.insert("plan.insertLikePlan", likePlan);

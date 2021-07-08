@@ -47,24 +47,35 @@ public class PlanService {
 		return result;
 	}
 	
-	public ArrayList<LikePlan> selectLikePlanList(User user) {
-		return dao.selectLikePlanList(user);
+	public ArrayList<Plan> selectRecommendPlanList(User u, Plan plan) {
+		if(u == null) {
+			return null;
+		}else {
+			plan.setPlanMember(u.getNo());
+			return dao.selectRecommendPlanList(plan);
+		}
 	}
 
-	public ArrayList<Plan> selectRecommendPlanList(Plan plan) {
-		return dao.selectRecommendPlanList(plan);
+	public ArrayList<Plan> selectNewPlanList(User u, Plan plan) {
+		if(u == null) {
+			return null;
+		}else {
+			plan.setPlanMember(u.getNo());
+			return dao.selectNewPlanList(plan);
+		}
 	}
 
-	public ArrayList<Plan> selectNewPlanList(Plan plan) {
-		return dao.selectNewPlanList(plan);
-	}
-
-	public ArrayList<Plan> selectViewPlanList(Plan plan) {
-		return dao.selectViewPlanList(plan);
+	public ArrayList<Plan> selectViewPlanList(User u, Plan plan) {
+		if(u == null) {
+			return null;
+		}else {
+			plan.setPlanMember(u.getNo());
+			return dao.selectViewPlanList(plan);
+		}
 	}
 	@Transactional
 	public Plan selectOnePlan(Plan plan) {
-		int result = dao.updateOnePlan(plan);
+		int result = dao.updateViewOnePlan(plan);
 		if(result>0) {
 			return dao.selectOnePlan(plan);
 		}else {
@@ -80,12 +91,12 @@ public class PlanService {
 		return dao.selectMapPartnerSearch(mapPartner);
 	}
 	@Transactional
-	public int planLike(User user, Plan plan, String likeChk) {
+	public int planLike(User user, Plan plan, String likeCheck) {
 		int result;
 		LikePlan likePlan = new LikePlan();
 		likePlan.setLikePlanMember(user.getNo());
 		likePlan.setLikePlan(plan.getPlanNo());
-		if(likeChk.equals("-1")) {
+		if(likeCheck.equals("1")) {
 			result = dao.insertPlanLike(likePlan);
 		}else {
 			result = dao.deletePlanLike(likePlan);

@@ -151,7 +151,7 @@
 												aria-haspopup="true" aria-expanded="false"> 일정 </a>
 												<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 													<a class="dropdown-item" href="/planInsert.do">일정등록</a>
-													<a class="dropdown-item" href="/plan.do?planKind=3&memberNo=${sessionScope.u.no}">일정공유</a>
+													<a class="dropdown-item" href="/plan.do?planKind=3">일정공유</a>
 												</div></li>
 											<li class="nav-item dropdown"><a
 												class="nav-link dropdown-toggle" href="/boardList.do"
@@ -324,7 +324,7 @@
 												aria-haspopup="true" aria-expanded="false"> 일정 </a>
 												<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 													<a class="dropdown-item" href="/planInsert.do">일정등록</a>
-													<a class="dropdown-item" href="/plan.do?planKind=3&memberNo=${sessionScope.u.no}">일정공유</a>
+													<a class="dropdown-item" href="/plan.do?planKind=3">일정공유</a>
 												</div></li>
 											<li class="nav-item dropdown"><a
 												class="nav-link dropdown-toggle" href="/boardList.do"
