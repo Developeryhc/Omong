@@ -42,7 +42,7 @@
   		plan_thumbnail_no AS planThumbnailNo
   	FROM (SELECT * FROM plan ORDER BY plan_like DESC) WHERE ROWNUM &lt;= #{planKind}
   </select>
-  <select id="selectNewPlanRankList" parameterType="plan" resultType="plan">
+  <select id="selectNewPlanList" parameterType="plan" resultType="plan">
   	SELECT
   		plan_no AS planNo,
   		plan_public AS planPublic,
@@ -56,7 +56,7 @@
   		plan_thumbnail_no AS planThumbnailNo
   	FROM (SELECT * FROM plan ORDER BY plan_start DESC) WHERE ROWNUM &lt;= #{planKind} AND plan_start &gt;= SYSDATE -1
   </select>
-    <select id="selectViewPlanRankList" parameterType="plan" resultType="plan">
+    <select id="selectViewPlanList" parameterType="plan" resultType="plan">
   	SELECT
   		plan_no AS planNo,
   		plan_public AS planPublic,
@@ -99,4 +99,17 @@
   		day_address AS dayAddress
   	FROM day WHERE day_plan = #{planNo}
   </select>
+  <select id="selectLikePlan" parameterType="u" resultType="likePlan">
+  	SELECT
+  		like_plan_no AS likePlanNo,
+  		like_plan AS likePlan,
+  		like_plan_member AS likePlanMember
+  	FROM like_plan WHERE like_plan_member = #{no}
+  </select>
+  <select id="insertLikePlan" parameterType="likePlan">
+  	INSERT INTO like_plan VALUES(like_plan_sequence.NEXTVAL, #{likePlan}, #{likePlanMember})
+  </select>
+  <delete id="deleteLikePlan" parameterType="likePlan">
+  	DELETE FROM like_plan WHERE like_plan = #{likePlan} AND like_plan_member = #{likePlanMember}
+  </delete>
 </mapper>

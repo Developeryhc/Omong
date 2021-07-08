@@ -30,6 +30,8 @@
 		<hr style="border: solid 1px black;">
 		<div class="container_reservation" style="width: 100%;">
 			<div class="row" style="flex-wrap: nowrap; ">
+				<c:choose>
+				<c:when test="${!empty recommendList}">
 				<c:forEach items="${recommendList }" var="plan">
 				<div class="schedule">
 					<div class="single_place" style="width : 90%; margin:30px" >
@@ -56,6 +58,64 @@
 					</div>
 				</div>
 				</c:forEach>
+				</c:when>
+				<c:when test="${!empty newList}">
+				<c:forEach items="${viewList }" var="plan">
+				<div class="schedule">
+					<div class="single_place" style="width : 90%; margin:30px" >
+						<img src="/resources/img/jeju/제주_${plan.planThumbnailNo}.jpg" alt="">
+						<div
+							class="hover_Text d-flex align-items-end justify-content-between">
+							<div class="hover_text_iner">
+								<a href="/selectOnePlan.do?planNo=${plan.planNo}" class="place_btn">상세보기</a>
+								<h3>${plan.planTitle}</h3>
+								<p>${plan.planStart} ~ ${plan.planEnd}</p>
+								<div class="place_review">
+									<a href="#"><i class="fas fa-star">아님 여기에 태그?</i></a>
+									<div>
+										<span>${plan.planView } views |</span>
+										<span>${plan.planLike } likes |</span>
+										<span>${plan.planShare } share</span>
+									</div>
+								</div>
+							</div>
+							<div class="details_icon text-right">
+								<i>click</i>
+							</div>
+						</div>
+					</div>
+				</div>
+				</c:forEach>
+				</c:when>
+				<c:when test="${!empty viewList}">
+				<c:forEach items="${viewList }" var="plan">
+				<div class="schedule">
+					<div class="single_place" style="width : 90%; margin:30px" >
+						<img src="/resources/img/jeju/제주_${plan.planThumbnailNo}.jpg" alt="">
+						<div
+							class="hover_Text d-flex align-items-end justify-content-between">
+							<div class="hover_text_iner">
+								<a href="/selectOnePlan.do?planNo=${plan.planNo}" class="place_btn">상세보기</a>
+								<h3>${plan.planTitle}</h3>
+								<p>${plan.planStart} ~ ${plan.planEnd}</p>
+								<div class="place_review">
+									<a href="#"><i class="fas fa-star">아님 여기에 태그?</i></a>
+									<div>
+										<span>${plan.planView } views |</span>
+										<span>${plan.planLike } likes |</span>
+										<span>${plan.planShare } share</span>
+									</div>
+								</div>
+							</div>
+							<div class="details_icon text-right">
+								<i>click</i>
+							</div>
+						</div>
+					</div>
+				</div>
+				</c:forEach>
+				</c:when>
+				</c:choose>
 			</div>
 		</div>
 	</section>
