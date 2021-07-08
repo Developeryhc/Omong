@@ -98,6 +98,16 @@ public class PartnerDao {
 		// TODO Auto-generated method stub
 		return sqlSession.update("partner.partnerPwChange", u);
 	}
+
+	public User partnerIdFind(User u) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("partner.partnerIdFind", u);
+	}
+
+	public User selectOnePartnerPhone(User u) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("partner.selectOnePartnerPhone",u);
+	}
 	
 	/*
 	 * public int packageInsert(Package pa, String[] productName, String[]
