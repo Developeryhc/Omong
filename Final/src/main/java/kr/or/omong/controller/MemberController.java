@@ -349,6 +349,15 @@ public class MemberController {
 		int result = service.newPw(u);
 		return "newPw";
 	}
-	
+	@ResponseBody
+	@RequestMapping(value="/emailCheck")
+	public String idCheck(User u) {
+		User member = service.selectOneMember(u);
+		if(member !=null) {
+			return "1";
+		}else {
+			return "0";
+		}
+	}
 
 }

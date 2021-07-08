@@ -58,9 +58,9 @@
 					<hr>
 				</div>
 				<br>
-				<c:forEach var="i" begin="0" end="${diff}">
+				<c:forEach var="i" begin="1" end="${diff}">
 				<div class="detail" style="width: 100%;">
-					<h3 id='day'>DAY${i+1}</h3>
+					<h3 id='day'>DAY${i}</h3>
 				</div>
 				</c:forEach>
 				<br>
