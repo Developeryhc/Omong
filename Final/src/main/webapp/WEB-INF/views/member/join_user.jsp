@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,18 +29,18 @@
 	margin: 1px;
 }
 
-
 .infomation {
 	width: 100%;
 	height: 300px;
 }
-.step{
+
+.step {
 	display: none;
 }
-h4{
+
+h4 {
 	display: inline-block;
 }
-
 </style>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -61,24 +61,26 @@ h4{
 	</section>
 	<!-- breadcrumb start-->
 	<div class="section-top-border" style="margin-left: 30%">
-		
-			<!-- 상단 텝 -->
-			<ul class="tabs">
-				<li class="tab" style="background: #F18101; color: #fff;">약관 확인</li>
-				<li class="tab">정보입력</li>
-			</ul>
-			<!-- 상단 텝 끝-->
-			<div class="step col-lg-8 col-md-8" style="padding-left: 0px; display:none;">
-				<!-- 약관동의  -->
-				<h3 class="mb-30">약관 동의</h3>
-				<div class="checkbox">
-					<label><input type="checkbox" id="allAgree"> 구매이용약관, 개인정보 수집 및 이용에 모두 동의합니다.</label>
-				</div>
-				<br>
-				<div>
-					<!-- 동의창 한 블럭 -->
-					<h3 class="mb-30">오몽 구매약관</h3>
-					<textarea class="infomation" readonly style="resize: none;">
+
+		<!-- 상단 텝 -->
+		<ul class="tabs">
+			<li class="tab" style="background: #F18101; color: #fff;">약관 확인</li>
+			<li class="tab">정보입력</li>
+		</ul>
+		<!-- 상단 텝 끝-->
+		<div class="step col-lg-8 col-md-8"
+			style="padding-left: 0px; display: none;">
+			<!-- 약관동의  -->
+			<h3 class="mb-30">약관 동의</h3>
+			<div class="checkbox">
+				<label><input type="checkbox" id="allAgree"> 구매이용약관,
+					개인정보 수집 및 이용에 모두 동의합니다.</label>
+			</div>
+			<br>
+			<div>
+				<!-- 동의창 한 블럭 -->
+				<h3 class="mb-30">오몽 구매약관</h3>
+				<textarea class="infomation" readonly style="resize: none;">
 						제1장 총칙
 제1조 (목적)
 
@@ -525,15 +527,16 @@ h4{
 
 제1조 (시행일) 이 약관은 2016년 1월 19일부터 시행합니다.
 					</textarea>
-					<div class="checkbox">
-						<br> <label><input type="checkbox" class="requiredAgree"> 오몽 구매약관을 읽었으며 이에 동의함(필수)</label>
-					</div>
-					<hr>
+				<div class="checkbox">
+					<br> <label><input type="checkbox"
+						class="requiredAgree"> 오몽 구매약관을 읽었으며 이에 동의함(필수)</label>
 				</div>
-				<div>
-					<!-- 동의창 한 블럭 -->
-					<h3 class="mb-30">개인정보 수집 및 이용동의</h3>
-					<textarea class="infomation" readonly style="resize: none;">
+				<hr>
+			</div>
+			<div>
+				<!-- 동의창 한 블럭 -->
+				<h3 class="mb-30">개인정보 수집 및 이용동의</h3>
+				<textarea class="infomation" readonly style="resize: none;">
 						제1장 총칙
 탐나오가 취급하는 모든 개인정보는 관련 법령에 근거하여 수집 · 보유 및 처리되고 있습니다.
 「개인정보보호법」은 이러한 개인정보의 취급에 대한 일반적 규범을 제시하고 있으며 , 탐나오는 이러한 법령의 규정에 따라 수집 · 보유 및 처리하는 개인정보를 공공업무의 적절한 수행과 이용자의 권익을 보호하기 위해 적법하고 적정하게 취급할 것입니다.
@@ -711,16 +714,17 @@ LG U+	안심번호 / 전자결제 / SMS전송
 이 정책은 아래 시행일자부터 시행됩니다.
 - 시행일 2016년 1월 19일
 					</textarea>
-					<div class="checkbox">
-						<br> <label><input type="checkbox" class="requiredAgree"> 개인정보 수집 및 이용동의 약관을 읽었으며 이에 동의함(필수)</label>
-					</div>
-					<hr>
+				<div class="checkbox">
+					<br> <label><input type="checkbox"
+						class="requiredAgree"> 개인정보 수집 및 이용동의 약관을 읽었으며 이에 동의함(필수)</label>
 				</div>
-				<div>
-					<!-- 동의창 한 블럭 -->
-					<h3 class="mb-30">개인정보의 제3자제공</h3>
-					<textarea class="infomation" readonly
-						style="height: 250px; resize: none;">
+				<hr>
+			</div>
+			<div>
+				<!-- 동의창 한 블럭 -->
+				<h3 class="mb-30">개인정보의 제3자제공</h3>
+				<textarea class="infomation" readonly
+					style="height: 250px; resize: none;">
 개인정보의 제3자 제공
 
 가. 탐나오는 원칙적으로 수집 및 이용목적 범위를 넘어 회원의 개인정보를 제3자에게 제공하지 않습니다.
@@ -728,36 +732,43 @@ LG U+	안심번호 / 전자결제 / SMS전송
 다. 또한 법령의 규정에 의거하거나, 수사 목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우 회원의 개인정보를 제공할 수 있습니다.
 라. 상품 구매 시 제 3자 제공에 동의한 경우, 해당 서비스 제공 업체에 아래의 개인정보가 제공됩니다.
 					</textarea>
-					<div class="checkbox">
-						<br> <label><input type="checkbox" class="requiredAgree"> 개인정보의 제3자제공 약관을 읽었으며 이에 동의함 이에
-							동의함(필수)</label>
-					</div>
-					<br>
-				</div>
 				<div class="checkbox">
-					<label><input type="checkbox" class="agree" id="default-checkbox"> 이벤트 및 신규 서비스 안내,마케팅활용에 동의합니다.(선택)</label>
+					<br> <label><input type="checkbox"
+						class="requiredAgree"> 개인정보의 제3자제공 약관을 읽었으며 이에 동의함 이에
+						동의함(필수)</label>
 				</div>
 				<br>
-					<div style="text-align: center;">
-							<input type="submit" value=" 다 음  "
-								class="genric-btn primary  e-large next" style="width: 300px; font-size: x-large; font-weight: bold;">
-						</div>
-				
 			</div>
+			<div class="checkbox">
+				<label><input type="checkbox" class="agree"
+					id="default-checkbox"> 이벤트 및 신규 서비스 안내,마케팅활용에 동의합니다.(선택)</label>
+			</div>
+			<br>
+			<div style="text-align: center;">
+				<input type="submit" value=" 다 음  "
+					class="genric-btn primary  e-large next"
+					style="width: 300px; font-size: x-large; font-weight: bold;">
+			</div>
+
+		</div>
 		<div class="row">
 			<div class="step col-lg-8 col-md-8">
 				<h3 class="mb-30">회원가입</h3>
 				<hr>
-				<form action="/joinMember.do" method="post" enctype="multipart/form-data">
+				<form action="/joinMember.do" method="post"
+					enctype="multipart/form-data">
 					<h4>아이디(메일)</h4>
+					<span></span>
 					<div class="mt-10">
 						<input type="text" name="email" placeholder="이메일을 입력해주세요"
 							onfocus="this.placeholder = ''"
 							onblur="this.placeholder = 'First Name'" required
-							class="single-input">
+							class="single-input"><span id="idChk"
+							style="color: orange;"></span>
 					</div>
 					<hr>
 					<h4>비밀번호</h4>
+					<span></span>
 					<div class="mt-10">
 						<input type="password" name="pw" placeholder="비밀번호를 입력해주세요"
 							onfocus="this.placeholder = ''"
@@ -766,14 +777,16 @@ LG U+	안심번호 / 전자결제 / SMS전송
 					</div>
 					<hr>
 					<h4>비밀번호 확인</h4>
+					<span></span>
 					<div class="mt-10">
-						<input type="password" name="re_password" placeholder="비밀번호 확인"
+						<input type="password" name="rePw" placeholder="비밀번호 확인"
 							onfocus="this.placeholder = ''"
 							onblur="this.placeholder = 'Email address'" required
 							class="single-input">
 					</div>
 					<hr>
 					<h4>이름</h4>
+					<span></span>
 					<div class="input-group-icon mt-10">
 						<input type="text" name="name" placeholder="이름을 입력해주세요"
 							onfocus="this.placeholder = ''"
@@ -781,27 +794,34 @@ LG U+	안심번호 / 전자결제 / SMS전송
 							class="single-input">
 					</div>
 					<hr>
-					<h4>주소</h4><span><input type="button" class="genric-btn primary-border d-none d-lg-block" style=" border:1;" onclick="findAddress()" value="주소 찾기"></span>
+					<h4>주소</h4>
+					<span><input type="button"
+						class="genric-btn primary-border d-none d-lg-block"
+						style="border: 1;" onclick="findAddress()" value="주소 찾기"></span>
 					<div class="input-group-icon mt-10">
 						<input type="hidden" id="sample2_extraAddress">
-						
+
 						<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
-						<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
-						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+						<div id="layer"
+							style="display: none; position: fixed; overflow: hidden; z-index: 1; -webkit-overflow-scrolling: touch;">
+							<img src="//t1.daumcdn.net/postcode/resource/images/close.png"
+								id="btnCloseLayer"
+								style="cursor: pointer; position: absolute; right: -3px; top: -3px; z-index: 1"
+								onclick="closeDaumPostcode()" alt="닫기 버튼">
 						</div>
-						<input type="text" name="address" id="address" placeholder="주소를 입력해주세요"
-							 required
-							class="single-input" readonly>
-						<br>	
-						<input type="text" name="detailAddress" id="detailAddress"  placeholder="상세주소를 입력해주세요" 
-						required class="single-input">
+						<input type="text" name="address" id="address"
+							placeholder="주소를 입력해주세요" required class="single-input" readonly>
+						<br> <input type="text" name="detailAddress"
+							id="detailAddress" placeholder="상세주소를 입력해주세요" required
+							class="single-input">
 					</div>
 					<hr>
 					<h4>전화번호</h4>
+					<span></span>
 					<div class="input-group-icon mt-10">
-						<input type="text" name="phone" placeholder="전화번호를 입력해주세요(ex010-1111-222)"
-							required
-							class="single-input">						
+						<input type="text" name="phone"
+							placeholder="전화번호를 입력해주세요(ex010-1111-222)" required
+							class="single-input">
 					</div>
 					<hr>
 					<h4>생년월일</h4>
@@ -834,27 +854,32 @@ LG U+	안심번호 / 전자결제 / SMS전송
 					<hr>
 					<div class="single-element-widget mt-30">
 						<h4>성별</h4>
-							<label for="male">
-							<div style="width : 150px; height : 150px; background-image: url(/resources/img/male.png); background-size:cover; text-align:center;">
+						<label for="male">
+							<div
+								style="width: 150px; height: 150px; background-image: url(/resources/img/male.png); background-size: cover; text-align: center;">
 								<input type="radio" name="gender" id="male" value="남">남자
 							</div>
-							</label>
-							<label for="female">
-							<div style="width : 150px; height : 150px; background-image: url(/resources/img/female.png); background-size:cover; text-align:center;">
+						</label> <label for="female">
+							<div
+								style="width: 150px; height: 150px; background-image: url(/resources/img/female.png); background-size: cover; text-align: center;">
 								<input type="radio" name="gender" id="female" value="여">여자
 							</div>
-							</label>
+						</label>
 					</div>
 					<h4>프로필 사진</h4>
-					<div id="imagePreview" class="box " style="background: #BDBDBD; margin-right:20px">
-    					<img id="image" class="profile">
+					<div id="imagePreview" class="box "
+						style="background: #BDBDBD; margin-right: 20px">
+						<img id="image" class="profile">
 					</div>
-					<div class="input-group-icon mt-10" style="width:30%">
-						<input type="file" name="files" required class="single-input"  onchange="previewImage(this)" >						
+					<div class="input-group-icon mt-10" style="width: 30%">
+						<input type="file" name="files" required class="single-input"
+							onchange="previewImage(this)">
 					</div>
-					<br><br>
-					<div style="text-align : center;">
-					<input type="submit" value="회 원 가 입" class="genric-btn primary e-large" style="width:300px; font-size:x-large; font-weight:bold;">
+					<br> <br>
+					<div style="text-align: center;">
+						<input type="submit" value="회 원 가 입"
+							class="genric-btn primary e-large"
+							style="width: 300px; font-size: x-large; font-weight: bold;">
 					</div>
 				</form>
 			</div>
@@ -862,7 +887,8 @@ LG U+	안심번호 / 전자결제 / SMS전송
 	</div>
 	<!--================ Blog Area end =================-->
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 	    // 우편번호 찾기 화면을 넣을 element
 	    var element_layer = document.getElementById('layer');
@@ -983,9 +1009,7 @@ LG U+	안심번호 / 전자결제 / SMS전송
 	/* 약관동의 필수동의 클릭시 페이지 넘김 */
 	$(function(){
 		$(".step").eq(0).show();
-		
-		
-	})
+	});
 		$(".next").click(function(){			
 			if($(".requiredAgree:checked").length == 3) {
 				$(".step").hide();
@@ -997,12 +1021,88 @@ LG U+	안심번호 / 전자결제 / SMS전송
 			}else{
 				alert("필수항목을 체크해주세요");
 			}
-		})
+		});
 		$("#allAgree").change(function(){
 			$(".requiredAgree").prop("checked",$(this).prop("checked"));
 			$(".agree").prop("checked",$(this).prop("checked"));
+		});
+	$(function(){
+		/* 이름 유효성 */
+		$("[name=name]").keyup(function(){
+			var nameReg = /^[가-힣]{2,6}$/;
+			var name = $(this).val();
+
+			if(nameReg.test(name)){
+				$(this).parent().prev().html("거짓으로 작성한 정보인 경우 로그인이 제한 될 수 있습니다.");
+				$(this).parent().prev().css("color","blue");
+			}else{
+				$(this).parent().prev().html("바른 이름의 양식을 적어주세요.")
+				$(this).parent().prev().css("color","red");
+			}
+			
 		})
 		
+		
+		/* 비밀번호 유효성 자세히 해야함*/
+		$("[name=pw]").keyup(function(){
+			var pwReg = /^[\w]{8,20}$/;
+			var pw = $(this).val();
+
+			if(pwReg.test(pw)){
+				$(this).parent().prev().html("사용가능한 비밀번호 입니다.");
+				$(this).parent().prev().css("color","blue");
+			}else{
+				$(this).parent().prev().html("영어 숫자를 조합하여 8~20자로 적어주세요.")
+				$(this).parent().prev().css("color","red");
+			}
+			
+		})
+		/* 이메일 유효성 */
+		$("[name=email]").keyup(function(){
+			var emailReg = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+			var email = $(this).val();
+
+			if(emailReg.test(email)){
+				$(this).parent().prev().html("거짓으로 작성한 정보인 경우 로그인이 제한 될 수 있습니다.");
+				$(this).parent().prev().css("color","blue");
+			}else{
+				$(this).parent().prev().html("정확한 양식으로 작성해주세요")
+				$(this).parent().prev().css("color","red");
+			}
+			
+		})
+		/* 비밀번호 확인 */
+		$("[name=rePw]").keyup(function(){
+			var pw = $("[name=pw]").val();
+			var rePw = $(this).val();
+			
+			if(pw == rePw) {
+				$(this).parent().prev().html("비밀번호가 일치합니다.");
+				$(this).parent().prev().css("color","blue");
+			}else{
+				$(this).parent().prev().html("비밀번호가 일치하지 않습니다.");
+				$(this).parent().prev().css("color","red");
+			}
+			
+		})
+	});
+	$('[name=email]').keyup(function() {
+		var email = $(this).val();
+		$.ajax({
+			url : "/emailCheck.do",
+			data : {
+				email : email
+			},
+			type : "get",
+			success : function(data) {
+				if (data == 1) {
+					$("#idChk").html("이미 사용중인 아이디 입니다.");
+				} else {
+					$("#idChk").html("사용가능한 아이디 입니다.");
+				}
+			}
+		})
+	});
 	</script>
 </body>
 </html>

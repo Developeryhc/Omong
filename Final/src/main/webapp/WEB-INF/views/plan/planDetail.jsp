@@ -53,15 +53,15 @@
 				<div id="detail_head" style="width: 100%; height: 15%;">
 					<h3 style="text-align: center; padding-top: 10px">여행 일정표</h3>
 					<br>
-					<c:forEach var="i" begin="0" end="${diff }" step="1">
-						<button id="day${i+1 }" class="day dayBtn">DAY${i+1 }</button>
+					<c:forEach var="i" begin="1" end="${diff }" step="1">
+						<button id="day${i }" class="day dayBtn">DAY${i }</button>
 					</c:forEach>
 					<hr>
 				</div>
 				<br>
-				<c:forEach var="i" begin="0" end="${diff}">
+				<c:forEach var="i" begin="1" end="${diff}">
 				<div class="detail" style="width: 100%;">
-					<h3 id='day'>DAY${i+1}</h3>
+					<h3 id='day'>DAY${i}</h3>
 				</div>
 				</c:forEach>
 				<br>
