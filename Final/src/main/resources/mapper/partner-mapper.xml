@@ -135,5 +135,13 @@
   		detail_address = #{detailAddress} 
   	where partner_id = #{id}
   </update>
+  <delete id="deletePartner" parameterType="u">
+  	delete from partner where partner_id = #{id}
+  </delete>
+  <update id="partnerPwChange" parameterType="u">
+  	update partner set 
+  		partner_pw = #{pw}
+  	where partner_id = #{id}
+  </update>
 </mapper>
 	
