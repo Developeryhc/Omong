@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	
+</style>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
 	<!-- breadcrumb start-->
@@ -26,7 +29,7 @@
 	<!--마이페이지 첫 화면-->
 	<div style="margin-left: 30%; margin-top: 1%">
 		<button class="genric-btn info-border e-large" id="change">정보변경</button>
-		<button class="genric-btn info-border e-large" id="trip">내 일정</button>
+		<button class="genric-btn info-border e-large" id="trip">회원탈퇴</button>
 		<button class="genric-btn info-border e-large" id="buy">구매이력</button>
 	</div>
 	<div class="section-top-border" style="margin-left: 30%;" id="mypage">
@@ -82,8 +85,7 @@
 	
 	<!--================ 마이페이지첫화면 end =================-->
 	<!--마이페이지_정보변경-->
-	<div class="section-top-border"
-		style="margin-left: 30%; display: none;" id="change_information">
+	<div class="section-top-border" style="margin-left: 30%; display: none;" id="change_information">
 		<div class="row">
 			<div class="col-lg-8 col-md-8">
 				<hr>
@@ -94,7 +96,7 @@
 					</div>
 					<hr>
 					<h4>비밀번호 변경</h4>
-					<a href="/pwCheck.do"><button  class="genric-btn info-border" type="button">비밀번호변경</button></a>
+					<a href="/partnerPwCheck.do"><button  class="genric-btn info-border" type="button">비밀번호변경</button></a>
 					<hr>
 					<h4>파트너 이름</h4>
 					<div class="mt-10">
@@ -152,22 +154,21 @@
 		</div>
 	</div>
 	<!--================ 마이페이지_정보변경 end =================-->
-	<!--마이페이지_내일정-->
-	<div class="section-top-border" style="display: none;" id="mytrip">
-		<div class="container">
-			<hr style="border: 1px solid black;">
-			<div class="progress-table-wrap">
-				<div class="progress-table">
-					<div class="table-head">
-						<div class="serial">번호</div>
-						<div class="percentage">제목</div>
-						<div class="country">여행일자</div>
-						<div class="visit">공개여부</div>
-						<div class="visit">조회수</div>
-						<div class="visit">좋아요수</div>
-						<div class="visit">공유수</div>
+	<!--마이페이지_호원탈퇴-->
+	<div class="section-top-border" style="margin-left: 30%; display: none;" id="deletePartner">
+		<div class="row">
+			<div class="col-lg-8 col-md-8">
+				<h4 class="checkBtn">비밀번호 입력</h4>
+					<div class="mt-10">
+						<input type="password" name="pwd" placeholder="비밀번호를 입력해주세요." class="single-input" >
 					</div>
-				</div>
+					<br>
+					<input type="button" class="genric-btn primary e-large checkBtn" value="확인" onclick="checkPw();" style="width:100%; position:relative;">
+					
+				<form action="/partnerDelete.do" method="post" style="display: none; margin-top: 100px;">
+					<input name="id" type="hidden" value="${sessionScope.u.id }">
+					<input class="genric-btn danger e-large" type="submit" value="회 원 탈 퇴" style="width:100%; position:absolute; top:0; left:0;" onclick="return confirm('정말 탈퇴하시겠습니까?')">
+				</form>
 			</div>
 		</div>
 	</div>
@@ -196,13 +197,14 @@
 	</div>
 	<!--================ 마이페이지_내일정 end =================-->
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
+	
 	<script>
 		var userId = "<c:out value='${sessionScope.u.id}'/>";
 		$("#change").click(function() {
 			if ($("#change_information").css("display") == "none") {
 				$("#change_information").show();
 				$("#mypage").hide();
-				$("#mytrip").hide();
+				$("#deletePartner").hide();
 				$("#buylist").hide();
 				$("#change").attr('class', 'genric-btn info e-large');
 				$("#trip").attr('class', 'genric-btn info-border e-large');
@@ -212,16 +214,16 @@
 
 		$("#trip").click(
 				function() {
-					if ($("#mytrip").css("display") == "none") {
-						$("#mytrip").show();
+					if ($("#deletePartner").css("display") == "none") {
+						$("#deletePartner").show();
 						$("#change_information").hide();
 						$("#mypage").hide();
 						$("#buylist").hide();
-						$("#trip").attr('class', 'genric-btn primary e-large');
+						$("#trip").attr('class', 'genric-btn info e-large');
 						$("#change").attr('class',
-								'genric-btn primary-border e-large');
+								'genric-btn info-border e-large');
 						$("#buy").attr('class',
-								'genric-btn primary-border e-large');
+								'genric-btn info-border e-large');
 						
 						// Plan 리스트 출력할 ajax
 						$.ajax({
@@ -255,15 +257,39 @@
 						$("#buylist").show();
 						$("#change_information").hide();
 						$("#mypage").hide();
-						$("#mytrip").hide();
-						$("#buy").attr('class', 'genric-btn primary e-large');
+						$("#deletePartner").hide();
+						$("#buy").attr('class', 'genric-btn info e-large');
 						$("#change").attr('class',
-								'genric-btn primary-border e-large');
+								'genric-btn info-border e-large');
 						$("#trip").attr('class',
-								'genric-btn primary-border e-large');
+								'genric-btn info-border e-large');
 					}
 				});
 	</script>
+	
+	
+	<!-- 회원탈퇴 비밀번호 확인 -->
+	<script>
+		function checkPw() {
+			var pw = $("[name=pwd]").val();
+			var id = $("[name=id]").val();
+			$.ajax({
+				url : "/partnerCheckPw.do",
+				data : {id : id , pw : pw},
+				type : "post",
+				success : function(data) {
+					if(data == 1 ) {
+						$("form").show();
+						$(".checkBtn").hide();
+					}else{
+						alert("비밀번호를 확인해주세요.");
+					}					
+				}
+			})			
+		}	
+	</script>
+	
+	
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>

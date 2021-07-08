@@ -56,13 +56,13 @@ public class PartnerController {
 				session.setAttribute("pacYn", pacYn);
 				
 				model.addAttribute("msg", "로그인 성공");
-				
+				model.addAttribute("loc", "/");
 			}
 		} else {
-
 			model.addAttribute("msg", "아이디 또는 비밀번호를 확인해주세요");
+			model.addAttribute("loc", "login.do");
 		}
-		model.addAttribute("loc", "/");
+		
 		return "common/msg";
 	}
 
@@ -227,5 +227,46 @@ if(subFiles[0].isEmpty()) {
 	public String updatePartner(User u) {
 		int result = service.updatePartner(u);
 		return "redirect:/partnerMypage.do?partnerId="+u.getId();
+	}
+	@ResponseBody
+	@RequestMapping(value = "/partnerCheckPw.do")
+	public String partnerCheckPw(User u) {
+		User partner = service.selectOnePatner(u);
+		System.out.println(u.getPw());
+		System.out.println(u.getId());
+		
+		if(partner != null) {
+			return "1";
+		}else{
+			return "0";
+		}
+	}
+	@RequestMapping(value = "/partnerDelete.do")
+	public String partnerDelete(User u , Model model , HttpSession session) {
+		int result = service.deletePartner(u);
+		if(result > 0) {
+			session.invalidate();
+			model.addAttribute("msg", "탈퇴가 완료되엇습니다.");
+		}else {
+			model.addAttribute("msg" ,"탈퇴실패..");
+		}
+		model.addAttribute("loc", "/");
+		return "common/msg";
+	}
+	
+	@RequestMapping(value = "/partnerPwCheck.do")
+	public String partnerPwCheck() {
+		return "partner/partnerPwCheck";
+	}
+	@RequestMapping(value = "/partnerPwChange.do")
+	public String partnerPwChange(User u , Model model) {
+		int result = service.partnerPwChange(u);
+		if(result > 0) {
+			model.addAttribute("msg", "비밀번호 변경완료");
+		}else {
+			model.addAttribute("msg", "비밀번호 변경실패");
+		}
+		model.addAttribute("loc", "/partnerMypage.do?partnerId="+u.getId());
+		return "common/msg";
 	}
 }

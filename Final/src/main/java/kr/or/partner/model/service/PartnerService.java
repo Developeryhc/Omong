@@ -108,6 +108,16 @@ public class PartnerService {
 		return dao.updatePartner(u);
 	}
 
+	public int deletePartner(User u) {
+		// TODO Auto-generated method stub
+		return dao.deletePartner(u);
+	}
+
+	public int partnerPwChange(User u) {
+		
+		return dao.partnerPwChange(u);
+	}
+
 	/*
 	 * public ArrayList<Product> prodcutList() { // TODO Auto-generated method stub
 	 * return dao.productList(); }
