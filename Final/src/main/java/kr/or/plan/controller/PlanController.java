@@ -17,8 +17,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
 import kr.or.mapPartner.model.vo.MapPartner;
+import kr.or.member.model.vo.User;
 import kr.or.plan.model.service.PlanService;
 import kr.or.plan.model.vo.Day;
+import kr.or.plan.model.vo.LikePlan;
 import kr.or.plan.model.vo.Plan;
 
 @Controller
@@ -27,13 +29,15 @@ public class PlanController {
 	private PlanService service;
 	
 	@RequestMapping(value = "/plan.do")
-	public String plan(Plan plan, Model model) {
+	public String plan(Plan plan, User user, Model model) {
 		ArrayList<Plan> recommendList = service.selectRecommendPlanList(plan);
 		ArrayList<Plan> newList = service.selectNewPlanList(plan);
 		ArrayList<Plan> viewList = service.selectViewPlanList(plan);
+		ArrayList<LikePlan> likePlan = service.selectLikePlanList(user);
 		model.addAttribute("recommendList", recommendList);
 		model.addAttribute("newList", newList);
 		model.addAttribute("viewList", viewList);
+		model.addAttribute("likePlan", likePlan);
 		return "plan/plan";
 	}
 	// 삭제 예정
@@ -70,7 +74,6 @@ public class PlanController {
 	@RequestMapping(value="/selectOnePlan.do")
 	public String selectOnePlan(Plan plan, Model model) {
 		Plan onePlan = service.selectOnePlan(plan);
-		System.out.println(onePlan);
 		model.addAttribute("onePlan", onePlan);
 		return "/plan/planView";
 	}
@@ -88,5 +91,35 @@ public class PlanController {
 		ArrayList<MapPartner> list = service.selectMapPartnerSearch(mapPartner);
 		return new Gson().toJson(list);
 	}
-
+	@RequestMapping(value="/selectRecommendPlanList.do")
+	public String selectRecommendPlanList(Plan plan, Model model) {
+		ArrayList<Plan> list = service.selectRecommendPlanList(plan);
+		model.addAttribute("recommendList",list);
+		return "/plan/planList";
+	}
+	
+	@RequestMapping(value="/selectNewPlanList.do")
+	public String selectNewPlanList(Plan plan, Model model) {
+		ArrayList<Plan> list = service.selectNewPlanList(plan);
+		model.addAttribute(list);
+		return "/plan/planList";
+	}
+	
+	@RequestMapping(value="/selectViewPlanList.do")
+	public String selectViewPlanList(Plan plan, Model model) {
+		ArrayList<Plan> list = service.selectViewPlanList(plan);
+		model.addAttribute(list);
+		return "/plan/planList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/planLike.do")
+	public int planLike(@SessionAttribute(required=false) User u, Plan plan, String likeChk) {
+		System.out.println(u.getName());
+		System.out.println("111");
+		System.out.println(plan.getPlanNo());
+		System.out.println(likeChk);
+		int result = service.planLike(u, plan, likeChk);
+		return result;
+	}
 }

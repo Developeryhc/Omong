@@ -10,8 +10,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import kr.or.mapPartner.model.vo.MapPartner;
+import kr.or.member.model.vo.User;
 import kr.or.plan.model.dao.PlanDao;
 import kr.or.plan.model.vo.Day;
+import kr.or.plan.model.vo.LikePlan;
 import kr.or.plan.model.vo.Plan;
 
 @Service
@@ -44,6 +46,10 @@ public class PlanService {
 		}
 		return result;
 	}
+	
+	public ArrayList<LikePlan> selectLikePlanList(User user) {
+		return dao.selectLikePlanList(user);
+	}
 
 	public ArrayList<Plan> selectRecommendPlanList(Plan plan) {
 		return dao.selectRecommendPlanList(plan);
@@ -73,4 +79,19 @@ public class PlanService {
 	public ArrayList<MapPartner> selectMapPartnerSearch(MapPartner mapPartner) {
 		return dao.selectMapPartnerSearch(mapPartner);
 	}
+	@Transactional
+	public int planLike(User user, Plan plan, String likeChk) {
+		int result;
+		LikePlan likePlan = new LikePlan();
+		likePlan.setLikePlanMember(user.getNo());
+		likePlan.setLikePlan(plan.getPlanNo());
+		if(likeChk.equals("-1")) {
+			result = dao.insertPlanLike(likePlan);
+		}else {
+			result = dao.deletePlanLike(likePlan);
+		}
+		return result;
+	}
+
+	
 }

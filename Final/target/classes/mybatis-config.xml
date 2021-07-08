@@ -14,7 +14,7 @@
 	<typeAlias type="kr.or.admin.model.vo.Admin" alias="admin"/>
 	<typeAlias type="kr.or.plan.model.vo.Plan" alias="plan"/>
 	<typeAlias type="kr.or.plan.model.vo.Day" alias="day"/>
-	
+	<typeAlias type="kr.or.plan.model.vo.LikePlan" alias="likePlan"/>
 	
 	</typeAliases>
 </configuration>
