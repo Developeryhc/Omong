@@ -118,6 +118,16 @@ public class PartnerService {
 		return dao.partnerPwChange(u);
 	}
 
+	public User partnerIdFind(User u) {
+		// TODO Auto-generated method stub
+		return dao.partnerIdFind(u);
+	}
+
+	public User selectOnePartnerPhone(User u) {
+		// TODO Auto-generated method stub
+		return dao.selectOnePartnerPhone(u);
+	}
+
 	/*
 	 * public ArrayList<Product> prodcutList() { // TODO Auto-generated method stub
 	 * return dao.productList(); }

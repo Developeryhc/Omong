@@ -22,6 +22,24 @@
 		and partner_pw=#{pw}
 		</if>  		
   </select>
+  <select id="selectOnePartnerPhone" parameterType="u" resultType="u">
+  select
+  		partner_no as no,
+  		partner_yn as yn,
+  		partner_id as id,
+  		partner_pw as pw,
+  		partner_name as name,
+  		partner_business as business,
+  		partner_ceo as ceo,
+  		partner_email as email,
+  		partner_phone phone,
+  		partner_tel as tel,
+  		partner_address as address,
+  		change_pw as changePw,
+  		detail_address as detailAddress,
+  		'p' as type
+	from partner where partner_phone=#{phone}
+  </select>
   <insert id="insertPartner" parameterType="u">
   	insert into partner values(partner_sequence.nextval,0,#{id},#{pw},#{name},#{business},#{ceo},#{email},#{phone},#{tel},#{address},'n',#{detailAddress}) 		
   </insert>
@@ -143,5 +161,11 @@
   		partner_pw = #{pw}
   	where partner_id = #{id}
   </update>
+  <select id="partnerIdFind" parameterType="u" resultType="u">
+  	select 
+  		partner_id as id
+  	from partner 
+  	where partner_phone = #{phone} and partner_ceo = #{ceo}
+  </select>
 </mapper>
 	

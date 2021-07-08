@@ -765,7 +765,7 @@ LG U+	안심번호 / 전자결제 / SMS전송
 								class="single-input">
 						</div>
 						<hr>
-						<h4>아이디</h4> <span></span>
+						<h4>아이디</h4> <span id="idChk"></span>
 						<div class="mt-10">
 							<input type="text" name="id" placeholder="아이디"
 								onfocus="this.placeholder = ''"
@@ -814,7 +814,7 @@ LG U+	안심번호 / 전자결제 / SMS전송
 						required class="single-input">
 					</div>
 						<hr>
-						<h4>전화번호</h4> <span></span>
+						<h4>전화번호</h4> <span id="phoneChk"></span>
 						<div class="mt-10">
 							<input type="text" name="phone" placeholder="(-을 제외하고 작성해주세요)"
 								onfocus="this.placeholder = ''"
@@ -1035,6 +1035,54 @@ LG U+	안심번호 / 전자결제 / SMS전송
 			}
 			
 		}) 
+		/* 폰번호 */
+		$("[name=phone").keyup(function(){
+			var phone = $(this).val();
+			var phoneReg = /^[0-9]{11}$/;
+			
+			
+			if(phoneReg.test(phone)){
+				$(this).parent().prev().html("");
+				$(this).parent().prev().css("color","blue");
+			}else{
+				$(this).parent().prev().html("정확한 양식으로 작성해주세요")
+				$(this).parent().prev().css("color","red");
+				
+			}
+			
+		});
+		
+		$('[name=id]').keyup(function(){
+			var id = $(this).val();
+			$.ajax({
+				url : "/partnerIdCheck.do",
+				data : {id:id},
+				type : "get",
+				success : function(data) {
+					if(data == 1) {
+						$("#idChk").html("이미 사용중인 아이디 입니다.");
+						$("#idChk").css("color","red");
+					}
+				}
+					
+				})
+				
+			})
+		$('[name=phone]').keyup(function(){
+			var phone = $(this).val();
+			$.ajax({
+				url : "/partnerPhoneCheck.do",
+				data : {phone:phone},
+				type : "get",
+				success : function(data) {
+					if(data == 1 ){
+						$("#phoneChk").html("이미 사용중인 번호입니다.");
+						$("#phoneChk").css("color","red");
+					}
+				}
+			})
+		})	
+		
 	})
 </script>
 </html>

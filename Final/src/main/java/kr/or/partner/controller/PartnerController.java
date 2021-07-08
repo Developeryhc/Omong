@@ -58,6 +58,7 @@ public class PartnerController {
 				model.addAttribute("msg", "로그인 성공");
 				model.addAttribute("loc", "/");
 			}
+			model.addAttribute("loc", "login.do");
 		} else {
 			model.addAttribute("msg", "아이디 또는 비밀번호를 확인해주세요");
 			model.addAttribute("loc", "login.do");
@@ -246,7 +247,7 @@ if(subFiles[0].isEmpty()) {
 		int result = service.deletePartner(u);
 		if(result > 0) {
 			session.invalidate();
-			model.addAttribute("msg", "탈퇴가 완료되엇습니다.");
+			model.addAttribute("msg", "탈퇴완료");
 		}else {
 			model.addAttribute("msg" ,"탈퇴실패..");
 		}
@@ -268,5 +269,45 @@ if(subFiles[0].isEmpty()) {
 		}
 		model.addAttribute("loc", "/partnerMypage.do?partnerId="+u.getId());
 		return "common/msg";
+	}
+	@RequestMapping(value="/partnerFindId.do")
+	public String partnerFindId() {
+		return "partner/partnerFindId";
+	}
+	@RequestMapping(value="/partnerFindPw.do")
+	public String partnerFindPw() {
+		return "partner/partnerFindPw";
+	}
+	@RequestMapping(value="/partnerIdFind.do")
+	public String partnerIdFind(User u , Model model) {
+		User partner = service.partnerIdFind(u);
+		if(partner != null) {
+			model.addAttribute("msg", "아이디 : " + partner.getId());
+		}else {
+			model.addAttribute("msg", "입력한 정보와 일치하는 아이디가 존재하지 않습니다");
+		}
+		model.addAttribute("loc", "/login.do");
+		return "common/msg";
+	}
+	@ResponseBody
+	@RequestMapping(value="/partnerIdCheck.do")
+	public String partnerIdCheck(User u) {
+		User partner = service.selectOnePatner(u);
+		if(partner != null) {
+			return "1";
+		}else {
+			return "0";
+		}
+		 
+	}
+	@ResponseBody
+	@RequestMapping(value="/partnerPhoneCheck.do")
+	public String partnerPhone(User u) {
+		User partner = service.selectOnePartnerPhone(u);
+		if(partner != null) {
+			return "1";
+		}else {
+			return "0";
+		}
 	}
 }

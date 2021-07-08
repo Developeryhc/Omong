@@ -92,7 +92,7 @@
 				<form method="POST" action="/updatePartner.do" enctype="multipart/form-data">
 					<h4>아이디</h4>
 					<div class="mt-10">
-						<input type="text" name="id" class="single-input" value="${u.id }" readonly>
+						<input type="text" name="id" class="single-input" value="${u.id }" readonly style="background-color:#E2E2E2;">
 					</div>
 					<hr>
 					<h4>비밀번호 변경</h4>

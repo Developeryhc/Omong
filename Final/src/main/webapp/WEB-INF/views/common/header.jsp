@@ -84,7 +84,7 @@
 											</c:when>
 											</c:choose>
 											</li>
-											<li class="nav-item"><a class="nav-link" href="partnerNotice.do">공지사항 리스트</a></li>
+											<li class="nav-item"><a class="nav-link" href="partnerNotice.do?partnerNo=${sessionScope.u.no}">공지사항 리스트</a></li>
 											<!-- <li class="nav-item dropdown">
 										<a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 일정 </a>
 										<div class="dropdown-menu" aria-labelledby="navbarDropdown">
