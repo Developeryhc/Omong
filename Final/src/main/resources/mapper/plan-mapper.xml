@@ -5,7 +5,7 @@
   	<selectKey keyProperty="planNo" resultType="int" order="AFTER">
   		SELECT MAX(plan_no) FROM plan
   	</selectKey>
-  	INSERT INTO plan VALUES(plan_sequence.NEXTVAL, #{planPublic}, #{planWriter}, #{planTitle}, #{planStart}, #{planEnd}, #{planContent}, 0, 0, #{planThumbnailNo})
+  	INSERT INTO plan VALUES(plan_sequence.NEXTVAL, #{planPublic}, #{planWriter}, #{planTitle}, #{planStart}, #{planEnd}, #{planContent}, 0, #{planThumbnailNo})
   </insert>
   <insert id="insertDay" parameterType="day">
   	INSERT INTO day VALUES(day_sequence.NEXTVAL, #{dayPlan}, #{dayDate}, #{dayLatitude}, #{dayLongitude}, #{dayTitle}, #{dayAddress})
@@ -22,8 +22,7 @@
   		TO_CHAR(plan_start, 'YYYY-MM-DD') AS planStart,
   		TO_CHAR(plan_end, 'YYYY-MM-DD') AS planEnd,
   		plan_content AS planContent,
-  		plan_like AS planLike,
-  		plan_share AS planShare,
+        (SELECT COUNT(*) FROM share_plan sp1 WHERE sp1.share_plan=p.plan_no) AS planShare,
   		plan_view AS planView,
   		plan_thumbnail_no AS planThumbnailNo
   	FROM plan WHERE plan_writer = #{id}
@@ -36,7 +35,8 @@
   		TO_CHAR(p.plan_start, 'YYYY-MM-DD') AS planStart,
   		TO_CHAR(p.plan_end, 'YYYY-MM-DD') AS planEnd,
   		p.plan_content AS planContent,
-  		p.plan_share AS planShare,
+  		DECODE((SELECT COUNT(*) FROM share_plan sp WHERE sp.share_plan_member = #{planMember} AND sp.share_plan=p.plan_no), 1, 1, 0) AS shareCheck,
+        (SELECT COUNT(*) FROM share_plan sp2 WHERE sp2.share_plan=p.plan_no) AS planShare,
   		p.plan_view AS planView,
   		p.plan_thumbnail_no AS planThumbnailNo,
         DECODE((SELECT COUNT(*) FROM like_plan lp WHERE lp.like_plan_member = #{planMember} AND lp.like_plan=p.plan_no), 1, 1, 0) AS likeCheck,
@@ -51,7 +51,8 @@
   		TO_CHAR(p.plan_start, 'YYYY-MM-DD') AS planStart,
   		TO_CHAR(p.plan_end, 'YYYY-MM-DD') AS planEnd,
   		p.plan_content AS planContent,
-  		p.plan_share AS planShare,
+  		DECODE((SELECT COUNT(*) FROM share_plan sp WHERE sp.share_plan_member = #{planMember} AND sp.share_plan=p.plan_no), 1, 1, 0) AS shareCheck,
+        (SELECT COUNT(*) FROM share_plan sp2 WHERE sp2.share_plan=p.plan_no) AS planShare,
   		p.plan_view AS planView,
   		p.plan_thumbnail_no AS planThumbnailNo,
         DECODE((SELECT COUNT(*) FROM like_plan lp WHERE lp.like_plan_member = #{planMember} AND lp.like_plan=p.plan_no), 1, 1, 0) AS likeCheck,
@@ -66,7 +67,8 @@
   		TO_CHAR(p.plan_start, 'YYYY-MM-DD') AS planStart,
   		TO_CHAR(p.plan_end, 'YYYY-MM-DD') AS planEnd,
   		p.plan_content AS planContent,
-  		p.plan_share AS planShare,
+  		DECODE((SELECT COUNT(*) FROM share_plan sp WHERE sp.share_plan_member = #{planMember} AND sp.share_plan=p.plan_no), 1, 1, 0) AS shareCheck,
+        (SELECT COUNT(*) FROM share_plan sp2 WHERE sp2.share_plan=p.plan_no) AS planShare,
   		p.plan_view AS planView,
   		p.plan_thumbnail_no AS planThumbnailNo,
         DECODE((SELECT COUNT(*) FROM like_plan lp WHERE lp.like_plan_member = #{planMember} AND lp.like_plan=p.plan_no), 1, 1, 0) AS likeCheck,
@@ -75,23 +77,20 @@
   </select>
   <select id="selectOnePlan" parameterType="plan" resultType="plan">
   	SELECT
-  		plan_no AS planNo,
-  		plan_public AS planPublic,
-  		plan_title AS planTitle,
-  		TO_CHAR(plan_start, 'YYYY-MM-DD') AS planStart,
-  		TO_CHAR(plan_end, 'YYYY-MM-DD') AS planEnd,
-  		plan_content AS planContent,
-  		plan_share AS planShare,
-  		plan_view AS planView,
-  		plan_thumbnail_no AS planThumbnailNo,
-  		(plan_end-plan_start) AS planDay
-  	FROM plan WHERE plan_no = #{planNo}
+  		p.plan_no AS planNo,
+  		p.plan_public AS planPublic,
+  		p.plan_title AS planTitle,
+  		TO_CHAR(p.plan_start, 'YYYY-MM-DD') AS planStart,
+  		TO_CHAR(p.plan_end, 'YYYY-MM-DD') AS planEnd,
+  		p.plan_content AS planContent,
+        (SELECT COUNT(*) FROM share_plan sp2 WHERE sp2.share_plan=p.plan_no) AS planShare,
+  		p.plan_view AS planView,
+  		p.plan_thumbnail_no AS planThumbnailNo,
+  		(p.plan_end-p.plan_start) AS planDay
+  	FROM plan p WHERE p.plan_no = #{planNo}
   </select>
   <update id="updateViewOnePlan" parameterType="plan">
     UPDATE plan SET plan_view = plan_view+1 WHERE plan_no = #{planNo}
-  </update>
-  <update id="updateLikeOnePlan" parameterType="plan">
-    UPDATE plan SET plan_like = plan_like+#{planKind} WHERE plan_no = #{planNo}
   </update>
   <select id="selectOnePlanDays" parameterType="plan" resultType="day">
   	SELECT
@@ -110,4 +109,7 @@
   <delete id="deleteLikePlan" parameterType="likePlan">
   	DELETE FROM like_plan WHERE like_plan = #{likePlan} AND like_plan_member = #{likePlanMember}
   </delete>
+  <insert id="insertSharePlan" parameterType="sharePlan">
+  	INSERT INTO share_plan VALUES(share_plan_sequence.NEXTVAL, #{sharePlan}, #{sharePlanMember})
+  </insert>
 </mapper>

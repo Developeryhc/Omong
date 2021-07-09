@@ -11,7 +11,6 @@ public class Plan {
 	private String planStart;
 	private String planEnd;
 	private String planContent;
-	private int planShare;
 	private int planView;
 	private String planThumbnailNo;
 	
@@ -29,5 +28,11 @@ public class Plan {
 	
 	// 종아요 클릭 여부
 	private int likeCheck;
+	
+	// 공유하기 토탈개수
+	private int planShare;
+	
+	// 공유하기 여부
+	private int shareCheck;
 	
 }

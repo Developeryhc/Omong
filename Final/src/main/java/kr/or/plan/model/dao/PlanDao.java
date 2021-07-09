@@ -12,14 +12,15 @@ import kr.or.member.model.vo.User;
 import kr.or.plan.model.vo.Day;
 import kr.or.plan.model.vo.LikePlan;
 import kr.or.plan.model.vo.Plan;
+import kr.or.plan.model.vo.SharePlan;
 
 @Repository
 public class PlanDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public void insertPlan(Plan p) {
-		sqlSession.insert("plan.insertPlan", p);
+	public int insertPlan(Plan p) {
+		return sqlSession.insert("plan.insertPlan", p);
 	}
 	public int insertDay(Day d) {
 		return sqlSession.insert("plan.insertDay", d);
@@ -52,9 +53,6 @@ public class PlanDao {
 	public int updateViewOnePlan(Plan plan) {
 		return sqlSession.update("plan.updateViewOnePlan", plan);
 	}
-	public int updateLikeOnePlan(Plan plan) {
-		return sqlSession.update("plan.updateLikeOnePlan", plan);
-	}
 	public ArrayList<MapPartner> selectMapPartnerSearch(MapPartner mapPartner) {
 		List list = sqlSession.selectList("mapPartner.selectMapPartnerSearch", mapPartner);
 		return (ArrayList<MapPartner>)list;
@@ -64,5 +62,8 @@ public class PlanDao {
 	}
 	public int deletePlanLike(LikePlan likePlan) {
 		return sqlSession.delete("plan.deleteLikePlan", likePlan);
+	}
+	public int insertPlanShare(SharePlan sharePlan) {
+		return sqlSession.insert("plan.insertSharePlan", sharePlan);
 	}
 }
