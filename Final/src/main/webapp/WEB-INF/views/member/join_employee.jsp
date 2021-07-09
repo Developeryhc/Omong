@@ -263,7 +263,6 @@
 		 $('[name=pwRe]').focusout(function () {
 		        var pwd1 = $("[name=pw]").val();
 		        var pwd2 = $("[name=pwRe]").val();
-		  
 		        if ( pwd1 != '' && pwd2 == '' ) {
 		            null;
 		        } else if (pwd1 != "" || pwd2 != "") {
