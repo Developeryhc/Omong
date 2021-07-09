@@ -54,7 +54,7 @@
  		where employee_name like '%'||#{searchBox}||'%'
  </select>
  
- <select id="findEmployee3" parameterType="string" resultType="e">
+ <select id="findEmployee3" parameterType="string" resultType="u">
  	select
  		employee_id as employeeId,
  		employee_name as employeeName,
