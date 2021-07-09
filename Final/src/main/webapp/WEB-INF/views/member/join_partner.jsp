@@ -1084,7 +1084,10 @@ LG U+	안심번호 / 전자결제 / SMS전송
 			})
 		})
 		
-		function checkValue() {
+		
+		
+	})
+	function checkValue() {
 			var checkArr = $(".check");
 			var checkNum = 0;
 			for (var i = 0; i < checkArr.length; i++) {
@@ -1098,7 +1101,5 @@ LG U+	안심번호 / 전자결제 / SMS전송
 				return false;
 			}
 		}
-		
-	})
 </script>
 </html>
