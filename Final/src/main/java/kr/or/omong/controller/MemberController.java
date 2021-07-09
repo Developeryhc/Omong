@@ -263,8 +263,8 @@ public class MemberController {
 
 	@ResponseBody
 	@RequestMapping(value = "selectPlanList.do")
-	public ArrayList<User> selectPlanList(User u, Model model) {
-		ArrayList list = service.selectPlanList(u);
+	public ArrayList<User> selectPlanList(Plan plan, Model model) {
+		ArrayList list = service.selectPlanList(plan);
 		model.addAttribute("list", list);
 		// 여기에 넣을꺼 만들기
 		if (list == null) {

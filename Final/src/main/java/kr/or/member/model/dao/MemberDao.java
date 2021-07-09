@@ -7,8 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
 import kr.or.member.model.vo.User;
+import kr.or.plan.model.vo.Plan;
 
 @Repository
 public class MemberDao {
@@ -35,8 +35,8 @@ public class MemberDao {
 		return sqlSession.update("member.updateMember", u);
 	}
 	
-	public ArrayList selectPlanList(User u) {
-		return (ArrayList)sqlSession.selectList("plan.selectPlanList", u);
+	public ArrayList selectPlanList(Plan plan) {
+		return (ArrayList)sqlSession.selectList("plan.selectPlanList", plan);
 	}
 	public int pwChangeMember(User u) {
 		// TODO Auto-generated method stub

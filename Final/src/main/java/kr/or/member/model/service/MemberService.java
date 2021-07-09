@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.member.model.dao.MemberDao;
 import kr.or.member.model.vo.User;
+import kr.or.plan.model.vo.Plan;
 
 @Service
 public class MemberService {
@@ -35,8 +36,8 @@ public class MemberService {
 	}
 
 
-	public ArrayList selectPlanList(User u) {
-		return dao.selectPlanList(u);
+	public ArrayList selectPlanList(Plan plan) {
+		return dao.selectPlanList(plan);
 	}
 	@Transactional
 	public int pwChangeMember(User u) {
