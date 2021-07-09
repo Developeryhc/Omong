@@ -25,6 +25,7 @@ import kr.or.member.model.vo.User;
 import kr.or.partner.model.service.PartnerService;
 import kr.or.partner.model.vo.Option;
 import kr.or.partner.model.vo.Package;
+import kr.or.partner.model.vo.PartnerNotice;
 import kr.or.partner.model.vo.Product;
 
 @Controller
@@ -42,11 +43,12 @@ public class PartnerController {
 
 	@RequestMapping(value = "/partnerLogin.do")
 	public String login(User u, HttpServletRequest request, Model model ) {
-		User partner = service.selectOnePatner(u);
+		User partner = service.selectOnePartner(u);
 
 		if (partner != null) {
 			if (partner.getYn() == 0) {
 				model.addAttribute("msg", "미승인된 아이디 입니다. 직원에게 문의바랍니다.");
+				model.addAttribute("loc", "/");
 			} else {
 				HttpSession session = request.getSession();
 				session.setAttribute("u", partner);
@@ -58,7 +60,7 @@ public class PartnerController {
 				model.addAttribute("msg", "로그인 성공");
 				model.addAttribute("loc", "/");
 			}
-			model.addAttribute("loc", "login.do");
+			
 		} else {
 			model.addAttribute("msg", "아이디 또는 비밀번호를 확인해주세요");
 			model.addAttribute("loc", "login.do");
@@ -220,7 +222,7 @@ if(subFiles[0].isEmpty()) {
 	}
 	@RequestMapping(value = "/partnerMypage.do")
 	public String partnerMypage(User u , Model model) {
-		User user = service.selectOnePatner(u);
+		User user = service.selectOnePartner(u);
 		model.addAttribute("u", user);
 		return "partner/partnerMypage";
 	}
@@ -232,7 +234,7 @@ if(subFiles[0].isEmpty()) {
 	@ResponseBody
 	@RequestMapping(value = "/partnerCheckPw.do")
 	public String partnerCheckPw(User u) {
-		User partner = service.selectOnePatner(u);
+		User partner = service.selectOnePartner(u);
 		System.out.println(u.getPw());
 		System.out.println(u.getId());
 		
@@ -292,7 +294,7 @@ if(subFiles[0].isEmpty()) {
 	@ResponseBody
 	@RequestMapping(value="/partnerIdCheck.do")
 	public String partnerIdCheck(User u) {
-		User partner = service.selectOnePatner(u);
+		User partner = service.selectOnePartner(u);
 		if(partner != null) {
 			return "1";
 		}else {
@@ -310,4 +312,20 @@ if(subFiles[0].isEmpty()) {
 			return "0";
 		}
 	}
+	@RequestMapping(value="/noticePartner.do")
+	public String partnerNoticeList(int partnerNo , Model model) {
+		ArrayList<PartnerNotice> list = service.partnerNoticeList(partnerNo);
+		model.addAttribute("list", list);
+		model.addAttribute("parnterNo", partnerNo);
+		return "partner/partnerNoticeList";
+	}
+	@RequestMapping(value="/detailNoticePartner.do")
+	public String detailNoticePartner(int noticePartnerNo , Model model) {
+		PartnerNotice pn = service.detailNoticePartner(noticePartnerNo);
+		System.out.println(noticePartnerNo);
+		model.addAttribute("pn", pn);
+		return "partner/detailNoticePartner";
+	}
+	
+	
 }

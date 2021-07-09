@@ -167,5 +167,33 @@
   	from partner 
   	where partner_phone = #{phone} and partner_ceo = #{ceo}
   </select>
+  <select id="partnerNoticeList" parameterType="int" resultType="pn">
+  	select
+  		n.notice_partner_no as noticePartnerNo,
+  		n.notice_partner_title as title,
+  		n.notice_partner_writer as writer,
+  		n.notice_partner_content as content,
+  		n.notice_partner_date as noticePartnerDate,
+  		n.notice_partner_filename as filename,
+  		n.notice_partner_filepath as filepath,
+  		n.notice_partner_views as noticePartnerViews,
+  		partner_ceo as ceo
+  	from notice_partner n join partner on (notice_partner_writer = partner_no)
+  	where notice_partner_writer=#{partnerNo} order by notice_partner_no desc
+  </select>
+  <select id="detailNoticePartner" parameterType="int" resultType="pn">
+  	select
+  		n.notice_partner_no as noticePartnerNo,
+  		n.notice_partner_title as title,
+  		n.notice_partner_writer as writer,
+  		n.notice_partner_content as content,
+  		n.notice_partner_date as noticePartnerDate,
+  		n.notice_partner_filename as filename,
+  		n.notice_partner_filepath as filepath,
+  		n.notice_partner_views as noticePartnerViews,
+  		partner_ceo as ceo
+  	from notice_partner n join partner on (notice_partner_writer = partner_no)
+  	where notice_partner_no=#{noticePartnerNo}
+  </select>
 </mapper>
 	

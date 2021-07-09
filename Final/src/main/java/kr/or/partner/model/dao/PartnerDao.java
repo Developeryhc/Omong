@@ -11,6 +11,7 @@ import kr.or.member.model.vo.User;
 import kr.or.partner.model.vo.Option;
 import kr.or.partner.model.vo.Product;
 import kr.or.partner.model.vo.Package;
+import kr.or.partner.model.vo.PartnerNotice;
 
 @Repository
 public class PartnerDao {
@@ -107,6 +108,16 @@ public class PartnerDao {
 	public User selectOnePartnerPhone(User u) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("partner.selectOnePartnerPhone",u);
+	}
+
+	public ArrayList<PartnerNotice> partnerNoticeList(int partnerNo) {
+		List<PartnerNotice> list = sqlSession.selectList("partner.partnerNoticeList", partnerNo);
+		return (ArrayList<PartnerNotice>)list;
+	}
+
+	public PartnerNotice detailNoticePartner(int noticePartnerNo) {
+		
+		return sqlSession.selectOne("partner.detailNoticePartner" , noticePartnerNo);
 	}
 	
 	/*

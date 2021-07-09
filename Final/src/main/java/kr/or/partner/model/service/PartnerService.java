@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.sun.xml.internal.bind.v2.runtime.reflect.Lister.Pack;
 
 import kr.or.partner.model.vo.Package;
-
+import kr.or.partner.model.vo.PartnerNotice;
 import kr.or.member.model.vo.User;
 import kr.or.partner.model.dao.PartnerDao;
 import kr.or.partner.model.vo.Option;
@@ -20,7 +20,7 @@ public class PartnerService {
 	@Autowired
 	private PartnerDao dao;
 
-	public User selectOnePatner(User u) {
+	public User selectOnePartner(User u) {
 
 		return dao.selectOnePartner(u);
 	}
@@ -126,6 +126,16 @@ public class PartnerService {
 	public User selectOnePartnerPhone(User u) {
 		// TODO Auto-generated method stub
 		return dao.selectOnePartnerPhone(u);
+	}
+
+	public ArrayList<PartnerNotice> partnerNoticeList(int partnerNo) {
+		// TODO Auto-generated method stub
+		return dao.partnerNoticeList(partnerNo);
+	}
+
+	public PartnerNotice detailNoticePartner(int noticePartnerNo) {
+		// TODO Auto-generated method stub
+		return dao.detailNoticePartner(noticePartnerNo);
 	}
 
 	/*
