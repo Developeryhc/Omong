@@ -43,7 +43,7 @@
 					</c:when>
 				</c:choose>
 				<hr style="border: 1px solid black;">
-				<div class="progress-table-wrap">
+				<div >
 					<div class="progress-table">
 						<div class="table-head">
 							<div class="serial">번호</div>
@@ -61,8 +61,7 @@
 							<div class="serial">내용</div>
 							<div style="width: 80%">
 								<textarea class="form-control w-100" name="message" id="message"
-									cols="30" rows="9" style="resize: none; background-color: white; border:none;" readonly>${pn.content }</textarea>
-								${pn.content }
+									cols="30" rows="9" style="resize: none; background-color: white;" readonly>${pn.content}</textarea>
 							</div>
 						</div>
 					</div>
