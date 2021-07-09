@@ -5,15 +5,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import kr.or.member.model.service.EmployeeService;
+import kr.or.member.model.vo.Notice;
 import kr.or.member.model.vo.User;
 
 @Controller
@@ -40,8 +37,8 @@ public class EmployeeController {
 	
 	@RequestMapping(value="/updateNoticeFrm.do")
 	public String updateNoticeFrm(int noticeEmployeeNo,Model model) {
-		User u = service.detailNoticeEmployee(noticeEmployeeNo);
-		model.addAttribute("u",u);
+		Notice n = service.detailNoticeEmployee(noticeEmployeeNo);
+		model.addAttribute("u",n);
 		return "notice/updateNotice";
 	}
 	
@@ -105,8 +102,8 @@ public class EmployeeController {
 	}
 	@RequestMapping(value="/detailNoticeEmployee.do")
 	public String detailNoticeEmployee(int noticeEmployeeNo,Model model) {
-		User u = service.detailNoticeEmployee(noticeEmployeeNo);
-		model.addAttribute("u",u);
+		Notice n = service.detailNoticeEmployee(noticeEmployeeNo);
+		model.addAttribute("u",n);
 		return "notice/noticeView";
 	}
 	@RequestMapping(value="/deleteNoticeEmployee.do")
@@ -122,8 +119,8 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(value="/updateNoticeEmployee.do")
-	public String updateNotice(User u,Model model) {
-		int result = service.updateNotice(u);
+	public String updateNotice(Notice n,Model model) {
+		int result = service.updateNotice(n);
 		if(result != -1) {
 			model.addAttribute("msg","글이 수정되었습니다.");
 		}else {
@@ -167,9 +164,19 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(value="/employeeUpdate.do")
-	public String employeeUpdate(User u,Model model) {
+	public String employeeUpdate(User u,Model model,HttpServletRequest request) {
 		int result = service.employeeUpdate(u);
-		return "redirect:/employeeMypage.do?employeeId=" + u.getId();
+		if(result != -1) {
+			User user = service.selectOneEmployee(u);
+			HttpSession session = request.getSession();
+			session.setAttribute("u", user);
+			model.addAttribute("msg","수정완료");
+			
+		}else {
+			model.addAttribute("msg","수정실패");
+		}
+		model.addAttribute("loc","/mypage.do?memberId="+u.getId());
+		return "common/msg";
 	}
 	
 	@RequestMapping(value="/kakaoUpdate.do")
@@ -177,8 +184,8 @@ public class EmployeeController {
 		int result = service.kakaoUpdate(u);
 		if(result != -1) {
 			HttpSession session = request.getSession();
-			User user = service.kakaoSelect(u);
-			session.setAttribute("user", user);
+			/* User user = service.kakaoSelect(u); */
+			session.setAttribute("user", u);
 			model.addAttribute("msg","가입완료");
 		}else {
 			model.addAttribute("msg","가입실패");
@@ -194,18 +201,18 @@ public class EmployeeController {
 		}else {
 			model.addAttribute("msg","등록실패");
 		}
-		model.addAttribute("loc","/");
+		model.addAttribute("loc","/employeeMypage.do");
 		return "common/msg";
 	}
 	@RequestMapping(value="/noticeList.do")
 	public String noticeList(Model model) {
-		ArrayList<User> list = service.noticeEmployeeList();
+		ArrayList<Notice> list = service.noticeEmployeeList();
 		model.addAttribute("list",list);
 		return "notice/noticeList";
 	}
 	@RequestMapping(value="/insertNoticeEmployee.do")
-	public String insertNoticeEmployee(User u, Model model) {
-		int result = service.insertNoticeEmployee(u);
+	public String insertNoticeEmployee(Notice n, Model model) {
+		int result = service.insertNoticeEmployee(n);
 		if(result != -1) {
 			model.addAttribute("msg","등록성공");
 		}else {
@@ -216,10 +223,38 @@ public class EmployeeController {
 	}
 	@ResponseBody
 	@RequestMapping(value="readCount")
-	public int readCount(int noticeEmployeeViews,int noticeEmployeeNo,User u,Model model) {
-		u.setNoticeEmployeeViews(noticeEmployeeViews);
-		u.setNoticeEmployeeNo(noticeEmployeeNo);
-		int result = service.updateReadCount(u);
+	public int readCount(int noticeEmployeeViews,int noticeEmployeeNo,Notice n,Model model) {
+		n.setNoticeEmployeeViews(noticeEmployeeViews);
+		n.setNoticeEmployeeNo(noticeEmployeeNo);
+		int result = service.updateReadCount(n);
 		return result;
+	}
+	
+	@RequestMapping(value="idpwSearch.do")
+	public String idpwSearch() {
+		return "admin/idpwSearch";
+	}
+	
+	@RequestMapping(value="idSearch.do")
+	public String idSearch(User u, Model model) {
+		String id = service.idSearch(u);
+		if(id != null) {
+			model.addAttribute("msg","아이디는 "+id+" 입니다.");
+		}else {
+			model.addAttribute("msg","일치하는 아이디가 없습니다.");
+		}
+		model.addAttribute("loc","/idpwSearch.do");
+		return "common/msg";
+	}
+	@RequestMapping(value="pwSearch.do")
+	public String pwSearch(User u, Model model) {
+		String pw = service.pwSearch(u);
+		if(pw != null) {
+			model.addAttribute("msg","비밀번호는 "+pw+" 입니다.");
+		}else {
+			model.addAttribute("msg","일치하는 비밀번호가 없습니다.");
+		}
+		model.addAttribute("loc","/idpwSearch.do");
+		return "common/msg";
 	}
 }

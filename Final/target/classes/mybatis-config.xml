@@ -17,6 +17,7 @@
 	<typeAlias type="kr.or.plan.model.vo.Day" alias="day"/>
 	<typeAlias type="kr.or.plan.model.vo.LikePlan" alias="likePlan"/>
 	<typeAlias type="kr.or.plan.model.vo.SharePlan" alias="sharePlan"/>
+	<typeAlias type="kr.or.member.model.vo.Notice" alias="n"/>
 	
 	</typeAliases>
 </configuration>
