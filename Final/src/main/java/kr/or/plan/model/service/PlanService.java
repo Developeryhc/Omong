@@ -15,6 +15,7 @@ import kr.or.plan.model.dao.PlanDao;
 import kr.or.plan.model.vo.Day;
 import kr.or.plan.model.vo.LikePlan;
 import kr.or.plan.model.vo.Plan;
+import kr.or.plan.model.vo.SharePlan;
 
 @Service
 public class PlanService {
@@ -23,28 +24,34 @@ public class PlanService {
 	@Transactional
 	public int insertPlan(Plan plan, JsonArray list) {
 		int planNo = 0;
+		int result = 0;
 		if(plan.getPlanNo()==0) {
-			dao.insertPlan(plan);
+			result = dao.insertPlan(plan);
 		}else {
-			dao.deleteDay(plan.getPlanNo());
+			result = dao.deleteDay(plan.getPlanNo());
 		}
 		planNo = plan.getPlanNo();
-		int result = 0;
-		for(int i=0; i<list.size(); i++) {
-			JsonObject day = (JsonObject) list.get(i);
-			for(int j=0; j<day.size(); j++) {
-				Day d = new Day();
-				JsonObject spot = (JsonObject) day.get(Integer.toString(j));
-				d.setDayPlan(planNo);
-				d.setDayDate(i);
-				d.setDayLatitude(spot.get("lat").getAsString());
-				d.setDayLongitude(spot.get("lng").getAsString());
-				d.setDayTitle(spot.get("title").getAsString());
-				d.setDayAddress(spot.get("address").getAsString());				
-				result += dao.insertDay(d);
+		if(result>0) {
+			for(int i=0; i<list.size(); i++) {
+				JsonObject day = (JsonObject) list.get(i);
+				for(int j=0; j<day.size(); j++) {
+					Day d = new Day();
+					JsonObject spot = (JsonObject) day.get(Integer.toString(j));
+					d.setDayPlan(planNo);
+					d.setDayDate(i);
+					d.setDayLatitude(spot.get("lat").getAsString());
+					d.setDayLongitude(spot.get("lng").getAsString());
+					d.setDayTitle(spot.get("title").getAsString());
+					d.setDayAddress(spot.get("address").getAsString());				
+					result += dao.insertDay(d);
+				}
 			}
 		}
-		return result;
+		if(result == list.size()+1) {
+			return result;
+		}else {
+			return -1;
+		}
 	}
 	
 	public ArrayList<Plan> selectRecommendPlanList(User u, Plan plan) {
@@ -102,6 +109,41 @@ public class PlanService {
 			result = dao.deletePlanLike(likePlan);
 		}
 		return result;
+	}
+	
+	@Transactional
+	public int insertOtherPlan(User u, Plan plan) {
+		// 공유 테이블 변수 선언 및 insert
+		SharePlan sharePlan = new SharePlan();
+		sharePlan.setSharePlan(plan.getPlanNo());
+		sharePlan.setSharePlanMember(u.getNo());
+		int result = dao.insertPlanShare(sharePlan);
+
+		// plan 조회 후 해당 plan 저장
+		Plan otherPlan = selectOnePlan(plan);
+		otherPlan.setPlanWriter(u.getId());
+		
+		// 받은 planNo로 해당 days 받아와서 otherDayList 저장
+		ArrayList<Day> otherDayList = selectOnePlanDays(plan);
+		
+		result += dao.insertPlan(otherPlan);
+		if(result>1) {
+			for(int i=0; i<otherDayList.size(); i++) {
+				Day day = new Day();
+				day.setDayPlan(otherPlan.getPlanNo());
+				day.setDayDate(otherDayList.get(i).getDayDate());
+				day.setDayLatitude(otherDayList.get(i).getDayLatitude());
+				day.setDayLongitude(otherDayList.get(i).getDayLongitude());
+				day.setDayTitle(otherDayList.get(i).getDayTitle());
+				day.setDayAddress(otherDayList.get(i).getDayAddress());
+				result += dao.insertDay(day);
+			}
+		}
+		if(result == otherDayList.size()+2) {
+			return result;
+		}else {
+			return -1;
+		}
 	}
 
 	

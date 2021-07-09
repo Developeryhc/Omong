@@ -35,7 +35,7 @@ public class PlanController {
 		ArrayList<Plan> viewList = service.selectViewPlanList(u, plan);
 		if(recommendList == null) {
 			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
-			model.addAttribute("loc", "member/login");
+			model.addAttribute("loc", "login.do");
 			return "common/msg";
 		}else {
 			model.addAttribute("recommendList", recommendList);
@@ -71,8 +71,9 @@ public class PlanController {
 		int result = service.insertPlan(plan, list);
 		if(result>0) {
 			return "저장 완료";
+		}else {
+			return "저장 실패. 관리자에게 문의바랍니다. 에러코드 [00pi]";
 		}
-		return "저장 실패. 관리자에게 문의바랍니다. 에러코드 [00pi]";
 	}
 	
 	@RequestMapping(value="/selectOnePlan.do")
@@ -123,17 +124,14 @@ public class PlanController {
 		return result;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/insertOtherPlan.do")
 	public String insertOtherPlan(@SessionAttribute(required=false) User u, Plan plan, Model model) {
-		/*
 		int result = service.insertOtherPlan(u, plan);
 		if(result > 0) {
-			model.addAttribute("msg", "담기 완료");
+			return "1";
 		}else {
-			model.addAttribute("msg", "담기 실패, 관리자에게 문의하세요 에러코드 [00CI]");
+			return "0";
 		}
-		*/
-		// ajax로 실행할 예정
-		return "/common/msg";
 	}
 }

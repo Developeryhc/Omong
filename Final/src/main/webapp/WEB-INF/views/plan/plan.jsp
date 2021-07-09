@@ -52,7 +52,6 @@
 	<a href="/selectRecommendPlanList.do?planKind=30"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
 	
 	<section class="top_place" style="margin-top: 50px; margin-bottom: 50px;">
-	
 		<hr style="border: solid 1px black;">
 		<div class="container_reservation" style="width: 100%;">
 			<div class="row" style="flex-wrap: nowrap; ">
@@ -66,8 +65,8 @@
 								<h3>${plan.planTitle}</h3>
 								<p>${plan.planStart} ~ ${plan.planEnd}</p>
 								<div class="place_review">
-									<c:if test="${!empty sessionScope.u or sessionScope.u.id eq plan.planWriter}">
-									<i class="fas fa-star">담아오기</i>
+									<c:if test="${!empty sessionScope.u or sessionScope.u.id eq plan.planWriter or plan.shareCheck eq 1}">
+									<a href="javascript:insertOtherPlan(${plan.planNo});"><i class="fas fa-star">담아오기</i></a>
 									</c:if>
 									<div>
 										<span>${plan.planView } views |</span>
@@ -119,7 +118,9 @@
 							<h3>${plan.planTitle}</h3>
 							<p>${plan.planStart} ~ ${plan.planEnd}</p>
 							<div class="place_review">
-								<a href="#"><i class="fas fa-star">담아오기</i></a>
+									<c:if test="${!empty sessionScope.u or sessionScope.u.id eq plan.planWriter or plan.shareCheck eq 1}">
+									<a href="javascript:insertOtherPlan(${plan.planNo});"><i class="fas fa-star">담아오기</i></a>
+									</c:if>
 								<div>
 									<span>${plan.planView } views |</span>
 									<span>${plan.planLike } likes |</span>
@@ -169,7 +170,9 @@
 							<h3>${plan.planTitle}</h3>
 							<p>${plan.planStart} ~ ${plan.planEnd}</p>
 							<div class="place_review">
-								<a href="#"><i class="fas fa-star">담아오기</i></a>
+								<c:if test="${!empty sessionScope.u or sessionScope.u.id eq plan.planWriter or plan.shareCheck eq 1}">
+								<a href="javascript:insertOtherPlan(${plan.planNo});"><i class="fas fa-star">담아오기</i></a>
+								</c:if>
 								<div>
 									<span>${plan.planView } views |</span>
 									<span>${plan.planLike } likes |</span>
@@ -218,8 +221,26 @@
 		$.ajax({
 			url: "/planLike.do",
 			data: {planNo:planNo, likeCheck:likeCheck},
-			type: "POST"
+			type: "POST",
+			success: function(data){
+				location.reload();
+			}
 		});
 	});
+	function insertOtherPlan(planNo){
+		$.ajax({
+			url: "/insertOtherPlan.do",
+			data: {planNo:planNo},
+			type: "POST",
+			success: function(data){
+				location.reload();
+				if(data=='1'){
+					alert('담기 완료');
+				}else{
+					alert('담기 실패, 관리자에게 문의하세요. 에러코드[00IP]');
+				}
+			}
+		});
+	}
 </script>
 </html>
