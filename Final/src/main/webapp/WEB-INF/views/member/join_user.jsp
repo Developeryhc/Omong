@@ -816,7 +816,7 @@ LG U+	안심번호 / 전자결제 / SMS전송
 							class="single-input">
 					</div>
 					<hr>
-					<h4>전화번호</h4>
+					<h4>전화번호</h4><span class="check"></span>
 					<div class="input-group-icon mt-10">
 						<input type="text" name="phone"
 							placeholder="전화번호를 입력해주세요(ex010-1111-222)" required
@@ -1120,14 +1120,33 @@ LG U+	안심번호 / 전자결제 / SMS전송
 				}
 			})
 		});
+		$("[name=phone").keyup(function(){
+			var phone = $(this).val();
+			var phoneReg = /^\d{3}-\d{4}-\d{4}$/;
+			
+			
+			if(phoneReg.test(phone)){
+				$(this).parent().prev().html("");
+				$(this).parent().prev().css("color","blue");
+			}else{
+				$(this).parent().prev().html("정확한 양식으로 작성해주세요")
+				$(this).parent().prev().css("color","red");
+				
+			}
+			
+		});
 		function checkValue() {
 			var checkArr = $(".check");
+			var checkNum = 0;
 			for (var i = 0; i < checkArr.length; i++) {
 				if (checkArr.eq(i).css("color") == 'rgb(255, 0, 0)') {
-					return false;
-				} else {
-					return true;
-				}
+					checkNum++;	
+				} 
+			}
+			if(checkNum == 0 ){
+				return true;
+			}else{
+				return false;
 			}
 		}
 	</script>
