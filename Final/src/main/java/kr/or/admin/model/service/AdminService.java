@@ -44,7 +44,7 @@ public class AdminService {
 		}
 		return result;
 	}
-	public ArrayList<Employee> findEmployee(String searchBox, int selectList) {
+	public ArrayList<User> findEmployee(String searchBox, int selectList) {
 		if(selectList==1) {
 			return dao.findEmployee1(searchBox);
 		}else if(selectList==2){

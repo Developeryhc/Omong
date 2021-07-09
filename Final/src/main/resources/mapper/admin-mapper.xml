@@ -12,7 +12,7 @@
  	where admin_id=#{adminId} 		
  		and admin_pw=#{adminPw} 		
  </select>
- <select id="selectAllEmployee" resultType="e">
+ <select id="selectAllEmployee" resultType="u">
  	select
  		employee_id as employeeId,
  		employee_name as employeeName,
@@ -28,7 +28,7 @@
  delete from employee where employee_id=#{employeeId}
  </delete>
  
- <select id="findEmployee1" parameterType="string" resultType="e">
+ <select id="findEmployee1" parameterType="string" resultType="u">
  	select
  		employee_id as employeeId,
  		employee_name as employeeName,
@@ -41,7 +41,7 @@
  		where employee_id like '%'||#{searchBox}||'%'
  </select>
  
- <select id="findEmployee2" parameterType="string" resultType="e">
+ <select id="findEmployee2" parameterType="string" resultType="u">
  	select
  		employee_id as employeeId,
  		employee_name as employeeName,

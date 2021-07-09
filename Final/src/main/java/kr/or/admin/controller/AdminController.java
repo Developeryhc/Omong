@@ -70,7 +70,7 @@ public class AdminController {
 	 @RequestMapping(value="/findEmployee.do")
 	 public String findEmployee(String searchBox,int selectList, Model model) {
 			/* System.out.println(selectList+"와"+searchBox+"가 들어왔습니다"); */
-		 ArrayList<Employee> list = service.findEmployee(searchBox,selectList);
+		 ArrayList<User> list = service.findEmployee(searchBox,selectList);
 		 model.addAttribute("list",list);
 		 model.addAttribute("searchBox", searchBox);
 		 model.addAttribute("selectList", selectList);

@@ -44,19 +44,19 @@ public class AdminDao {
 		return sqlSession.delete("admin.selectAllDeleteEmployee",chk);
 	}
 
-	public ArrayList<Employee> findEmployee1(String searchBox) {
-		List<Employee> list = sqlSession.selectList("admin.findEmployee1",searchBox);
-		return (ArrayList<Employee>)list;
+	public ArrayList<User> findEmployee1(String searchBox) {
+		List<User> list = sqlSession.selectList("admin.findEmployee1",searchBox);
+		return (ArrayList<User>)list;
 	}
 
-	public ArrayList<Employee> findEmployee2(String searchBox) {
-		List<Employee> list = sqlSession.selectList("admin.findEmployee2",searchBox);
-		return (ArrayList<Employee>)list;
+	public ArrayList<User> findEmployee2(String searchBox) {
+		List<User> list = sqlSession.selectList("admin.findEmployee2",searchBox);
+		return (ArrayList<User>)list;
 	}
 
-	public ArrayList<Employee> findEmployee3(String searchBox) {
-		List<Employee> list = sqlSession.selectList("admin.findEmployee3",searchBox);
-		return (ArrayList<Employee>)list;
+	public ArrayList<User> findEmployee3(String searchBox) {
+		List<User> list = sqlSession.selectList("admin.findEmployee3",searchBox);
+		return (ArrayList<User>)list;
 	}
 }
 
