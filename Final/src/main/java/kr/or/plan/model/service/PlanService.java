@@ -54,32 +54,15 @@ public class PlanService {
 		}
 	}
 	
-	public ArrayList<Plan> selectRecommendPlanList(User u, Plan plan) {
+	public ArrayList<Plan> selectPlanList(User u, Plan plan) {
 		if(u == null) {
 			return null;
 		}else {
 			plan.setPlanMember(u.getNo());
-			return dao.selectRecommendPlanList(plan);
+			return dao.selectPlanList(plan);
 		}
 	}
-
-	public ArrayList<Plan> selectNewPlanList(User u, Plan plan) {
-		if(u == null) {
-			return null;
-		}else {
-			plan.setPlanMember(u.getNo());
-			return dao.selectNewPlanList(plan);
-		}
-	}
-
-	public ArrayList<Plan> selectViewPlanList(User u, Plan plan) {
-		if(u == null) {
-			return null;
-		}else {
-			plan.setPlanMember(u.getNo());
-			return dao.selectViewPlanList(plan);
-		}
-	}
+	
 	@Transactional
 	public Plan selectOnePlan(Plan plan) {
 		int result = dao.updateViewOnePlan(plan);

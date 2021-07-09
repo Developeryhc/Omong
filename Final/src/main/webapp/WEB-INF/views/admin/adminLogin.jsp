@@ -46,6 +46,7 @@
 							onblur="this.placeholder = 'Last Name'" required
 							class="single-input">
 					</div>
+					<div><a href="idpwSearch.do">아이디찾기|비밀번호찾기</a></div>
 					<br><br>
 					<div style="text-align : center;">
 					<input type="submit" value="로 그 인" class="genric-btn success e-large" style="width:300px; font-size:x-large; font-weight:bold;">
@@ -56,7 +57,7 @@
 			<form action="/adminLogin.do">
 					<h4 style="text-align:left;">관리자 아이디</h4>
 					<div class="mt-10">
-						<input type="text" name="adminid" placeholder="아이디를 입력해주세요"
+						<input type="text" name="adminId" placeholder="아이디를 입력해주세요"
 							onfocus="this.placeholder = ''"
 							onblur="this.placeholder = 'First Name'" required
 							class="single-input">
@@ -64,7 +65,7 @@
 					<hr>
 					<h4 style="text-align:left;">비밀번호</h4>
 					<div class="mt-10">
-						<input type="password" name="adminpw" placeholder="비밀번호를 입력해주세요"
+						<input type="password" name="adminPw" placeholder="비밀번호를 입력해주세요"
 							onfocus="this.placeholder = ''"
 							onblur="this.placeholder = 'Last Name'" required
 							class="single-input">
