@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
- <select id="selectOneAdmin" parameterType="admin">
+ <select id="selectOneAdmin" parameterType="admin" resultType="admin">
  	select
  		admin_id as adminId,
  		admin_pw as adminPw,
@@ -12,4 +12,59 @@
  	where admin_id=#{adminId} 		
  		and admin_pw=#{adminPw} 		
  </select>
+ <select id="selectAllEmployee" resultType="e">
+ 	select
+ 		employee_id as employeeId,
+ 		employee_name as employeeName,
+ 		employee_email as employeeEmail,
+ 		employee_phone as employeePhone,
+ 		employee_address as employeeAddress,
+ 		employee_birth as employeeBirth,
+ 		employee_gender as employeeGender
+ 		from employee
+ </select>
+ 
+ <delete id="selectAllDeleteEmployee" parameterType="string">
+ delete from employee where employee_id=#{employeeId}
+ </delete>
+ 
+ <select id="findEmployee1" parameterType="string" resultType="e">
+ 	select
+ 		employee_id as employeeId,
+ 		employee_name as employeeName,
+ 		employee_email as employeeEmail,
+ 		employee_phone as employeePhone,
+ 		employee_address as employeeAddress,
+ 		employee_birth as employeeBirth,
+ 		employee_gender as employeeGender
+ 		from employee
+ 		where employee_id like '%'||#{searchBox}||'%'
+ </select>
+ 
+ <select id="findEmployee2" parameterType="string" resultType="e">
+ 	select
+ 		employee_id as employeeId,
+ 		employee_name as employeeName,
+ 		employee_email as employeeEmail,
+ 		employee_phone as employeePhone,
+ 		employee_address as employeeAddress,
+ 		employee_birth as employeeBirth,
+ 		employee_gender as employeeGender
+ 		from employee
+ 		where employee_name like '%'||#{searchBox}||'%'
+ </select>
+ 
+ <select id="findEmployee3" parameterType="string" resultType="e">
+ 	select
+ 		employee_id as employeeId,
+ 		employee_name as employeeName,
+ 		employee_email as employeeEmail,
+ 		employee_phone as employeePhone,
+ 		employee_address as employeeAddress,
+ 		employee_birth as employeeBirth,
+ 		employee_gender as employeeGender
+ 		from employee
+ 		where employee_phone like '%'||#{searchBox}||'%'
+ </select>
+ 
 </mapper>
