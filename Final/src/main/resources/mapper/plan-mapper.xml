@@ -13,67 +13,35 @@
   <delete id="deleteDay">
   	DELETE FROM day WHERE day_plan = #{dayPlan}
   </delete>
-  <select id="selectPlanList" parameterType="u" resultType="plan">
+  <select id="selectPlanList" parameterType="plan" resultType="plan">
   	SELECT
-  		plan_no AS planNo,
-  		plan_public AS planPublic,
-  		plan_writer AS planWriter,
-  		plan_title AS planTitle,
-  		TO_CHAR(plan_start, 'YYYY-MM-DD') AS planStart,
-  		TO_CHAR(plan_end, 'YYYY-MM-DD') AS planEnd,
-  		plan_content AS planContent,
+  		p.plan_no AS planNo,
+  		p.plan_public AS planPublic,
+  		p.plan_writer AS planWriter,
+  		p.plan_title AS planTitle,
+  		TO_CHAR(p.plan_start, 'YYYY-MM-DD') AS planStart,
+  		TO_CHAR(p.plan_end, 'YYYY-MM-DD') AS planEnd,
+  		p.plan_content AS planContent,
+  		p.plan_view AS planView,
+  		p.plan_thumbnail_no AS planThumbnailNo,
+        (SELECT COUNT(*) FROM like_plan lp1 WHERE lp1.like_plan=p.plan_no) AS planLike,
         (SELECT COUNT(*) FROM share_plan sp1 WHERE sp1.share_plan=p.plan_no) AS planShare,
-  		plan_view AS planView,
-  		plan_thumbnail_no AS planThumbnailNo
-  	FROM plan WHERE plan_writer = #{id}
-  </select>
-  <select id="selectRecommendPlanList" parameterType="plan" resultType="plan">
-  	SELECT
-  		p.plan_no AS planNo,
-  		p.plan_public AS planPublic,
-  		p.plan_title AS planTitle,
-  		TO_CHAR(p.plan_start, 'YYYY-MM-DD') AS planStart,
-  		TO_CHAR(p.plan_end, 'YYYY-MM-DD') AS planEnd,
-  		p.plan_content AS planContent,
-  		DECODE((SELECT COUNT(*) FROM share_plan sp WHERE sp.share_plan_member = #{planMember} AND sp.share_plan=p.plan_no), 1, 1, 0) AS shareCheck,
-        (SELECT COUNT(*) FROM share_plan sp2 WHERE sp2.share_plan=p.plan_no) AS planShare,
-  		p.plan_view AS planView,
-  		p.plan_thumbnail_no AS planThumbnailNo,
-        DECODE((SELECT COUNT(*) FROM like_plan lp WHERE lp.like_plan_member = #{planMember} AND lp.like_plan=p.plan_no), 1, 1, 0) AS likeCheck,
-        (SELECT COUNT(*) FROM like_plan lp2 WHERE lp2.like_plan=p.plan_no) AS planLike
-  	FROM (SELECT * FROM plan ORDER BY (SELECT COUNT(*) FROM like_plan WHERE like_plan=plan_no) DESC)p WHERE ROWNUM &lt;= 3
-  </select>
-  <select id="selectNewPlanList" parameterType="plan" resultType="plan">
-  	SELECT
-  		p.plan_no AS planNo,
-  		p.plan_public AS planPublic,
-  		p.plan_title AS planTitle,
-  		TO_CHAR(p.plan_start, 'YYYY-MM-DD') AS planStart,
-  		TO_CHAR(p.plan_end, 'YYYY-MM-DD') AS planEnd,
-  		p.plan_content AS planContent,
-  		DECODE((SELECT COUNT(*) FROM share_plan sp WHERE sp.share_plan_member = #{planMember} AND sp.share_plan=p.plan_no), 1, 1, 0) AS shareCheck,
-        (SELECT COUNT(*) FROM share_plan sp2 WHERE sp2.share_plan=p.plan_no) AS planShare,
-  		p.plan_view AS planView,
-  		p.plan_thumbnail_no AS planThumbnailNo,
-        DECODE((SELECT COUNT(*) FROM like_plan lp WHERE lp.like_plan_member = #{planMember} AND lp.like_plan=p.plan_no), 1, 1, 0) AS likeCheck,
-        (SELECT COUNT(*) FROM like_plan lp2 WHERE lp2.like_plan=p.plan_no) AS planLike
-  	FROM (SELECT * FROM plan ORDER BY plan_start DESC)p WHERE ROWNUM &lt;= #{planKind} AND plan_start &gt;= SYSDATE -1
-  </select>
-    <select id="selectViewPlanList" parameterType="plan" resultType="plan">
-  	SELECT
-  		p.plan_no AS planNo,
-  		p.plan_public AS planPublic,
-  		p.plan_title AS planTitle,
-  		TO_CHAR(p.plan_start, 'YYYY-MM-DD') AS planStart,
-  		TO_CHAR(p.plan_end, 'YYYY-MM-DD') AS planEnd,
-  		p.plan_content AS planContent,
-  		DECODE((SELECT COUNT(*) FROM share_plan sp WHERE sp.share_plan_member = #{planMember} AND sp.share_plan=p.plan_no), 1, 1, 0) AS shareCheck,
-        (SELECT COUNT(*) FROM share_plan sp2 WHERE sp2.share_plan=p.plan_no) AS planShare,
-  		p.plan_view AS planView,
-  		p.plan_thumbnail_no AS planThumbnailNo,
-        DECODE((SELECT COUNT(*) FROM like_plan lp WHERE lp.like_plan_member = #{planMember} AND lp.like_plan=p.plan_no), 1, 1, 0) AS likeCheck,
-        (SELECT COUNT(*) FROM like_plan lp2 WHERE lp2.like_plan=p.plan_no) AS planLike
-  	FROM (SELECT * FROM plan ORDER BY plan_view DESC)p WHERE ROWNUM &lt;= #{planKind}
+	    DECODE((SELECT COUNT(*) FROM like_plan lp WHERE lp.like_plan_member = #{planMember} AND lp.like_plan=p.plan_no), 1, 1, 0) AS likeCheck,
+	    DECODE((SELECT COUNT(*) FROM share_plan sp WHERE sp.share_plan_member = #{planMember} AND sp.share_plan=p.plan_no), 1, 1, 0) AS shareCheck
+    <choose>
+    <when test="planDay eq 'recommend'">
+	FROM (SELECT * FROM plan ORDER BY (SELECT COUNT(*) FROM like_plan WHERE like_plan=plan_no) DESC)p WHERE ROWNUM &lt;= 3 AND p.plan_public = 'Y'
+    </when>
+    <when test="planDay eq 'new'">
+    FROM (SELECT * FROM plan ORDER BY plan_start DESC)p WHERE ROWNUM &lt;= #{planKind} AND plan_start &gt;= SYSDATE -7 AND p.plan_public = 'Y'
+    </when>
+    <when test="planDay eq 'view'">
+   	FROM (SELECT * FROM plan ORDER BY plan_view DESC)p WHERE ROWNUM &lt;= #{planKind} AND p.plan_public = 'Y'
+    </when>
+    <otherwise>
+	FROM plan p WHERE p.plan_writer = #{planWriter}
+    </otherwise>
+    </choose>
   </select>
   <select id="selectOnePlan" parameterType="plan" resultType="plan">
   	SELECT

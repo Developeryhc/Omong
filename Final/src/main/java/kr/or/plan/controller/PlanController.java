@@ -20,7 +20,6 @@ import kr.or.mapPartner.model.vo.MapPartner;
 import kr.or.member.model.vo.User;
 import kr.or.plan.model.service.PlanService;
 import kr.or.plan.model.vo.Day;
-import kr.or.plan.model.vo.LikePlan;
 import kr.or.plan.model.vo.Plan;
 
 @Controller
@@ -30,9 +29,14 @@ public class PlanController {
 	
 	@RequestMapping(value = "/plan.do")
 	public String plan(@SessionAttribute(required=false)User u, Plan plan, Model model) {
-		ArrayList<Plan> recommendList = service.selectRecommendPlanList(u, plan);
-		ArrayList<Plan> newList = service.selectNewPlanList(u, plan);
-		ArrayList<Plan> viewList = service.selectViewPlanList(u, plan);
+		// planDay를 구분하기 위해 사용
+		// ArrayList 한개로도 가능할듯
+		plan.setPlanDay("recommend");
+		ArrayList<Plan> recommendList = service.selectPlanList(u, plan);
+		plan.setPlanDay("new");
+		ArrayList<Plan> newList = service.selectPlanList(u, plan);
+		plan.setPlanDay("view");
+		ArrayList<Plan> viewList = service.selectPlanList(u, plan);
 		if(recommendList == null) {
 			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
 			model.addAttribute("loc", "login.do");
@@ -96,27 +100,15 @@ public class PlanController {
 		ArrayList<MapPartner> list = service.selectMapPartnerSearch(mapPartner);
 		return new Gson().toJson(list);
 	}
-	@RequestMapping(value="/selectRecommendPlanList.do")
-	public String selectRecommendPlanList(@SessionAttribute(required=false) User u, Plan plan, Model model) {
-		ArrayList<Plan> list = service.selectRecommendPlanList(u, plan);
-		model.addAttribute("recommendList",list);
+	@RequestMapping(value="/selectAllPlanList.do")
+	public String selectAllPlanList(@SessionAttribute(required=false) User u, Plan plan, Model model) {
+		ArrayList<Plan> list = service.selectPlanList(u, plan);
+		// planDay는 해당 controller에서 recommend, new, view 구분자로 사용
+		model.addAttribute("planDay", plan.getPlanDay());
+		model.addAttribute("list", list);
 		return "/plan/planList";
 	}
-	
-	@RequestMapping(value="/selectNewPlanList.do")
-	public String selectNewPlanList(@SessionAttribute(required=false) User u, Plan plan, Model model) {
-		ArrayList<Plan> list = service.selectNewPlanList(u, plan);
-		model.addAttribute(list);
-		return "/plan/planList";
-	}
-	
-	@RequestMapping(value="/selectViewPlanList.do")
-	public String selectViewPlanList(@SessionAttribute(required=false) User u, Plan plan, Model model) {
-		ArrayList<Plan> list = service.selectViewPlanList(u, plan);
-		model.addAttribute(list);
-		return "/plan/planList";
-	}
-	
+
 	@ResponseBody
 	@RequestMapping(value="/planLike.do")
 	public int planLike(@SessionAttribute(required=false) User u, Plan plan, String likeCheck) {
