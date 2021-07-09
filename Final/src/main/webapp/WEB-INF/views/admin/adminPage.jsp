@@ -107,15 +107,15 @@ border:0px solid;
 					<c:forEach items="${list }" var="employee" varStatus="e">
 						<tr>
 							<td><input type="checkbox" id="chk" name="chk"
-								value="${employee.employeeId }"></td>
+								value="${sessionScope.u.type.id }"></td>
 							<td>${e.count }</td>
-							<td>${employee.employeeId }</td>
-							<td>${employee.employeeName }</td>
-							<td>${employee.employeeEmail }</td>
-							<td>${employee.employeePhone }</td>
-							<td>${employee.employeeAddress }</td>
-							<td>${employee.employeeBirth }</td>
-							<td>${employee.employeeGender }</td>
+							<td>${employee.id }</td>
+							<td>${employee.name }</td>
+							<td>${employee.email }</td>
+							<td>${employee.phone }</td>
+							<td>${employee.address }</td>
+							<td>${employee.birth }</td>
+							<td>${employee.gender }</td>
 						</tr>
 					</c:forEach>
 				</table>

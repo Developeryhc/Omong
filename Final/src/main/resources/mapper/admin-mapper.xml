@@ -14,55 +14,55 @@
  </select>
  <select id="selectAllEmployee" resultType="u">
  	select
- 		employee_id as employeeId,
- 		employee_name as employeeName,
- 		employee_email as employeeEmail,
- 		employee_phone as employeePhone,
- 		employee_address as employeeAddress,
- 		employee_birth as employeeBirth,
- 		employee_gender as employeeGender
+ 		employee_id as id,
+ 		employee_name as name,
+ 		employee_email as email,
+ 		employee_phone as phone,
+ 		employee_address as address,
+ 		employee_birth as birth,
+ 		employee_gender as gender
  		from employee
  </select>
  
  <delete id="selectAllDeleteEmployee" parameterType="string">
- delete from employee where employee_id=#{employeeId}
+ delete from employee where employee_id=#{id}
  </delete>
  
  <select id="findEmployee1" parameterType="string" resultType="u">
  	select
- 		employee_id as employeeId,
- 		employee_name as employeeName,
- 		employee_email as employeeEmail,
- 		employee_phone as employeePhone,
- 		employee_address as employeeAddress,
- 		employee_birth as employeeBirth,
- 		employee_gender as employeeGender
+ 		employee_id as id,
+ 		employee_name as name,
+ 		employee_email as email,
+ 		employee_phone as phone,
+ 		employee_address as address,
+ 		employee_birth as birth,
+ 		employee_gender as gender
  		from employee
  		where employee_id like '%'||#{searchBox}||'%'
  </select>
  
  <select id="findEmployee2" parameterType="string" resultType="u">
  	select
- 		employee_id as employeeId,
- 		employee_name as employeeName,
- 		employee_email as employeeEmail,
- 		employee_phone as employeePhone,
- 		employee_address as employeeAddress,
- 		employee_birth as employeeBirth,
- 		employee_gender as employeeGender
+ 		employee_id as id,
+ 		employee_name as name,
+ 		employee_email as email,
+ 		employee_phone as phone,
+ 		employee_address as address,
+ 		employee_birth as birth,
+ 		employee_gender as gender
  		from employee
  		where employee_name like '%'||#{searchBox}||'%'
  </select>
  
- <select id="findEmployee3" parameterType="string" resultType="e">
+ <select id="findEmployee3" parameterType="string" resultType="u">
  	select
- 		employee_id as employeeId,
- 		employee_name as employeeName,
- 		employee_email as employeeEmail,
- 		employee_phone as employeePhone,
- 		employee_address as employeeAddress,
- 		employee_birth as employeeBirth,
- 		employee_gender as employeeGender
+ 		employee_id as id,
+ 		employee_name as name,
+ 		employee_email as email,
+ 		employee_phone as phone,
+ 		employee_address as address,
+ 		employee_birth as birth,
+ 		employee_gender as gender
  		from employee
  		where employee_phone like '%'||#{searchBox}||'%'
  </select>
