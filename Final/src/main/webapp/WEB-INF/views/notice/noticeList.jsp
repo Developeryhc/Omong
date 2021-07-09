@@ -71,11 +71,11 @@
 	<script>
 	function readCount(data){
 		var noticeNo = $(data).parent().parent().children().eq(0).html();
-		var count = $(data).parent().parent().children().eq(3).html();
+		var noticeView = $(data).parent().parent().children().eq(4).html();
 		$.ajax({
-			data : count,
+			data : noticeView,
 			type : "GET",
-			url : "/readCount.do?noticeEmployeeNo="+noticeNo+"&noticeEmployeeViews="+count,
+			url : "/readCount.do?noticeEmployeeNo="+noticeNo+"&noticeEmployeeViews="+noticeView,
 			success : function(data){
 				if(data!=-1){
 					console.log("성공");
