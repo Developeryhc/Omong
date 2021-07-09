@@ -757,7 +757,7 @@ LG U+	안심번호 / 전자결제 / SMS전송
 								class="single-input">
 						</div>
 						<hr>
-						<h4>대표자명</h4> <span></span>
+						<h4>대표자명</h4> <span class="check"></span>
 						<div class="mt-10">
 							<input type="text" name="ceo" placeholder="대표자명"
 								onfocus="this.placeholder = ''"
@@ -765,7 +765,7 @@ LG U+	안심번호 / 전자결제 / SMS전송
 								class="single-input">
 						</div>
 						<hr>
-						<h4>아이디</h4> <span id="idChk"></span>
+						<h4>아이디</h4> <span class="check" id="idChk"></span>
 						<div class="mt-10">
 							<input type="text" name="id" placeholder="아이디"
 								onfocus="this.placeholder = ''"
@@ -773,7 +773,7 @@ LG U+	안심번호 / 전자결제 / SMS전송
 								class="single-input">
 						</div>
 						<hr>
-						<h4>비밀번호</h4> <span></span>
+						<h4>비밀번호</h4> <span class="check"></span>
 						<div class="mt-10">
 							<input type="password" name="pw" placeholder="비밀번호"
 								onfocus="this.placeholder = ''"
@@ -781,7 +781,7 @@ LG U+	안심번호 / 전자결제 / SMS전송
 								class="single-input">
 						</div>
 						<hr>
-						<h4>비밀번호 확인</h4> <span></span>
+						<h4>비밀번호 확인</h4> <span class="check"></span>
 						<div class="mt-10">
 							<input type="password" name="rePw" placeholder="비밀번호 확인"
 								onfocus="this.placeholder = ''"
@@ -790,7 +790,7 @@ LG U+	안심번호 / 전자결제 / SMS전송
 						</div>
 						<hr>
 						<h4>이메일</h4> 
-						<span></span>
+						<span class="check"></span>
 						<div class="mt-10">							
 							<input type="text" name="email" placeholder="이메일주소"
 								onfocus="this.placeholder = ''"
@@ -814,7 +814,7 @@ LG U+	안심번호 / 전자결제 / SMS전송
 						required class="single-input">
 					</div>
 						<hr>
-						<h4>전화번호</h4> <span id="phoneChk"></span>
+						<h4>전화번호</h4> <span id="phoneChk" class="check"></span>
 						<div class="mt-10">
 							<input type="text" name="phone" placeholder="(-을 제외하고 작성해주세요)"
 								onfocus="this.placeholder = ''"
@@ -841,7 +841,8 @@ LG U+	안심번호 / 전자결제 / SMS전송
 						<div style="text-align: center;">
 							<input type="submit" value="회 원 가 입"
 								class="genric-btn info e-large"
-								style="width: 300px; font-size: x-large; font-weight: bold;">
+								style="width: 300px; font-size: x-large; font-weight: bold;"
+								onclick="return checkValue();">
 						</div>
 					</form>
 				</div>
@@ -1081,7 +1082,22 @@ LG U+	안심번호 / 전자결제 / SMS전송
 					}
 				}
 			})
-		})	
+		})
+		
+		function checkValue() {
+			var checkArr = $(".check");
+			var checkNum = 0;
+			for (var i = 0; i < checkArr.length; i++) {
+				if (checkArr.eq(i).css("color") == 'rgb(255, 0, 0)') {
+					checkNum++;	
+				} 
+			}
+			if(checkNum == 0 ){
+				return true;
+			}else{
+				return false;
+			}
+		}
 		
 	})
 </script>
