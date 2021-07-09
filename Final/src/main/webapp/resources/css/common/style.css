@@ -2791,8 +2791,8 @@ ul {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-color: #fff;
-	opacity: 0;
+	background-color: #101010;
+	opacity: 0.1;
 	z-index: 1;
 	-webkit-transition: 0.5s;
 	transition: 0.5s;

@@ -31,16 +31,8 @@ public class PlanDao {
 	public int deleteDay(int planNo) {
 		return sqlSession.delete("plan.deleteDay", planNo);
 	}
-	public ArrayList<Plan> selectRecommendPlanList(Plan plan) {
-		List list = sqlSession.selectList("plan.selectRecommendPlanList", plan);
-		return (ArrayList<Plan>)list;
-	}
-	public ArrayList<Plan> selectNewPlanList(Plan plan) {
-		List list = sqlSession.selectList("plan.selectNewPlanList", plan);
-		return (ArrayList<Plan>)list;
-	}
-	public ArrayList<Plan> selectViewPlanList(Plan plan) {
-		List list = sqlSession.selectList("plan.selectViewPlanList", plan);
+	public ArrayList<Plan> selectPlanList(Plan plan) {
+		List list = sqlSession.selectList("plan.selectPlanList", plan);
 		return (ArrayList<Plan>)list;
 	}
 	public Plan selectOnePlan(Plan plan) {

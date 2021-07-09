@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,13 +10,24 @@
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
 	<!-- breadcrumb start-->
-	<section class="breadcrumb breadcrumb_bg"style="background-image: url(/resources/img/main2.jpg);">
+	<section class="breadcrumb breadcrumb_bg" style="background-image: url(/resources/img/main2.jpg);">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="breadcrumb_iner">
 						<div class="breadcrumb_iner_item text-center">
-							<h2>일정</h2>
+							<c:if test="${planDay eq 'recommend'}">
+							<h2>추천일정</h2>
+							<p>좋아요를 가장 많이 받은 일정 목록입니다.</p>
+							</c:if>
+							<c:if test="${planDay eq 'new'}">
+							<h2>최신일정</h2>
+							<p>1주일 내로 등록된 일정입니다.</p>
+							</c:if>
+							<c:if test="${planDay eq 'view'}">
+							<h2>가장 많이 찾아 본 일정</h2>
+							<p>조회수가 가장 많은 일정 목록입니다.</p>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -24,103 +36,105 @@
 	</section>
 	<!-- breadcrumb start-->
 
-	<!-- hotel list css start-->
-	<h3 style="float: left; margin-left: 40px;">추천일정</h3>
-	<section class="top_place" style="margin-top: 50px; margin-bottom: 50px;">
-		<hr style="border: solid 1px black;">
-		<div class="container_reservation" style="width: 100%;">
-			<div class="row" style="flex-wrap: nowrap; ">
-				<c:choose>
-				<c:when test="${!empty recommendList}">
-				<c:forEach items="${recommendList }" var="plan">
-				<div class="schedule">
-					<div class="single_place" style="width : 90%; margin:30px" >
-						<img src="/resources/img/jeju/제주_${plan.planThumbnailNo}.jpg" alt="">
-						<div
-							class="hover_Text d-flex align-items-end justify-content-between">
-							<div class="hover_text_iner">
-								<a href="/selectOnePlan.do?planNo=${plan.planNo}" class="place_btn">상세보기</a>
-								<h3>${plan.planTitle}</h3>
-								<p>${plan.planStart} ~ ${plan.planEnd}</p>
-								<div class="place_review">
-									<a href="#"><i class="fas fa-star">아님 여기에 태그?</i></a>
-									<div>
-										<span>${plan.planView } views |</span>
-										<span>${plan.planLike } likes |</span>
-										<span>${plan.planShare } share</span>
-									</div>
-								</div>
-							</div>
-							<div class="details_icon text-right">
-								<i>click</i>
-							</div>
-						</div>
+	<!--================Blog Area =================-->
+		
+	<section class="blog_area single-post-area section_padding">
+		<div class="container">
+			<h3>공지사항</h3>
+			<hr style="border: 1px solid black;">
+			<div class="progress-table-wrap">
+				<div class="progress-table">
+					<div class="table-head">
+						<div class="serial">번호</div>
+						<div class="percentage">제목</div>
+						<div class="country">작성자</div>
+						<div class="visit"></div>
+						<div class="visit"></div>
+						<div class="visit">조회수</div>
+						<div class="visit">좋아요수</div>
+						<div class="visit">공유수</div>
 					</div>
-				</div>
-				</c:forEach>
-				</c:when>
-				<c:when test="${!empty newList}">
-				<c:forEach items="${viewList }" var="plan">
-				<div class="schedule">
-					<div class="single_place" style="width : 90%; margin:30px" >
-						<img src="/resources/img/jeju/제주_${plan.planThumbnailNo}.jpg" alt="">
-						<div
-							class="hover_Text d-flex align-items-end justify-content-between">
-							<div class="hover_text_iner">
-								<a href="/selectOnePlan.do?planNo=${plan.planNo}" class="place_btn">상세보기</a>
-								<h3>${plan.planTitle}</h3>
-								<p>${plan.planStart} ~ ${plan.planEnd}</p>
-								<div class="place_review">
-									<a href="#"><i class="fas fa-star">아님 여기에 태그?</i></a>
-									<div>
-										<span>${plan.planView } views |</span>
-										<span>${plan.planLike } likes |</span>
-										<span>${plan.planShare } share</span>
-									</div>
-								</div>
-							</div>
-							<div class="details_icon text-right">
-								<i>click</i>
-							</div>
+					<c:forEach items="${list}" var="plan" varStatus="i">
+					<div class="table-row">
+						<div class="serial">${i.count}</div>
+						<input type="hidden" value="${plan.planTitle}" id="type">
+						<div class="percentage"><a href="/selectOnePlan.do?planNo=${plan.planNo}">${plan.planTitle}</a></div>
+						<div class="country">${plan.planWriter}</div>
+						<c:choose>
+						<c:when test="${plan.likeCheck eq '1'}">
+						<div class="visit like" style="color: blue;">Like
+							<input type="hidden" value="${plan.planNo}">
+							<input type="hidden" value="1">
 						</div>
-					</div>
-				</div>
-				</c:forEach>
-				</c:when>
-				<c:when test="${!empty viewList}">
-				<c:forEach items="${viewList }" var="plan">
-				<div class="schedule">
-					<div class="single_place" style="width : 90%; margin:30px" >
-						<img src="/resources/img/jeju/제주_${plan.planThumbnailNo}.jpg" alt="">
-						<div
-							class="hover_Text d-flex align-items-end justify-content-between">
-							<div class="hover_text_iner">
-								<a href="/selectOnePlan.do?planNo=${plan.planNo}" class="place_btn">상세보기</a>
-								<h3>${plan.planTitle}</h3>
-								<p>${plan.planStart} ~ ${plan.planEnd}</p>
-								<div class="place_review">
-									<a href="#"><i class="fas fa-star">아님 여기에 태그?</i></a>
-									<div>
-										<span>${plan.planView } views |</span>
-										<span>${plan.planLike } likes |</span>
-										<span>${plan.planShare } share</span>
-									</div>
-								</div>
-							</div>
-							<div class="details_icon text-right">
-								<i>click</i>
-							</div>
+						</c:when>
+						<c:otherwise>
+						<div class="visit like">Like
+							<input type="hidden" value="${plan.planNo}">
+							<input type="hidden" value="-1">
 						</div>
+						</c:otherwise>
+						</c:choose>
+						<c:choose>
+						<c:when test="${plan.shareCheck eq '1'}">
+						<div class="visit share" style="color: #fe5c24;">Share
+							<input type="hidden" value="${plan.planNo}">
+							<input type="hidden" value="1">
+						</div>
+						</c:when>
+						<c:otherwise>
+						<div class="visit share">Share
+							<input type="hidden" value="${plan.planNo}">
+							<input type="hidden" value="-1">
+						</div>
+						</c:otherwise>
+						</c:choose>
+						<div class="visit">${plan.planView}</div>
+						<div class="visit">${plan.planLike}</div>
+						<div class="visit">${plan.planShare}</div>
 					</div>
-				</div>
-				</c:forEach>
-				</c:when>
-				</c:choose>
+					</c:forEach>
+				</div>	
 			</div>
 		</div>
 	</section>
-	<!-- hotel list css end -->
+	<!--================ Blog Area end =================-->
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
+	<script>
+	$(".like").click(function(){
+		var likeCheck = $(this).children().eq(1).val();
+		likeCheck *= -1;
+		if(likeCheck == 1){
+			$(this).css("backgroundColor", "blue");
+		}else{
+			$(this).css("backgroundColor", "#212529");
+		}
+		var planNo = $(this).children().eq(0).val();
+		console.log(1);
+		$.ajax({
+			url: "/planLike.do",
+			data: {planNo:planNo, likeCheck:likeCheck},
+			type: "POST",
+			success: function(data){
+				location.reload();
+			}
+		});
+	});
+	$(".share").click(function(){
+		var planNo = $(this).children().eq(0).val();
+		$.ajax({
+			url: "/insertOtherPlan.do",
+			data: {planNo:planNo},
+			type: "POST",
+			success: function(data){
+				location.reload();
+				if(data=='1'){
+					alert('담기 완료');
+				}else{
+					alert('담기 실패, 관리자에게 문의하세요. 에러코드[00IP]');
+				}
+			}
+		});
+	});
+	</script>
 </body>
-
 </html>
