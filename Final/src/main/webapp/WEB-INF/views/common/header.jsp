@@ -153,16 +153,7 @@
 													<a class="dropdown-item" href="/planInsert.do">일정등록</a>
 													<a class="dropdown-item" href="/plan.do?planKind=3">일정공유</a>
 												</div></li>
-											<li class="nav-item dropdown"><a
-												class="nav-link dropdown-toggle" href="/boardList.do"
-												id="navbarDropdown_1" role="button" data-toggle="dropdown"
-												aria-haspopup="true" aria-expanded="false"> 게시판 </a>
-												<div class="dropdown-menu"
-													aria-labelledby="navbarDropdown_1">
-													<a class="dropdown-item" href="/noticeList.do">공지사항</a> <a
-														class="dropdown-item" href="/boardList.do">자유게시판</a> <a
-														class="dropdown-item" href="elements.html">문의사항</a>
-												</div></li>
+											<li class="nav-item"><a class="nav-link" href="/noticeList.do">공지사항</a></li>
 										</ul>
 									</div>
 									<c:choose>
@@ -240,14 +231,8 @@
 											</li>
 											<li class="nav-item"><a class="nav-link" href="employeeMypage.do">회원/파트너 리스트</a>
 											</li>
-											<li class="nav-item dropdown"><a
-												class="nav-link dropdown-toggle" href="/noticeList.do"
-												id="navbarDropdown_1" role="button" data-toggle="dropdown"
-												aria-haspopup="true" aria-expanded="false"> 게시판 </a>
-												<div class="dropdown-menu"
-													aria-labelledby="navbarDropdown_1">
-													<a class="dropdown-item" href="/noticeList.do">공지사항</a> 
-												</div></li>
+											<li class="nav-item"><a class="nav-link" href="/noticeList.do">공지사항</a>
+											</li>
 										</ul>
 									</div>
 									<c:choose>
@@ -326,16 +311,7 @@
 													<a class="dropdown-item" href="/planInsert.do">일정등록</a>
 													<a class="dropdown-item" href="/plan.do?planKind=3">일정공유</a>
 												</div></li>
-											<li class="nav-item dropdown"><a
-												class="nav-link dropdown-toggle" href="/boardList.do"
-												id="navbarDropdown_1" role="button" data-toggle="dropdown"
-												aria-haspopup="true" aria-expanded="false"> 게시판 </a>
-												<div class="dropdown-menu"
-													aria-labelledby="navbarDropdown_1">
-													<a class="dropdown-item" href="/noticeList.do">공지사항</a> <a
-														class="dropdown-item" href="/boardList.do">자유게시판</a> <a
-														class="dropdown-item" href="elements.html">문의사항</a>
-												</div></li>
+											<li class="nav-item"><a class="nav-link" href="/noticeList.do">공지사항</a></li>
 										</ul>
 									</div>
 									<c:choose>
