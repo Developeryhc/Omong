@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.xml.internal.bind.v2.runtime.reflect.Lister.Pack;
 
 import kr.or.partner.model.vo.Package;
 import kr.or.partner.model.vo.PartnerNotice;
+import kr.or.mapPartner.model.vo.MapPartner;
 import kr.or.member.model.vo.User;
 import kr.or.partner.model.dao.PartnerDao;
 import kr.or.partner.model.vo.Option;
@@ -102,10 +104,21 @@ public class PartnerService {
 	
  		return (ArrayList<Option>)dao.selectOption(selectOption);
 	}
-
-	public int updatePartner(User u) {
-		// TODO Auto-generated method stub
-		return dao.updatePartner(u);
+	// @07/10 partner update시, mapPartner update
+	@Transactional
+	public int updatePartner(User u, MapPartner mapPartner) {
+		int result = dao.updatePartner(u);
+		// @07/10 파트너 update 시, mapPartner 정보 변경 여부 확인
+		if(result>0) {
+			mapPartner.setMapPartnerId("PRTN_00000000"+u.getId());
+			result = dao.selectMapPartner(mapPartner.getMapPartnerId());
+			if(result>0) {
+				mapPartner.setMapPartnerAddress(u.getAddress());
+				mapPartner.setMapPartnerName(u.getName());
+				result = dao.updateMapPartner(mapPartner);
+			}
+		}
+		return result;
 	}
 
 	public int deletePartner(User u) {
@@ -136,6 +149,11 @@ public class PartnerService {
 	public PartnerNotice detailNoticePartner(int noticePartnerNo) {
 		// TODO Auto-generated method stub
 		return dao.detailNoticePartner(noticePartnerNo);
+	}
+
+	public void updateMapPartner(MapPartner mapPartner) {
+		
+		
 	}
 
 	/*

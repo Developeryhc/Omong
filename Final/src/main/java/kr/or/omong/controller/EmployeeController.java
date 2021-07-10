@@ -197,7 +197,7 @@ public class EmployeeController {
 	@RequestMapping(value="/updateYn.do")
 	public String updateYn(User u, MapPartner mapPartner, Model model) {
 		System.out.println(u.getNo());
-		System.out.println(mapPartner.getMapPartnerLongitude());
+		System.out.println(mapPartner.getMapPartnerAddress());
 		int result = service.updateYn(u, mapPartner);
 		if(result != -1) {
 			model.addAttribute("msg","등록성공");
