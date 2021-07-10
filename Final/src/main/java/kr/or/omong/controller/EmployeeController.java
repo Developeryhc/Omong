@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import kr.or.mapPartner.model.vo.MapPartner;
 import kr.or.member.model.service.EmployeeService;
 import kr.or.member.model.vo.Notice;
 import kr.or.member.model.vo.User;
@@ -194,8 +195,10 @@ public class EmployeeController {
 		return "common/msg";
 	}
 	@RequestMapping(value="/updateYn.do")
-	public String updateYn(User u,Model model) {
-		int result = service.updateYn(u);
+	public String updateYn(User u, MapPartner mapPartner, Model model) {
+		System.out.println(u.getNo());
+		System.out.println(mapPartner.getMapPartnerLongitude());
+		int result = service.updateYn(u, mapPartner);
 		if(result != -1) {
 			model.addAttribute("msg","등록성공");
 		}else {

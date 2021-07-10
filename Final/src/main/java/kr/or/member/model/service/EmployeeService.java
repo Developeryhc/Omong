@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.mapPartner.model.vo.MapPartner;
 import kr.or.member.model.dao.EmployeeDao;
 import kr.or.member.model.vo.Notice;
 import kr.or.member.model.vo.User;
@@ -69,10 +70,23 @@ public class EmployeeService {
 		int result = dao.deleteNotice(noticeEmployeeNo);
 		return result;
 	}
-
-	public int updateYn(User u) {
-		// TODO Auto-generated method stub
-		return dao.updateYn(u);
+	@Transactional
+	public int updateYn(User u, MapPartner mapPartner) {
+		// @07/10 partner 등록 완료 시, mapPartner 등록
+		int result = dao.updateYn(u);
+		if(result>0) {
+			mapPartner.setMapPartnerId("PRTN_00000000"+u.getNo());
+			mapPartner.setMapPartnerName(u.getName());
+			mapPartner.setMapPartnerAddress(u.getAddress() + u.getDetailAddress());
+			result = dao.selectCheckMapPartner(mapPartner.getMapPartnerId());
+			if(result>0) {
+				return dao.insertMapPartner(mapPartner);
+			}else {
+				return dao.updateMapPartner(mapPartner);
+			}
+		}else {
+			return 0;
+		}
 	}
 
 	public int updateNotice(Notice n) {

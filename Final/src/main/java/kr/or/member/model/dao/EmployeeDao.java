@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.or.mapPartner.model.vo.MapPartner;
 import kr.or.member.model.vo.Notice;
 import kr.or.member.model.vo.User;
 
@@ -118,9 +119,18 @@ public class EmployeeDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("employee.pwSearch",u);
 	}
-
-
-
 	
-	
+	// @07/10 partner 등록 완료 시, mapPartner 등록
+	public int insertMapPartner(MapPartner mapPartner) {
+		return sqlSession.insert("mapPartner.insertMapPartner", mapPartner);
+	}
+	// @07/10 partner 등록 완료 시, mapPartner 중복 검사
+	public int selectCheckMapPartner(String mapPartnerId) {
+		return sqlSession.selectOne("mapPartner.selectCheckMapPartner", mapPartnerId);
+	}
+	// @07/10 partner 등록 완료 시, mapPartner 중복 시 update
+	public int updateMapPartner(MapPartner mapPartner) {
+		return sqlSession.update("mapPartner.updateMapPartner", mapPartner);
+	}
+
 }
