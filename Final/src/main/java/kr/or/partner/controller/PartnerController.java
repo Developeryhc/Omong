@@ -13,20 +13,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import kr.or.mapPartner.model.vo.MapPartner;
 import kr.or.member.model.vo.User;
 import kr.or.partner.model.service.PartnerService;
 import kr.or.partner.model.vo.Option;
 import kr.or.partner.model.vo.Package;
 import kr.or.partner.model.vo.PartnerNotice;
-import kr.or.partner.model.vo.Product;
 
 @Controller
 public class PartnerController {
@@ -227,8 +225,8 @@ if(subFiles[0].isEmpty()) {
 		return "partner/partnerMypage";
 	}
 	@RequestMapping(value = "/updatePartner.do")
-	public String updatePartner(User u) {
-		int result = service.updatePartner(u);
+	public String updatePartner(User u, MapPartner mapPartner) {
+		int result = service.updatePartner(u, mapPartner);
 		return "redirect:/partnerMypage.do?partnerId="+u.getId();
 	}
 	@ResponseBody

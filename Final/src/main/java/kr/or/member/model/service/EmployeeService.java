@@ -80,9 +80,9 @@ public class EmployeeService {
 			mapPartner.setMapPartnerAddress(u.getAddress() + u.getDetailAddress());
 			result = dao.selectCheckMapPartner(mapPartner.getMapPartnerId());
 			if(result>0) {
-				return dao.insertMapPartner(mapPartner);
-			}else {
 				return dao.updateMapPartner(mapPartner);
+			}else {
+				return dao.insertMapPartner(mapPartner);
 			}
 		}else {
 			return 0;

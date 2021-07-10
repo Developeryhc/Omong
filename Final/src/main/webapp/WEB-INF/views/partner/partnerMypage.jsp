@@ -145,6 +145,9 @@
 						<br> 
 						<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소를 입력해주세요" required class="single-input" value="${sessionScope.u.detailAddress }">
 					</div>
+					<!-- mapPartner update -->
+					<input type="hidden" class="mapPartnerLatitude" value="">
+					<input type="hidden" class="mapPartnerLongitude" value="">
 					<hr>
 					<div style="text-align: center;">
 						<input type="submit" value="정 보 수 정" class="genric-btn primary e-large" style="width: 300px; font-size: x-large; font-weight: bold;">
@@ -199,6 +202,20 @@
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 	
 	<script>
+		// @ 07/10 mapPartner 좌표 대입
+		$(function(){
+			var address = $("#address").val() + $("#detailAddress").val();
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			var callback = function(result, status){
+				if(status === kakao.maps.services.Status.OK){
+					$(".mapPartnerLatitude").val(result[0].y);
+					$(".mapPartnerLongitude").val(result[0].x);
+				}
+			}
+			geocoder.addressSearch(address, callback);
+		});
+		
 		var userId = "<c:out value='${sessionScope.u.id}'/>";
 		$("#change").click(function() {
 			if ($("#change_information").css("display") == "none") {
@@ -211,6 +228,7 @@
 				$("#buy").attr('class', 'genric-btn info-border e-large');
 			}
 		});
+		
 
 		$("#trip").click(
 				function() {
