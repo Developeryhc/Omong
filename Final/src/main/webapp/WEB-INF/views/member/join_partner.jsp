@@ -1084,8 +1084,6 @@ LG U+	안심번호 / 전자결제 / SMS전송
 			})
 		})
 		
-		
-		
 	})
 	function checkValue() {
 			var checkArr = $(".check");
