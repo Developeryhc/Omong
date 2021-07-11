@@ -195,5 +195,24 @@
   	from notice_partner n join partner on (notice_partner_writer = partner_no)
   	where notice_partner_no=#{noticePartnerNo}
   </select>
+  <select id="selectPackageProductList" parameterType="string" resultType="pac">
+   	SELECT
+  		partner_no AS partnerNo,
+  		packageproduct_no AS packageProductNo,
+  		packageproduct_name AS packageProductName,
+  		packageproduct_info AS packageProductInfo,
+  		packageproduct_main_picture AS packageProductMainPicture,
+  		packageproduct_sub_picture AS packageProductSubPicture,
+  		packageproduct_sub_info1 AS packageProductSubInfo1,
+  		packageproduct_sub_info2 AS packageProductSubInfo2,
+  		packageproduct_sub_info3 AS packageProductSubInfo3,
+  		packageproduct_sub_info4 AS packageProductSubInfo4,
+  		packageproduct_sub_info5 AS packageProductSubInfo5,
+  		packageproduct_ceo AS ceo,
+  		packageproduct_tel AS tel,
+  		packageproduct_homepage AS homepage,
+  		packageproduct_address AS address
+  	FROM packageproduct WHERE packageproduct_name LIKE '%' || #{_parameter} || '%'
+  </select>
 </mapper>
 	

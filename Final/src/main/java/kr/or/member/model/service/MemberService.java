@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.member.model.dao.MemberDao;
 import kr.or.member.model.vo.User;
+import kr.or.partner.model.vo.Package;
 import kr.or.plan.model.vo.Plan;
 
 @Service
@@ -36,7 +37,7 @@ public class MemberService {
 	}
 
 
-	public ArrayList selectPlanList(Plan plan) {
+	public ArrayList<Plan> selectPlanList(Plan plan) {
 		return dao.selectPlanList(plan);
 	}
 	@Transactional
@@ -58,6 +59,11 @@ public class MemberService {
 
 	public int newPw(User u) {
 		return dao.newPw(u);
+	}
+
+
+	public ArrayList<Package> selectPackageProductList(String keyword) {
+		return dao.selectPackageProductList(keyword);
 	}
 
 }
