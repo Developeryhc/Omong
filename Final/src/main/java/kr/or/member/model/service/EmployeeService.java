@@ -116,6 +116,11 @@ public class EmployeeService {
 		// TODO Auto-generated method stub
 		return dao.pwSearch(u);
 	}
+	@Transactional
+	public int pwChangeEmployee(User u) {
+		// TODO Auto-generated method stub
+		return dao.pwChangeEmployee(u);
+	}
 
 	
 

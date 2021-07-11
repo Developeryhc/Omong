@@ -30,6 +30,11 @@
 	 	and employee_pw=#{pw}
  	  </if>
 	</select>
+	<update id="pwChangeEmployee" parameterType="u">
+  	update employee set 
+  		employee_pw=#{pw}
+  	where employee_id=#{id}
+  	</update>
 	<update id="employeeUpdate" parameterType="u">
  	update employee set 
  		employee_pw=#{pw}, 

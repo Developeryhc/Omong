@@ -34,16 +34,12 @@
 					<h4 style="text-align:left;">아이디</h4>
 					<div class="mt-10">
 						<input type="text" name="id" placeholder="아이디를 입력해주세요"
-							onfocus="this.placeholder = ''"
-							onblur="this.placeholder = 'First Name'" required
 							class="single-input">
 					</div>
 					<hr>
 					<h4 style="text-align:left;">전화번호</h4>
 					<div class="mt-10">
 						<input type="text" name="phone" placeholder="전화번호를 입력해주세요"
-							onfocus="this.placeholder = ''"
-							onblur="this.placeholder = 'Last Name'" required
 							class="single-input">
 					</div>
 					<br><br>
@@ -57,16 +53,12 @@
 					<h4 style="text-align:left;">이름</h4>
 					<div class="mt-10">
 						<input type="text" name="name" placeholder="이름을 입력해주세요"
-							onfocus="this.placeholder = ''"
-							onblur="this.placeholder = 'First Name'" required
 							class="single-input">
 					</div>
 					<hr>
 					<h4 style="text-align:left;">전화번호</h4>
 					<div class="mt-10">
 						<input type="text" name="phone" placeholder="전화번호를 입력해주세요"
-							onfocus="this.placeholder = ''"
-							onblur="this.placeholder = 'Last Name'" required
 							class="single-input">
 					</div>
 					<br><br>

@@ -119,6 +119,11 @@ public class EmployeeDao {
 		return sqlSession.selectOne("employee.pwSearch",u);
 	}
 
+	public int pwChangeEmployee(User u) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("employee.pwChangeEmployee",u);
+	}
+
 
 
 	

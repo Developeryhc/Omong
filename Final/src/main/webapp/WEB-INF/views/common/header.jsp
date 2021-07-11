@@ -238,7 +238,7 @@
 										<ul class="navbar-nav">
 											<li class="nav-item"><a class="nav-link" href="/">메인</a>
 											</li>
-											<li class="nav-item"><a class="nav-link" href="employeeMypage.do">회원/파트너 리스트</a>
+											<li class="nav-item"><a class="nav-link" href="userPartnerList.do">회원/파트너 리스트</a>
 											</li>
 											<li class="nav-item dropdown"><a
 												class="nav-link dropdown-toggle" href="/noticeList.do"
@@ -276,7 +276,7 @@
 													<h5>${sessionScope.u.name }</h5>
 												</div>
 												<a href="/basicLogout.do" class="btn_1 d-none d-lg-block">로그아웃</a>									
-												<a href="/mypage.do" class="btn_1 d-none d-lg-block"
+												<a href="/employeeMypage.do" class="btn_1 d-none d-lg-block"
 													style="margin-left: 1px;">마이페이지</a>
 											</c:if>
 										</c:otherwise>

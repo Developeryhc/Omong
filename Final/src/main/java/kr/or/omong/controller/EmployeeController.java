@@ -158,9 +158,9 @@ public class EmployeeController {
 		return "common/msg";
 	}
 	
-	@RequestMapping(value="/employeeMypage.do")
-	public String employeeMypage() {
-		return "member/employeeMypage";
+	@RequestMapping(value="/userPartnerList.do")
+	public String userPartnerList() {
+		return "employee/userPartnerList";
 	}
 	
 	@RequestMapping(value="/employeeUpdate.do")
@@ -201,9 +201,45 @@ public class EmployeeController {
 		}else {
 			model.addAttribute("msg","등록실패");
 		}
-		model.addAttribute("loc","/employeeMypage.do");
+		model.addAttribute("loc","/userPartnerList.do");
 		return "common/msg";
 	}
+	
+	@RequestMapping(value="/employeeMypage.do")
+	public String employeeMypage() {
+		return "employee/employeeMypage";
+	}
+	@RequestMapping(value="/employeePwCheck.do")
+	public String employeePwCheck(){
+		return "employee/employeePwCheck";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/employeeCheckPw.do")
+	public String checkPw(User u) {
+		// 해당하는 아이디의 비밀번호가 일치하는지 확인
+		User employee = service.selectOneEmployee(u);
+		if (employee != null) {
+			// 입력한 비밀번호가 일치하는경우
+			return "1";
+		} else {
+			// 비밀번호 틀린경우
+			return "0";
+		}
+	}
+	
+	@RequestMapping(value = "/employeePwChange.do")
+	public String pwChange(User u, Model model) {
+		int result = service.pwChangeEmployee(u);
+		if (result > 0) {
+			model.addAttribute("msg", "변경 성공");
+		} else {
+			model.addAttribute("msg", "변경 실패");
+		}
+		model.addAttribute("loc", "/employeeMypage.do?employeeId=" + u.getId());
+		return "common/msg";
+	}
+	
 	@RequestMapping(value="/noticeList.do")
 	public String noticeList(Model model) {
 		ArrayList<Notice> list = service.noticeEmployeeList();
@@ -257,4 +293,7 @@ public class EmployeeController {
 		model.addAttribute("loc","/idpwSearch.do");
 		return "common/msg";
 	}
+	
+	
+	
 }
