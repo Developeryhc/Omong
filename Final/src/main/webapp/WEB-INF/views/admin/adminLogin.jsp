@@ -34,16 +34,12 @@
 					<h4 style="text-align:left;">직원 아이디</h4>
 					<div class="mt-10">
 						<input type="text" name="id" placeholder="아이디를 입력해주세요"
-							onfocus="this.placeholder = ''"
-							onblur="this.placeholder = 'First Name'" required
 							class="single-input">
 					</div>
 					<hr>
 					<h4 style="text-align:left;">비밀번호</h4>
 					<div class="mt-10">
 						<input type="password" name="pw" placeholder="비밀번호를 입력해주세요"
-							onfocus="this.placeholder = ''"
-							onblur="this.placeholder = 'Last Name'" required
 							class="single-input">
 					</div>
 					<div><a href="idpwSearch.do">아이디찾기|비밀번호찾기</a></div>
