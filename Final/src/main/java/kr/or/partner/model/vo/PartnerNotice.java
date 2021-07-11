@@ -8,8 +8,7 @@ public class PartnerNotice {
 	private String title;
 	private int writer;
 	private String content;
-	private String noticePartnerDate;
-	private String filename;	
+	private String noticePartnerDate;		
 	private String filepath;
 	private int noticePartnerViews;
 	private String ceo;

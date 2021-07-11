@@ -4629,8 +4629,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* line 353, /Applications/MAMP/htdocs/palash/cl/july 2019/193 Travel/193 travel html/sass/_elements.scss */
 .progress-table-wrap {
-	overflow-x: scroll;
-}s
+	overflow-x: hidden;
+}
 
 /* line 357, /Applications/MAMP/htdocs/palash/cl/july 2019/193 Travel/193 travel html/sass/_elements.scss */
 .progress-table {

@@ -83,7 +83,7 @@
 											<li class="nav-item"><a class="nav-link" href="packageView.do?partnerNo=${sessionScope.u.no}">등록상품 상세보기/수정</a></li>
 											</c:when>
 											</c:choose>
-											</li>
+											<li class="nav-item"><a class="nav-link" href="/packageList.do">체험 / 이용권</a></li>
 											<li class="nav-item"><a class="nav-link" href="noticePartner.do?partnerNo=${sessionScope.u.no}">공지사항 리스트</a></li>
 											<!-- <li class="nav-item dropdown">
 										<a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 일정 </a>
@@ -143,8 +143,7 @@
 											</li>
 											<li class="nav-item"><a class="nav-link" href="/map.do">제주도
 													지도</a></li>
-											<li class="nav-item"><a class="nav-link"
-												href="/packageList.do">예약</a></li>
+											<li class="nav-item"><a class="nav-link" href="/packageList.do">체험 / 이용권</a></li>
 											<li class="nav-item dropdown"><a
 												class="nav-link dropdown-toggle" href="/planInsert.do"
 												id="navbarDropdown" role="button" data-toggle="dropdown"
