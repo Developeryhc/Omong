@@ -8,11 +8,13 @@
 <title>모들에 오신것을 환영합니다</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <style>
-  p{
+	/*
+    p{
   	color:black !important;
   	font-size: 12px !important;
   	padding : 10px;
-  }
+    } 
+	*/
   #live-chat {
         position: fixed;
         bottom: 20px;
@@ -237,8 +239,7 @@
 								<i class="icon-search"></i> <input type="submit" value="검색" class="search-btn"> -->
 								<!-- <img src="resources/img/jeju.PNG"> -->
 								<div class="mainButton">
-									
-									<input type="text" class="buttonInput" placeholder="키워드를 검색해주세요">
+									<input type="text" name="keyword" class="buttonInput" placeholder="키워드를 검색해주세요">
 							    	<button onclick="location.href = '주소';" class="buttonSearch" ><i class="fa fa-search fa-2x" style="color:white"></i></button>
 							    </div>
 							</form>
