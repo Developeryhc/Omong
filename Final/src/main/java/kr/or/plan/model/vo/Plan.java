@@ -34,5 +34,4 @@ public class Plan {
 	
 	// 공유하기 여부
 	private int shareCheck;
-	
 }

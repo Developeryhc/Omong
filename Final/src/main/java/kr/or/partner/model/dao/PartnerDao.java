@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.or.mapPartner.model.vo.MapPartner;
 import kr.or.member.model.vo.User;
 import kr.or.partner.model.vo.Option;
 import kr.or.partner.model.vo.Product;
@@ -118,6 +119,14 @@ public class PartnerDao {
 	public PartnerNotice detailNoticePartner(int noticePartnerNo) {
 		
 		return sqlSession.selectOne("partner.detailNoticePartner" , noticePartnerNo);
+	}
+
+	public int selectMapPartner(String mapPartnerId) {
+		return sqlSession.selectOne("mapPartner.selectMapPartner", mapPartnerId);
+	}
+
+	public int updateMapPartner(MapPartner mapPartner) {
+		return sqlSession.update("mapPartner.updateMapPartner", mapPartner);
 	}
 	
 	/*

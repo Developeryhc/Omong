@@ -388,7 +388,7 @@
 						$.ajax({
 							url: "selectPlanList.do",
 							type: "POST",
-							data: {id: userId},
+							data: {planWriter: userId},
 							success: function(data){
 								if(data != null){
 									for (var i = 0; i < data.length; i++) {
@@ -405,6 +405,7 @@
 									}
 								}else{
 									table.append("<div class='percentage'>현재 등록 된 내 일정이 없습니다.</div>");
+									$(".progress-table").eq(0).append(table);
 								}
 							}
 						});

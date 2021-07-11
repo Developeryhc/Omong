@@ -49,7 +49,7 @@
 	<!-- hotel list css start-->
 	<br>
 	<h3 style="float: left; margin-left: 40px;">추천일정</h3>
-	<a href="/selectRecommendPlanList.do?planKind=30"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
+	<a href="/selectAllPlanList.do?planKind=30&planDay=recommend"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
 	
 	<section class="top_place" style="margin-top: 50px; margin-bottom: 50px;">
 		<hr style="border: solid 1px black;">
@@ -85,7 +85,7 @@
 								</i>
 								</c:when>
 								<c:otherwise>
-								<i class="like" style="background-color: rgba(255, 255, 255, 0);" >Like
+								<i class="like" style="background-color: rgba(255, 255, 255, 0.5);" >Like
 									<input type="hidden" value="${plan.planNo}">
 									<input type="hidden" value="-1">
 								</i>
@@ -103,7 +103,7 @@
 	<br><br>
 	<c:if test="${!empty newList}">
 	<h3 style="float: left; margin-left: 40px;">최신일정</h3>
-	<a href="/selectNewPlanList.do?planKind=30"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
+	<a href="/selectAllPlanList.do?planKind=30&planDay=new"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
 	<section class="top_place" style="margin-top: 50px; margin-bottom: 50px;">
 		<hr style="border: solid 1px black;">
 		<div class="container_reservation" style="width: 100%;">
@@ -138,7 +138,7 @@
 							</i>
 							</c:when>
 							<c:otherwise>
-							<i class="like" style="background-color: rgba(255, 255, 255, 0);" >Like
+							<i class="like" style="background-color: rgba(255, 255, 255, 0.5);" >Like
 								<input type="hidden" value="${plan.planNo}">
 								<input type="hidden" value="-1">
 							</i>
@@ -155,7 +155,7 @@
 	<br><br>
 	</c:if>
 	<h3 style="float: left; margin-left: 40px;">가장 많이 찾아 본 일정</h3>
-	<a href="/selectViewPlanList.do?planKind=30"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
+	<a href="/selectAllPlanList.do?planKind=30&planDay=view"><button style="float:right; margin-right: 40px; background-color: orangered; width: 50x; height: 30px; color: white; text-decoration: bold; border: none;">더보기</button></a>
 	<section class="top_place" style="margin-top: 50px; margin-bottom: 50px;">
 		<hr style="border: solid 1px black;">
 		<div class="container_reservation" style="width: 100%;">
@@ -190,7 +190,7 @@
 							</i>
 							</c:when>
 							<c:otherwise>
-							<i class="like" style="background-color: rgba(255, 255, 255, 0);" >Like
+							<i class="like" style="background-color: rgba(255, 255, 255, 0.5);" >Like
 								<input type="hidden" value="${plan.planNo}">
 								<input type="hidden" value="-1">
 							</i>

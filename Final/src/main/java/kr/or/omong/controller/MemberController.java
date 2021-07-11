@@ -210,7 +210,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/updateMember.do")
-	public String updateMember(User u, MultipartFile files[], HttpServletRequest request, Model model, String nofile) {
+	public String updateMember(User u, MultipartFile files[], HttpServletRequest request, Model model, String nofile, HttpSession session) {
 		if (files[0].isEmpty()) {
 			u.setProfileImage(nofile);
 		} else {
@@ -258,13 +258,14 @@ public class MemberController {
 			model.addAttribute("msg", "정보변경 실패");
 		}
 		model.addAttribute("loc", "/");
+		session.setAttribute("u", u);
 		return "redirect:/mypage.do?email=" + u.getId();
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "selectPlanList.do")
-	public ArrayList<User> selectPlanList(User u, Model model) {
-		ArrayList list = service.selectPlanList(u);
+	public ArrayList<User> selectPlanList(Plan plan, Model model) {
+		ArrayList list = service.selectPlanList(plan);
 		model.addAttribute("list", list);
 		// 여기에 넣을꺼 만들기
 		if (list == null) {
