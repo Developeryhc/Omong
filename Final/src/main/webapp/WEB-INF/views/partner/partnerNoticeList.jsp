@@ -16,8 +16,8 @@
 				<div class="col-lg-12">
 					<div class="breadcrumb_iner">
 						<div class="breadcrumb_iner_item text-center">
-							<h2>게시판</h2>
-							<p>게시판 . 공지사항</p>
+							<h2>${list[0].ceo } 님의</h2>
+							<p>공지사항 게시판 입니다.</p>
 						</div>
 					</div>
 				</div>
@@ -28,10 +28,10 @@
 
 	<!--================Blog Area =================-->
 		
-	<section class="blog_area single-post-area section_padding">
+	<section class="single-post-area section_padding">
 			<div class="container"> 
 					<c:if test="${sessionScope.u.type eq 'p'}">
-						<a class="" href="/noticeWriteFrm.do">글쓰기</a>				
+						<a class="genric-btn info-border" href="/partnerNoticeWriteFrm.do" style="float:right;">글쓰기</a>				
 					</c:if>
 			<h3>공지사항</h3>
 			<hr style="border: 1px solid black;">

@@ -195,6 +195,32 @@
   	from notice_partner n join partner on (notice_partner_writer = partner_no)
   	where notice_partner_no=#{noticePartnerNo}
   </select>
+  <insert id="insertNoticePartner" parameterType="pn">
+  	insert into notice_partner values(
+  		notice_partner_sequence.nextval,
+  		#{title},
+  		#{writer},
+  		#{content},
+  		sysdate,
+  		#{filepath},
+  		0
+  	)
+  
+  </insert>
+  <delete id="deletePartnerNotice" parameterType="int">
+  	delete from notice_partner where notice_partner_no = #{noticePartnerNo}
+  
+  </delete>
+  <update id="updateNoticePartner" parameterType="pn">
+  		update notice_partner set 
+  			notice_partner_no = #{noticePartnerNo},
+  			notice_partner_title = #{title},
+  			notice_partner_writer = #{writer},
+  			notice_partner_content = #{content},
+  			notice_partner_date = sysdate,
+  			notice_partner_filepath = #{filepath}  		
+  		where notice_partner_no = #{noticePartnerNo} 
+  </update>
   <select id="selectPackageProductList" parameterType="string" resultType="pac">
    	SELECT
   		partner_no AS partnerNo,

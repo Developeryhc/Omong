@@ -18,7 +18,7 @@
 		width: 100%;
 	}
 	.groupListWrap{
-		width : 1200px;
+		width : 100%;
 			margin: 0 auto;
 			padding:0;			
 			overflow :hidden;
@@ -59,8 +59,8 @@
 							<div class="hover_Text d-flex align-items-end justify-content-between">
 								<div class="hover_text_iner">
 									<a href="packageView.do?partnerNo=${p.partnerNo}" class="place_btn">상세보기</a>
-									<h3 style="color:black;">${p.packageProductName}</h3>
-									<p style="color:black;">${p.packageProductInfo}</p>
+									<h3 style="color:#fff;">${p.packageProductName}</h3>
+									<p style="color:#fe5c24;">${p.packageProductInfo}</p>
 								</div>
 								<div class="details_icon text-right">
 									

@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -52,7 +54,7 @@ public class PartnerController {
 				session.setAttribute("u", partner);
 				int partnerNo = partner.getNo();
 				int pacYn = service.selectPackage(partnerNo);
-				System.out.println(pacYn);
+				
 				session.setAttribute("pacYn", pacYn);
 				
 				model.addAttribute("msg", "로그인 성공");
@@ -209,7 +211,9 @@ if(subFiles[0].isEmpty()) {
 	@RequestMapping(value = "/packageView.do")
 	public String packageView(Model model , int partnerNo) {
 		Package packageProduct = service.selectOnePackage(partnerNo);
+		ArrayList<PartnerNotice> list = service.partnerNoticeList(partnerNo);
 		model.addAttribute("packageProduct", packageProduct);
+		model.addAttribute("list", list);
 		return "partner/packageView";
 	}
 	@ResponseBody
@@ -233,8 +237,9 @@ if(subFiles[0].isEmpty()) {
 	@RequestMapping(value = "/partnerCheckPw.do")
 	public String partnerCheckPw(User u) {
 		User partner = service.selectOnePartner(u);
-		System.out.println(u.getPw());
-		System.out.println(u.getId());
+		/*
+		 * System.out.println(u.getPw()); System.out.println(u.getId());
+		 */
 		
 		if(partner != null) {
 			return "1";
@@ -312,7 +317,7 @@ if(subFiles[0].isEmpty()) {
 	}
 	@RequestMapping(value="/noticePartner.do")
 	public String partnerNoticeList(int partnerNo , Model model) {
-		ArrayList<PartnerNotice> list = service.partnerNoticeList(partnerNo);
+			ArrayList<PartnerNotice> list = service.partnerNoticeList(partnerNo);
 		model.addAttribute("list", list);
 		model.addAttribute("parnterNo", partnerNo);
 		return "partner/partnerNoticeList";
@@ -320,10 +325,77 @@ if(subFiles[0].isEmpty()) {
 	@RequestMapping(value="/detailNoticePartner.do")
 	public String detailNoticePartner(int noticePartnerNo , Model model) {
 		PartnerNotice pn = service.detailNoticePartner(noticePartnerNo);
-		System.out.println(noticePartnerNo);
+		/* System.out.println(noticePartnerNo); */
 		model.addAttribute("pn", pn);
+		
 		return "partner/detailNoticePartner";
 	}
-	
+	@RequestMapping(value="/partnerNoticeWriteFrm.do")
+	public String partnerNoticeWriteFrm() {
+		return "partner/partnerNoticeWriteFrm";
+	}
+	@RequestMapping(value="/partnerUploadImage.do")
+	@ResponseBody
+	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request,Model model )  {
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/notice/");
+		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+		try {
+			FileOutputStream fos = new FileOutputStream(new File(savePath + savedFileName));
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			byte[] bytes = multipartFile.getBytes();
+			bos.write(bytes);
+			bos.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return savedFileName;
+	}
+	@RequestMapping(value="/insertNoticePartner.do")
+	public String insertNoticePartner(PartnerNotice pn , Model model) {
+		int result = service.insertNoticePartner(pn);
+		if(result != -1 ) {
+			model.addAttribute("msg", "공지사항 등록완료");
+		}else {
+			model.addAttribute("msg", "공지사항 등록실패");
+		}
+		model.addAttribute("loc", "/noticePartner.do?partnerNo=" +pn.getWriter());
+		return "common/msg";
+	}
+	@RequestMapping(value="noticePartnerDelete.do")
+	public String noticePartnerDelete(int noticePartnerNo , Model model) {
+		int result = service.noticePartnerDelete(noticePartnerNo);
+		if(result > 0 ) {
+			model.addAttribute("msg", "공지사항 삭제 성공");
+		}else {
+			model.addAttribute("msg", "공지사항 삭제 실패");
+		}
+		model.addAttribute( "loc", "/" );
+		return "common/msg";
+	}
+	@RequestMapping(value="noticePartnerUpdateFrm.do") 
+	public String noticePartnerUpdateFrm(Model model , int noticePartnerNo) {
+		PartnerNotice pn = service.detailNoticePartner(noticePartnerNo);
+		
+		model.addAttribute("pn", pn);
+		return "partner/noticePartnerUpdateFrm";
+	}
+	@RequestMapping(value="/updateNoticePartner.do")
+	public String updateNoticePartner(PartnerNotice pn , Model model ) {
+		int result = service.updateNoticePartner(pn);
+		if(result > 0 ) {
+			model.addAttribute("msg", "공지사항 수정 완료");
+		}else {
+			model.addAttribute("msg", "공지사항 수정 실패");
+		}
+		model.addAttribute("loc", "detailNoticePartner.do?noticePartnerNo="+ pn.getNoticePartnerNo());
+		
+		return "common/msg";		
+	}
 	
 }
