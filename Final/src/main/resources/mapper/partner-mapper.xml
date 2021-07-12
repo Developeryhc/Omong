@@ -174,7 +174,6 @@
   		n.notice_partner_writer as writer,
   		n.notice_partner_content as content,
   		n.notice_partner_date as noticePartnerDate,
-  		n.notice_partner_filename as filename,
   		n.notice_partner_filepath as filepath,
   		n.notice_partner_views as noticePartnerViews,
   		partner_ceo as ceo
@@ -188,7 +187,6 @@
   		n.notice_partner_writer as writer,
   		n.notice_partner_content as content,
   		n.notice_partner_date as noticePartnerDate,
-  		n.notice_partner_filename as filename,
   		n.notice_partner_filepath as filepath,
   		n.notice_partner_views as noticePartnerViews,
   		partner_ceo as ceo
