@@ -38,7 +38,7 @@
 	<script>
 		function InputCode(){
 			var inputString = prompt('직원코드 입력해주세요', '6자리 입력'); 
-			if(inputString=='BCF2R2'){
+			if(inputString=='omongemployee'){
 				alert("일치합니다.");
 				location.href = "/join_employee.do";
 			}else{
