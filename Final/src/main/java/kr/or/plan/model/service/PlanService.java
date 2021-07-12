@@ -30,8 +30,11 @@ public class PlanService {
 		}else {
 			result = dao.deleteDay(plan.getPlanNo());
 		}
+		System.out.println(result);
 		planNo = plan.getPlanNo();
+		int count = result;
 		if(result>0) {
+			System.out.println(list.size());
 			for(int i=0; i<list.size(); i++) {
 				JsonObject day = (JsonObject) list.get(i);
 				for(int j=0; j<day.size(); j++) {
@@ -42,12 +45,14 @@ public class PlanService {
 					d.setDayLatitude(spot.get("lat").getAsString());
 					d.setDayLongitude(spot.get("lng").getAsString());
 					d.setDayTitle(spot.get("title").getAsString());
-					d.setDayAddress(spot.get("address").getAsString());				
+					d.setDayAddress(spot.get("address").getAsString());
+					count++;
 					result += dao.insertDay(d);
 				}
 			}
 		}
-		if(result == list.size()+1) {
+
+		if(result == count) {
 			return result;
 		}else {
 			return -1;

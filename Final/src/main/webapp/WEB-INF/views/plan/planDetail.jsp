@@ -83,8 +83,9 @@
 	
 	// 삭제 시, 
 	$(document).on("click",".planCancel",function(){
-		var remove = $(".planCancel").index(this);
-		$(".planSpots").eq(remove).remove();
+		var remove = $(".planDay"+day).children().index(this)-1;
+		$(".planDay"+day).eq(remove).remove();
+		console.log(remove);
 		for(var i=remove; i<Object.keys(days[day-1]).length; i++){
 			if(i != Object.keys(days[day-1]).length-1){
 				Object.assign(days[day-1][i], days[day-1][i+1]);
@@ -282,7 +283,7 @@
 					kakao.maps.event.addListener(marker, 'click', function() {
 						// @ 6/29 마커 클릭 시 데이터 저장
 						if(confirm('등록하시겠습니까?')){
-							$(".detail").eq(day-1).append("<div class='planSpots'><div class='day"+day+"'>"+mapPartner.title+"</div><div class='planCancel cancel"+day+"'>X</div></div>");
+							$(".detail").eq(day-1).append("<div class='planSpots planDay"+day+"'><div class='day"+day+"'>"+mapPartner.title+"</div><div class='planCancel cancel"+day+"'>X</div></div>");
 							days[day-1][spotNo[day-1]++] = mapPartner;
 						}else{
 							return false;
@@ -300,7 +301,7 @@
 					// @ 6/29 리스트 클릭 시 데이터 저장
 					itemEl.onclick = function(){
 						if(confirm('등록하시겠습니까?')){
-							$(".detail").eq(day-1).append("<div class='planSpots'><div class='day"+day+"'>"+mapPartner.title+"</div><div class='planCancel cancel"+day+"'>X</div></div>");
+							$(".detail").eq(day-1).append("<div class='planSpots planDay"+day+"'><div class='day"+day+"'>"+mapPartner.title+"</div><div class='planCancel cancel"+day+"'>X</div></div>");
 							days[day-1][spotNo[day-1]++] = mapPartner;
 						}else{
 							return false;
@@ -353,9 +354,11 @@
 					kakao.maps.event.addListener(marker, 'click', function() {
 						// @ 6/29 마커 클릭 시 데이터 저장
 						if(confirm('등록하시겠습니까?')){
-							$(".detail").eq(day-1).append("<div class='planSpots'><div class='day"+day+"'>"+place.title+"</div><div class='planCancel cancel"+day+"'>X</div></div>");
+							$(".detail").eq(day-1).append("<div class='planSpots planDay"+day+"'><div class='day"+day+"'>"+place.title+"</div><div class='planCancel cancel"+day+"'>X</div></div>");
 							days[day-1][spotNo[day-1]++] = place;
+							console.log(spotNo);
 							console.log(days[day-1]);
+							console.log(days);
 						}else{
 							return false;
 						}
@@ -372,7 +375,7 @@
 					// @ 6/29 리스트 클릭 시 데이터 저장
 					itemEl.onclick = function(){
 						if(confirm('등록하시겠습니까?')){
-							$(".detail").eq(day-1).append("<div class='planSpots'><div class='day"+day+"'>"+place.title+"</div><div class='planCancel cancel'"+day+"'>X</div></div>");
+							$(".detail").eq(day-1).append("<div class='planSpots planDay"+day+"'><div class='day"+day+"'>"+place.title+"</div><div class='planCancel cancel"+day+"'>X</div></div>");
 							days[day-1][spotNo[day-1]++] = place;
 						}else{
 							return false;

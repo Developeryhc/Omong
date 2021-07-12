@@ -48,15 +48,16 @@ public class PlanController {
 			return "plan/plan";
 		}
 	}
-	// 삭제 예정
-	@RequestMapping(value = "/topplanList.do")
-	public String topplanList() {
-		return "plan/topPlanList";
-	}
 
 	@RequestMapping(value = "/planInsert.do")
-	public String planInsert() {
-		return "plan/planInsert";
+	public String planInsert(@SessionAttribute(required=false)User u, Model model) {
+		if(u == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("loc", "login.do");
+			return "common/msg";
+		}else {
+			return "plan/planInsert";
+		}
 	}
 
 	@RequestMapping(value = "/planDetail.do")
