@@ -162,13 +162,11 @@
 
 			// 07/10 화면 내 구성 ajax로 진행 및 결과에 따른 mapPartner 등록
 			var partnerAddress = $(data).parent().children().eq(5).val();
-			console.log(partnerAddress);
 			var geocoder = new kakao.maps.services.Geocoder();
 			
 			var callback = function(result, status){
 				if(status === kakao.maps.services.Status.OK){
-					console.log(result);
-					//location.href="/updateYn.do?no="+no+"&yn="+yn+"&name="+name+"&address="+partnerAddress+"&mapPartnerLatitude="+result[0].y+"&mapPartnerLongitude="+result[0].x;
+					location.href="/updateYn.do?no="+no+"&yn="+yn+"&name="+name+"&address="+partnerAddress+"&mapPartnerLatitude="+result[0].y+"&mapPartnerLongitude="+result[0].x;
 				}
 			}
 			geocoder.addressSearch(partnerAddress, callback);
