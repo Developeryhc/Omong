@@ -26,7 +26,7 @@
   		p.plan_thumbnail_no AS planThumbnailNo,
         (SELECT COUNT(*) FROM like_plan lp1 WHERE lp1.like_plan=p.plan_no) AS planLike,
         (SELECT COUNT(*) FROM share_plan sp1 WHERE sp1.share_plan=p.plan_no) AS planShare
-	    <if test="planWriter != null">
+	    <if test="planMember != null">
 	    ,
 	    DECODE((SELECT COUNT(*) FROM like_plan lp WHERE lp.like_plan_member = #{planMember} AND lp.like_plan=p.plan_no), 1, 1, 0) AS likeCheck,
 	    DECODE((SELECT COUNT(*) FROM share_plan sp WHERE sp.share_plan_member = #{planMember} AND sp.share_plan=p.plan_no), 1, 1, 0) AS shareCheck

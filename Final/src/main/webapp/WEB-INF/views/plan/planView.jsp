@@ -162,7 +162,6 @@
 				if(days[i].dayDate == (day-1)){
 					displayPlaces(days[i]);
 					$(".detail").eq(day-1).append("<div class='planSpots'><div class='viewDay"+day+"'>"+days[i].dayTitle+"</div></div>");
-					console.log(days[i].dayTitle);
 					
 					// @ 07/06 마커별 거리 라인 및 거리 측정
 					days[i].latlng = new daum.maps.LatLng(days[i].dayLongitude, days[i].dayLatitude);

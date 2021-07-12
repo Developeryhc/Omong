@@ -83,9 +83,8 @@
 	
 	// 삭제 시, 
 	$(document).on("click",".planCancel",function(){
-		var remove = $(".planDay"+day).children().index(this)-1;
+		var remove = $(".planDay"+day).children(".planCancel").index(this);
 		$(".planDay"+day).eq(remove).remove();
-		console.log(remove);
 		for(var i=remove; i<Object.keys(days[day-1]).length; i++){
 			if(i != Object.keys(days[day-1]).length-1){
 				Object.assign(days[day-1][i], days[day-1][i+1]);

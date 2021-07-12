@@ -394,7 +394,7 @@
 									for (var i = 0; i < data.length; i++) {
 										var table = "<div class='table-row'>";
 										table += "<div class='serial'>"+(i+1)+"</div>";
-										table += "<div class='percentage'>"+data[i].planTitle+"</div>";
+										table += "<div class='percentage'><a href='selectOnePlan.do?planNo="+data[i].planNo+"'>"+data[i].planTitle+"</a></div>";
 										table += "<div class='country'>"+data[i].planStart+"</div>";
 										table += "<div class='visit'>"+data[i].planPublic+"</div>";
 										table += "<div class='visit'>"+data[i].planView+"</div>";
