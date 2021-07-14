@@ -38,8 +38,8 @@ input.button-add {
 						<br>
 						<h5 style="color: white;">운영시간 09:00 ~ 18:00</h5>
 						<h5 style="color: white;">점심시간 12:00 ~ 13:00</h5>
-						<h6 style="color: white;">(점심시산에는 상담업무가 제공되지 않습니다)</h6>
-						<h6 style="color: rgb(136, 128, 128);">단체 문의 064-111-1111</h6>
+						<h6 style="color: white;">(점심시간에는 상담업무가 제공되지 않습니다)</h6>
+						<h6 style="color: rgb(136, 128, 128);">단체 문의 1544-9970</h6>
 
 					</div>
 				</div>
@@ -75,8 +75,7 @@ input.button-add {
 							<script>
 								document.write(new Date().getFullYear());
 							</script>
-							All rights reserved | This template is made with <i
-								class="ti-heart" aria-hidden="true"></i> by 
+							All rights reserved | This template is made by 
 								<a  target="_blank" id="dblclick"> (주) 모들</a>
 							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						</p>
@@ -96,7 +95,6 @@ input.button-add {
 <script>
 	$("#dblclick").dblclick(function(){
 		$(location).attr('href','/adminLogin1.do'); //네이버만 바꿔주면댐
-	
 	})
 </script>
 

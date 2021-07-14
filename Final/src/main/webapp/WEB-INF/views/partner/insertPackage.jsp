@@ -5,6 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	h4{
+		display:inline-block;
+	}
+	span {
+		color:#F18101;
+	}
+</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -13,6 +21,7 @@
 		<div class="row">
 			<div class="col-lg-8 col-md-8">
 				<h2 class="mb-30">패키지 등록</h2>
+				<span>* 필수항목</span>
 				<hr>
 				<!-- 모자란거 대표사진 설명용사진? 판매할상품이름 / 옵션이름 / 가격  -->
 				<!-- 패키지 이름 / 설명 / 대표사진 / 설명용사진 / 묶고 다음 버튼 -> 이용안내 / 이용제한 안내 / 사용정보 / 안내사항 / 취소 / 환불 / 판매자명 / 연락처 / 홈페이지 주소 -> 상품명 / 옵션이름 / 가격    -->
@@ -20,7 +29,7 @@
 				<form action="/packageInsert.do" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="partnerNo" value="${sessionScope.u.no}">
 					<div class="step">
-						<h4>패키지 이름</h4>
+						<h4>패키지 이름 </h4><span> *</span>
 						<div class="mt-10">
 							<!-- onfocus="this.placeholder = '텍스트창에 마우스 클릭했을때 띄울 메세지 '" 
 											onblur="this.placeholder = '텍스트창에서 미입력 후 다른창으로 옮길때 띄울메세지'" required(미입력시 버튼누르면 입력해달라고 뜨게하는거) -->
@@ -29,12 +38,12 @@
 								required class="single-input">
 						</div>
 						<hr>
-						<h4>패키지 설명</h4>
+						<h4>패키지 설명 </h4><span> *</span>
 						<div class="mt-10">
 							<textarea class="single-textarea" style="height: 150px" name="packageProductInfo" placeholder="파트너님의 등록할 패키지의 간단한 설명을 적어주세요." required></textarea>
 						</div>
 						<hr>
-						<h4>페키지 옵션</h4>
+						<h4>페키지 옵션 </h4><span> *</span>
 						<input class="genric-btn primary-border circle productOptionMore" type=button  value="상품추가" style="display: inline-block; font-size: large; height: 100%; padding: 0 15px;">
 						<input class="genric-btn primary-border circle productOptionRemove" type=button  value="상품제거" style="display: inline-block; font-size: large; height: 100%; padding: 0 15px;">
 						<div class="moreProductOption">
@@ -53,7 +62,7 @@
 							</div>
 						</div>
 						<hr>
-						<h4>대표사진</h4>
+						<h4>대표사진 </h4><span> *</span>
 						<p>대표로 보여질 사진을 선택해 주세요</p>
 						<div>
 							<label class="genric-btn primary-border" style="width: 100%; font-size: large; font-weight: bold;">
@@ -115,13 +124,13 @@
 
 					</div>
 					<div class="step">
-						<h4>판매자명</h4>
+						<h4>판매자명 </h4> <span> *</span>
 						<div class="input-group-icon mt-10">
 							<input type="text" name="ceo" placeholder=""
 								class="single-input" value="${sessionScope.u.ceo }">
 						</div>
 						<hr>
-						<h4>연락처</h4>
+						<h4>연락처 </h4><span> *</span>
 						<div class="input-group-icon mt-10">
 							<input type="text" name="tel" placeholder="(-)을 제외하고 적어주세요"
 								class="single-input" value=${sessionScope.u.tel }>

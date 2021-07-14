@@ -151,9 +151,28 @@ public class PartnerService {
 		return dao.detailNoticePartner(noticePartnerNo);
 	}
 
+
+	public int insertNoticePartner(PartnerNotice pn) {
+		int result1 = dao.insertNoticePartner(pn);
+		
+		if(result1>0) {
+			return result1;
+		}else {
+			return -1;
+		}
+	}
 	public void updateMapPartner(MapPartner mapPartner) {
 		
-		
+	}
+
+	public int noticePartnerDelete(int noticePartnerNo) {
+		// TODO Auto-generated method stub
+		return dao.noticePartnerDelete(noticePartnerNo);
+	}
+
+	public int updateNoticePartner(PartnerNotice pn) {
+		// TODO Auto-generated method stub
+		return dao.updateNoticePartner(pn);
 	}
 
 	/*

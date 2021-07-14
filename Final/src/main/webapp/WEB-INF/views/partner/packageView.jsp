@@ -110,7 +110,7 @@
 	
 	
 	
-	<section class="tour_details_content section_padding" style="padding-top: 0px; border-top:1px solid black; border-bottom:1px solid black;">
+	<section class="tour_details_content section_padding" style="padding-top: 0px; border-top:1px solid black;">
 		<div class="container">
 			<div class="subPicture" style="text-align:center;">
 				<img src="/resources/upload/package/${packageProduct.packageProductSubPicture}">
@@ -141,6 +141,36 @@
 		</div>
 		<input type="hidden" class="loginYn" value="${sessionScope.u.id}">
 	</section>
+	<section class="single-post-area section_padding">
+			<div class="container"> 
+					<c:if test="${sessionScope.u.type eq 'p'}">
+						<a class="genric-btn info-border" href="/partnerNoticeWriteFrm.do" style="float:right;">글쓰기</a>				
+					</c:if>
+			<h3>공지사항</h3>
+			<hr style="border: 1px solid black;">
+			<div class="progress-table-wrap">
+				<div class="progress-table">
+					<div class="table-head">
+						<div class="serial">번호</div>
+						<div class="percentage">제목</div>
+						<div class="country">작성자</div>
+						<div class="visit">조회수</div>
+					</div>
+					<c:forEach items="${list}" var="noticePartner" varStatus="i">
+						<div class="table-row">
+							<div class="serial">${noticePartner.noticePartnerNo }</div>
+							<input type="hidden" value="${sessionScope.u.type }" id="type">
+							<div class="percentage"><a href="/detailNoticePartner.do?noticePartnerNo=${noticePartner.noticePartnerNo}" onclick="readCount(this);">${noticePartner.title }</a></div>
+							<div class="country">${noticePartner.ceo }</div>
+							<div class="visit">${noticePartner.noticePartnerViews }</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	
 	</c:when>
 	
 	
@@ -186,7 +216,7 @@
 	
 	
 	
-	<section class="tour_details_content section_padding" style="padding-top: 0px; border-top:1px solid black; border-bottom:1px solid black;">
+	<section class="tour_details_content section_padding" style="padding-top: 0px; border-top:1px solid black;">
 		<div class="container">
 			<div class="subPicture" style="text-align:center;">
 				<img src="/resources/upload/package/${packageProduct.packageProductSubPicture}">
@@ -217,8 +247,38 @@
 		</div>
 		<input type="hidden" class="loginYn" value="${sessionScope.u.id}">
 	</section>
+	<section class="single-post-area section_padding">
+			<div class="container"> 
+					<c:if test="${sessionScope.u.type eq 'p' and sessionScope.u.no eq productNo}">
+						<a class="genric-btn info-border" href="/partnerNoticeWriteFrm.do" style="float:right;">글쓰기</a>				
+					</c:if>
+			<h3>공지사항</h3>
+			<hr style="border: 1px solid black;">
+			<div class="progress-table-wrap">
+				<div class="progress-table">
+					<div class="table-head">
+						<div class="serial">번호</div>
+						<div class="percentage">제목</div>
+						<div class="country">작성자</div>
+						<div class="visit">조회수</div>
+					</div>
+					<c:forEach items="${list}" var="noticePartner" varStatus="i">
+						<div class="table-row">
+							<div class="serial">${noticePartner.noticePartnerNo }</div>
+							<input type="hidden" value="${sessionScope.u.type }" id="type">
+							<div class="percentage"><a href="/detailNoticePartner.do?noticePartnerNo=${noticePartner.noticePartnerNo}" onclick="readCount(this);">${noticePartner.title }</a></div>
+							<div class="country">${noticePartner.ceo }</div>
+							<div class="visit">${noticePartner.noticePartnerViews }</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+	</section>
 	</c:otherwise>
 	</c:choose>
+	
+	
 	<!-- banner part start-->
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 

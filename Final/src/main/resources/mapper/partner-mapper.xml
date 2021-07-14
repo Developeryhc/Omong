@@ -174,7 +174,6 @@
   		n.notice_partner_writer as writer,
   		n.notice_partner_content as content,
   		n.notice_partner_date as noticePartnerDate,
-  		n.notice_partner_filename as filename,
   		n.notice_partner_filepath as filepath,
   		n.notice_partner_views as noticePartnerViews,
   		partner_ceo as ceo
@@ -188,12 +187,56 @@
   		n.notice_partner_writer as writer,
   		n.notice_partner_content as content,
   		n.notice_partner_date as noticePartnerDate,
-  		n.notice_partner_filename as filename,
   		n.notice_partner_filepath as filepath,
   		n.notice_partner_views as noticePartnerViews,
   		partner_ceo as ceo
   	from notice_partner n join partner on (notice_partner_writer = partner_no)
   	where notice_partner_no=#{noticePartnerNo}
+  </select>
+  <insert id="insertNoticePartner" parameterType="pn">
+  	insert into notice_partner values(
+  		notice_partner_sequence.nextval,
+  		#{title},
+  		#{writer},
+  		#{content},
+  		sysdate,
+  		#{filepath},
+  		0
+  	)
+  
+  </insert>
+  <delete id="deletePartnerNotice" parameterType="int">
+  	delete from notice_partner where notice_partner_no = #{noticePartnerNo}
+  
+  </delete>
+  <update id="updateNoticePartner" parameterType="pn">
+  		update notice_partner set 
+  			notice_partner_no = #{noticePartnerNo},
+  			notice_partner_title = #{title},
+  			notice_partner_writer = #{writer},
+  			notice_partner_content = #{content},
+  			notice_partner_date = sysdate,
+  			notice_partner_filepath = #{filepath}  		
+  		where notice_partner_no = #{noticePartnerNo} 
+  </update>
+  <select id="selectPackageProductList" parameterType="string" resultType="pac">
+   	SELECT
+  		partner_no AS partnerNo,
+  		packageproduct_no AS packageProductNo,
+  		packageproduct_name AS packageProductName,
+  		packageproduct_info AS packageProductInfo,
+  		packageproduct_main_picture AS packageProductMainPicture,
+  		packageproduct_sub_picture AS packageProductSubPicture,
+  		packageproduct_sub_info1 AS packageProductSubInfo1,
+  		packageproduct_sub_info2 AS packageProductSubInfo2,
+  		packageproduct_sub_info3 AS packageProductSubInfo3,
+  		packageproduct_sub_info4 AS packageProductSubInfo4,
+  		packageproduct_sub_info5 AS packageProductSubInfo5,
+  		packageproduct_ceo AS ceo,
+  		packageproduct_tel AS tel,
+  		packageproduct_homepage AS homepage,
+  		packageproduct_address AS address
+  	FROM packageproduct WHERE packageproduct_name LIKE '%' || #{_parameter} || '%'
   </select>
 </mapper>
 	

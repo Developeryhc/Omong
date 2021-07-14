@@ -46,11 +46,12 @@
 							value="${sessionScope.u.id }" readonly>
 					</div>
 				</div>
-				<div style="margin-bottom: 10px;">
+				<c:choose>
+				<c:when test="${oneplan eq null }">
+									<div style="margin-bottom: 10px;">
 					<h4 style="float: left; margin-right: 10px">제목</h4>
 					<div class="percentage">
-						<input class="input-first" name="planTitle" id="schedule_title"
-							type="text" placeholder='제목을 입력하세요' required>
+						<input class="input-first" name="planTitle" id="schedule_title" type="text" placeholder='제목을 입력하세요' required>
 					</div>
 				</div>
 				<hr>
@@ -92,6 +93,55 @@
 					<input type="radio" name="planPublic" id="y" value="Y">공개 <input
 						type="radio" name="planPublic" id="n" value="N">비공개
 				</div>
+				</c:when>
+				<c:otherwise>
+				<div style="margin-bottom: 10px;">
+					<h4 style="float: left; margin-right: 10px">제목</h4>
+					<div class="percentage">
+						<input class="input-first" name="planTitle" id="schedule_title"	type="text" placeholder='제목을 입력하세요' required>
+					</div>
+				</div>
+				<hr>
+				<div style="margin-bottom: 10px;">
+					<h4 style="float: left;">기간</h4>
+					<div class="percentage">
+						<input name="planStart" type="text" id="sDatepicker" value="${onePlan.planStart }"> ~ <input
+							name="planEnd" id="eDatepicker" type="text" value="${onePlan.planEnd }">
+					</div>
+				</div>
+				<hr>
+				<div style="margin-bottom: 10px;">
+					<h4 style="float: left; margin-right: 10px">인원</h4>
+					<div class="percentage">
+						<input class="input-first" name="planAmount" id="countPeople"
+							type="number" min="1" max="30">
+					</div>
+				</div>
+				<hr>
+				<div style="margin-bottom: 10px;">
+					<h4 style="float: left; margin-right: 10px">구분</h4>
+					<div class="percentage">
+						<span class="check"></span> <input class="input-first"
+							name="planContent" id="separation" type="text"
+							placeholder='레저와 체험' required>
+					</div>
+				</div>
+				<hr>
+				<div style="margin-bottom: 10px;">
+					<h4 style="float: left; margin-right: 10px">태그</h4>
+					<div class="percentage">
+						<span class="check"></span> <input class="input-first" name="tag"
+							id="tag" type="text" placeholder='#레저와 체험  #혼자' required>
+					</div>
+				</div>
+				<hr>
+				<div style="margin-bottom: 10px;">
+					<h4 style="float: left;">공개여부</h4>
+					<input type="radio" name="planPublic" id="y" value="Y">공개 <input
+						type="radio" name="planPublic" id="n" value="N">비공개
+				</div>
+				</c:otherwise>
+				</c:choose>
 				<hr>
 				<br>
 				<h4>썸네일</h4>
@@ -110,6 +160,8 @@
 
 				<input type="hidden" id="planThumbnailNo" name="planThumbnailNo">
 				<input type="hidden" id="diff" name="diff">
+
+
 
 				<button class="genric-btn success" type="submit" id="test1">일정만들기</button>
 			</form>
@@ -216,31 +268,15 @@
 	});
 	$(function() {
 		$("[name=planContent]").keyup(function() {
-					var planContentReg = /^[가-힣]$/;
-					var planContent = $(this).val();
-
-					if (planContent.test(planContent)) {
-						$(this).parent().prev().html(
-								"거짓으로 작성한 정보인 경우 로그인이 제한 될 수 있습니다.");
-						$(this).parent().prev().css("color", "blue");
-					} else {
-						$(this).parent().prev().html("바른 이름의 양식을 적어주세요.")
-						$(this).parent().prev().css("color", "red");
-					}
-
-				});
-		$("[name=tag]").keyup(function() {
-			var tagReg = /^[가-힣]$/;
-			var tag = $(this).val();
-
-			if (tagReg.test(tag)) {
-				$(this).parent().prev().html("사용가능한 비밀번호 입니다.");
+			var planContentReg = /^[가-힣]$/;
+			var planContent = $(this).val();
+				if (planContent.test(planContent)) {
+				$(this).parent().prev().html("여행의 컨셉을 작성해주세요.");
 				$(this).parent().prev().css("color", "blue");
 			} else {
-				$(this).parent().prev().html("영어 숫자를 조합하여 8~20자로 적어주세요.")
+				$(this).parent().prev().html("바른 이름의 양식을 적어주세요.")
 				$(this).parent().prev().css("color", "red");
 			}
-
 		});
 	});
 	function checkValue() {
@@ -302,6 +338,7 @@
 						// 종료일(eDatepicker)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
 					}
 				});
+		
 		$('#sDatepicker').datepicker('setDate', new Date()); //시작일 초기값 셋팅
 
 		//종료일의 초기값을 내일로 설정

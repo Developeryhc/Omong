@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.member.model.vo.User;
+import kr.or.partner.model.vo.Package;
 import kr.or.plan.model.vo.Plan;
 
 @Repository
@@ -35,7 +36,7 @@ public class MemberDao {
 		return sqlSession.update("member.updateMember", u);
 	}
 	
-	public ArrayList selectPlanList(Plan plan) {
+	public ArrayList<Plan> selectPlanList(Plan plan) {
 		return (ArrayList)sqlSession.selectList("plan.selectPlanList", plan);
 	}
 	public int pwChangeMember(User u) {
@@ -57,5 +58,10 @@ public class MemberDao {
 
 	public int newPw(User u) {
 		return sqlSession.update("member.pwChangeMember",u);
+	}
+
+
+	public ArrayList<Package> selectPackageProductList(String keyword) {
+		return (ArrayList)sqlSession.selectList("partner.selectPackageProductList", keyword);
 	}
 }

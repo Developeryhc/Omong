@@ -17,31 +17,24 @@
 				<div class="col-lg-12">
 					<div class="breadcrumb_iner">
 						<div class="breadcrumb_iner_item text-center">
-							<h2>게시판</h2>
-							<p>게시판 . 공지사항</p>
+							<h2>${pn.ceo }</h2>
+							<p>게시물 상세</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<section class="blog_area single-post-area section_padding">
+	<section class="single-post-area section_padding">
 			<div class="container">
-			<h3 style="margin-left: 40px;">상세보기</h3>
+			<h3 style="margin-left: 40px; display:inline-block;" >상세보기</h3>
 				<c:choose>
-					<c:when test="${sessionScope.u.type eq 'p'}">
-						<button
-							style="margin-left: 80%; background-color: green; padding: 20px; text-decoration: bold; border: none;"
-							onclick="updateNotice(this);">
-							<span style="color: white">수정하기</span>
-						</button>
-						<button
-							style="background-color: orangered; padding: 20px; text-decoration: bold; border: none;"
-							onclick="deleteNotice(this);">
-							<span style="color: white">삭제하기</span>
-						</button>
+					<c:when test="${sessionScope.u.type eq 'p'}">						
+						<a class="genric-btn info" href="noticePartnerUpdateFrm.do?noticePartnerNo=${pn.noticePartnerNo}" style="float:right; margin-left:3px;">수정하기</a>						
+						<a class="genric-btn info" href="noticePartnerDelete.do?noticePartnerNo=${pn.noticePartnerNo}" style="float:right; margin-left:3px;">삭제하기</a>
 					</c:when>
 				</c:choose>
+				<a class="genric-btn info" href="noticePartner.do?partnerNo=${pn.writer}" style="float:right; ">목록으로</a>	
 				<hr style="border: 1px solid black;">
 				<div >
 					<div class="progress-table">
@@ -60,8 +53,7 @@
 						<div class="table-row">
 							<div class="serial">내용</div>
 							<div style="width: 80%">
-								<textarea class="form-control w-100" name="message" id="message"
-									cols="30" rows="9" style="resize: none; background-color: white;" readonly>${pn.content}</textarea>
+								${pn.content}
 							</div>
 						</div>
 					</div>
@@ -69,15 +61,6 @@
 			</div>
 	</section>
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
-	<script>
-		function updateNotice(data) {
-			var noticeEmployeeNo = $(data).parent().children().eq(4).children().children().children().eq(1).html();
-			location.href = "/updateNoticeFrm.do?noticeEmployeeNo="+noticeEmployeeNo;
-		}
-		function deleteNotice(data){
-			var noticeEmployeeNo = $(data).parent().children().eq(4).children().children().children().eq(1).html();
-			location.href = "/deleteNoticeEmployee.do?noticeEmployeeNo="+noticeEmployeeNo;
-		}
-	</script>
+	
 </body>
 </html>

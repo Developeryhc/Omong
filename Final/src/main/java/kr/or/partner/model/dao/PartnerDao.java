@@ -121,12 +121,30 @@ public class PartnerDao {
 		return sqlSession.selectOne("partner.detailNoticePartner" , noticePartnerNo);
 	}
 
+
+	public int insertNoticePartner(PartnerNotice pn) {
+		// TODO Auto-generated method stub\
+		int result = sqlSession.insert("partner.insertNoticePartner" , pn);
+		return result;
+	}
+
 	public int selectMapPartner(String mapPartnerId) {
 		return sqlSession.selectOne("mapPartner.selectMapPartner", mapPartnerId);
 	}
 
 	public int updateMapPartner(MapPartner mapPartner) {
 		return sqlSession.update("mapPartner.updateMapPartner", mapPartner);
+
+	}
+
+	public int noticePartnerDelete(int noticePartnerNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("partner.deletePartnerNotice" , noticePartnerNo);
+	}
+
+	public int updateNoticePartner(PartnerNotice pn) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("partner.updateNoticePartner", pn);
 	}
 	
 	/*

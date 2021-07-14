@@ -264,8 +264,8 @@ public class MemberController {
 
 	@ResponseBody
 	@RequestMapping(value = "selectPlanList.do")
-	public ArrayList<User> selectPlanList(Plan plan, Model model) {
-		ArrayList list = service.selectPlanList(plan);
+	public ArrayList<Plan> selectPlanList(Plan plan, Model model) {
+		ArrayList<Plan> list = service.selectPlanList(plan);
 		model.addAttribute("list", list);
 		// 여기에 넣을꺼 만들기
 		if (list == null) {
@@ -359,6 +359,21 @@ public class MemberController {
 		}else {
 			return "0";
 		}
+	}
+	
+	// @07/11 검색
+	@RequestMapping(value="/search.do")
+	public String searchKeyword(HttpServletRequest request, Model model) {
+		String keyword = request.getParameter("keyword");
+		ArrayList<Package> packageList = service.selectPackageProductList(keyword);
+		// 코드 다용화를 위한 객체 생성
+		Plan plan = new Plan();
+		// planDay 키워드로 사용
+		plan.setPlanDay(keyword);
+		ArrayList<Plan> planList = service.selectPlanList(plan);
+		model.addAttribute("packageList", packageList);
+		model.addAttribute("planList", planList);
+		return "/member/searchKeyword";
 	}
 
 }

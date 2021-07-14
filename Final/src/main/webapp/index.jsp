@@ -8,11 +8,6 @@
 <title>모들에 오신것을 환영합니다</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <style>
-  p{
-  	color:black !important;
-  	font-size: 12px !important;
-  	padding : 10px;
-  }
   #live-chat {
         position: fixed;
         bottom: 20px;

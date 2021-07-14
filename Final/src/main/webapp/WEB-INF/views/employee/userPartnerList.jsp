@@ -134,6 +134,7 @@
 					titleTr.append("<div class='serial'>번호</div><div class='percentage'>아이디</div><div class='country'>이름</div><div class='visit'>전화번호</div><div class='visit'>yn</div>");
 					table.append(titleTr);
 					for(var i=0;i<data.length;i++){
+						console.log(data[i].address);
 						var tr = $("<div class='table-head'>");
 						tr.append("<div class='serial'>"+data[i].no+"</div>");
 						tr.append("<div class='percentage'>"+data[i].id+"</div>");
@@ -144,6 +145,7 @@
 						}else{
 							tr.append("<div class='country'><select name='yn'><option value='"+data[i].yn+"' selected>"+data[i].yn+"</option><option value='0'>0</option></select></div>");
 						}
+						tr.append("<input class='address' type='hidden' value='"+data[i].address+"'>");
 						tr.append("<input type='button' onclick='updateYn(this);' value='수정' class='genric-btn primary e-large' style='margin: 2px;'/>");
 						table.append(tr);						
 					};
@@ -156,8 +158,21 @@
 			console.log(no);
 			var yn = $(data).parent().children().eq(4).children().val();
 			console.log(yn);
-			location.href="/updateYn.do?no="+no+"&yn="+yn;
+			var name = $(data).parent().children().eq(2).html();
+
+			// 07/10 화면 내 구성 ajax로 진행 및 결과에 따른 mapPartner 등록
+			var partnerAddress = $(data).parent().children().eq(5).val();
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			var callback = function(result, status){
+				if(status === kakao.maps.services.Status.OK){
+					location.href="/updateYn.do?no="+no+"&yn="+yn+"&name="+name+"&address="+partnerAddress+"&mapPartnerLatitude="+result[0].y+"&mapPartnerLongitude="+result[0].x;
+				}
+			}
+			geocoder.addressSearch(partnerAddress, callback);
+			
 		}
 	</script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0069a695a69eb1289dd330cee4957ce8&libraries=services"></script>
 </body>
 </html>

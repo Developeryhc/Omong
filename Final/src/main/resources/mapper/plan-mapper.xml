@@ -25,9 +25,12 @@
   		p.plan_view AS planView,
   		p.plan_thumbnail_no AS planThumbnailNo,
         (SELECT COUNT(*) FROM like_plan lp1 WHERE lp1.like_plan=p.plan_no) AS planLike,
-        (SELECT COUNT(*) FROM share_plan sp1 WHERE sp1.share_plan=p.plan_no) AS planShare,
+        (SELECT COUNT(*) FROM share_plan sp1 WHERE sp1.share_plan=p.plan_no) AS planShare
+	    <if test="planMember != null">
+	    ,
 	    DECODE((SELECT COUNT(*) FROM like_plan lp WHERE lp.like_plan_member = #{planMember} AND lp.like_plan=p.plan_no), 1, 1, 0) AS likeCheck,
 	    DECODE((SELECT COUNT(*) FROM share_plan sp WHERE sp.share_plan_member = #{planMember} AND sp.share_plan=p.plan_no), 1, 1, 0) AS shareCheck
+	    </if>
     <choose>
     <when test="planDay eq 'recommend'">
 	FROM (SELECT * FROM plan ORDER BY (SELECT COUNT(*) FROM like_plan WHERE like_plan=plan_no) DESC)p WHERE ROWNUM &lt;= 3 AND p.plan_public = 'Y'
@@ -37,6 +40,9 @@
     </when>
     <when test="planDay eq 'view'">
    	FROM (SELECT * FROM plan ORDER BY plan_view DESC)p WHERE ROWNUM &lt;= #{planKind} AND p.plan_public = 'Y'
+    </when>
+    <when test="planDay != null">
+    FROM plan p WHERE p.plan_title LIKE '%'||#{planDay}||'%'
     </when>
     <otherwise>
 	FROM plan p WHERE p.plan_writer = #{planWriter}
